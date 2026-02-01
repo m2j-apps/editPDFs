@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AdUnit from "@/components/AdUnit";
 
 const tools = [
   {
@@ -117,6 +118,11 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Ad Unit */}
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <AdUnit slot="HOME_BANNER_1" format="horizontal" />
+      </div>
 
       {/* Why Free Section */}
       <section className="py-16 bg-white">

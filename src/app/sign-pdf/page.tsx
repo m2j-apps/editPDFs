@@ -4,6 +4,7 @@ import { useState, useCallback } from "react";
 import { PDFDocument } from "pdf-lib";
 import PDFDropzone from "@/components/PDFDropzone";
 import SignatureCanvas from "@/components/SignatureCanvas";
+import AdUnit from "@/components/AdUnit";
 
 type SignatureMode = "draw" | "type" | "upload";
 
@@ -333,6 +334,11 @@ export default function SignPDFPage() {
         {/* Trust message */}
         <div className="text-center text-sm text-gray-500">
           <p>🔒 Your files never leave your browser. All processing happens locally.</p>
+        </div>
+
+        {/* Ad Unit */}
+        <div className="my-8">
+          <AdUnit slot="SIGN_PDF_BOTTOM" format="horizontal" />
         </div>
 
         {/* SEO Content */}
