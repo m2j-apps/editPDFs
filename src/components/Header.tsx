@@ -19,7 +19,7 @@ export default function Header() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <img src="/logo.png" alt="EditPDFs.app" className="h-10" />
+            <img src="/logo.png" alt="EditPDFs.app" className="h-12 md:h-14" />
           </Link>
 
           {/* Desktop Navigation - Direct tool links */}
