@@ -53,10 +53,12 @@ export default function EditorPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [pageOrder, setPageOrder] = useState<number[]>([]);
   const [deletedPages, setDeletedPages] = useState<Set<number>>(new Set());
+  const [pageRotations, setPageRotations] = useState<Map<number, number>>(new Map());
   const [pageDimensions, setPageDimensions] = useState({ width: 612, height: 792 });
   
   const fileInputRef = useRef<HTMLInputElement>(null);
   const editorContainerRef = useRef<HTMLDivElement>(null);
+  const imageInputRef = useRef<HTMLInputElement>(null);
 
   // Calculate fit-to-page zoom when page dimensions change
   const calculateFitZoom = useCallback(() => {
@@ -147,15 +149,17 @@ export default function EditorPage() {
     e.preventDefault();
   }, []);
 
-  const addObject = useCallback((obj: Omit<EditorObject, "id">) => {
+  const addObject = useCallback((obj: Omit<EditorObject, "id">, keepTool: boolean = false) => {
     const newObj: EditorObject = {
       ...obj,
       id: `obj-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
     };
     setObjects(prev => [...prev, newObj]);
     setSelectedObjectId(newObj.id);
-    // Auto-switch to select tool after adding object
-    setActiveTool("select");
+    // Auto-switch to select tool after adding object (unless keepTool is true)
+    if (!keepTool) {
+      setActiveTool("select");
+    }
     return newObj.id;
   }, []);
 
@@ -183,6 +187,50 @@ export default function EditorPage() {
   const reorderPages = useCallback((newOrder: number[]) => {
     setPageOrder(newOrder);
   }, []);
+
+  const rotatePage = useCallback((pageNum: number) => {
+    setPageRotations(prev => {
+      const newMap = new Map(prev);
+      const currentRotation = newMap.get(pageNum) || 0;
+      newMap.set(pageNum, (currentRotation + 90) % 360);
+      return newMap;
+    });
+  }, []);
+
+  const addBlankPage = useCallback(() => {
+    // Add a new "virtual" page number
+    const maxPage = Math.max(...pageOrder, totalPages);
+    const newPageNum = maxPage + 1;
+    setPageOrder(prev => [...prev, newPageNum]);
+    setTotalPages(prev => prev + 1);
+  }, [pageOrder, totalPages]);
+
+  const handleImageSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new Image();
+      img.onload = () => {
+        const maxWidth = 300;
+        const ratio = Math.min(maxWidth / img.width, 1);
+        addObject({
+          type: "image",
+          pageNumber: currentPage,
+          x: 50,
+          y: 50,
+          width: img.width * ratio,
+          height: img.height * ratio,
+          src: event.target?.result as string,
+        });
+      };
+      img.src = event.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+    // Reset input so same file can be selected again
+    e.target.value = "";
+  }, [currentPage, addObject]);
 
   const applyChangesAndDownload = useCallback(async () => {
     if (!pdfBytes) return;
@@ -383,7 +431,14 @@ export default function EditorPage() {
           {tools.map((tool) => (
             <button
               key={tool.id}
-              onClick={() => setActiveTool(tool.id)}
+              onClick={() => {
+                if (tool.id === "image") {
+                  // Open file picker immediately for image tool
+                  imageInputRef.current?.click();
+                } else {
+                  setActiveTool(tool.id);
+                }
+              }}
               className={`px-3 py-2 rounded-md text-sm font-medium transition-colors relative group flex items-center justify-center ${
                 activeTool === tool.id
                   ? "bg-blue-600 text-white"
@@ -399,6 +454,15 @@ export default function EditorPage() {
             </button>
           ))}
         </div>
+        
+        {/* Hidden image input */}
+        <input
+          ref={imageInputRef}
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={handleImageSelect}
+        />
 
         {/* Tool Options */}
         {activeTool === "text" && (
@@ -510,8 +574,9 @@ export default function EditorPage() {
           <div className="p-3 border-b border-gray-200 flex items-center justify-between">
             <span className="text-sm font-medium text-gray-700">Pages</span>
             <button
+              onClick={addBlankPage}
               className="text-xs text-blue-600 hover:text-blue-800"
-              title="Add page"
+              title="Add blank page"
             >
               + Add
             </button>
@@ -525,6 +590,8 @@ export default function EditorPage() {
               onPageSelect={setCurrentPage}
               onPageDelete={deletePage}
               onReorder={reorderPages}
+              onPageRotate={rotatePage}
+              pageRotations={pageRotations}
             />
           )}
         </div>

@@ -16,7 +16,7 @@ interface EditorCanvasProps {
   activeTool: Tool;
   objects: EditorObject[];
   selectedObjectId: string | null;
-  onAddObject: (obj: Omit<EditorObject, "id">) => string;
+  onAddObject: (obj: Omit<EditorObject, "id">, keepTool?: boolean) => string;
   onUpdateObject: (id: string, updates: Partial<EditorObject>) => void;
   onDeleteObject: (id: string) => void;
   onSelectObject: (id: string | null) => void;
@@ -87,7 +87,7 @@ export default function EditorCanvas({
     // Handle tool-specific actions
     switch (activeTool) {
       case "text": {
-        // Create text object and start editing inline
+        // Create text object and start editing inline (keepTool=true to stay in text mode)
         const newId = onAddObject({
           type: "text",
           pageNumber: currentPage,
@@ -98,7 +98,7 @@ export default function EditorCanvas({
           content: "",
           fontSize: textOptions.fontSize,
           color: textOptions.color,
-        });
+        }, true);
         setEditingTextId(newId);
         setEditingTextValue("");
         setTimeout(() => textInputRef.current?.focus(), 50);
@@ -281,17 +281,20 @@ export default function EditorCanvas({
     reader.readAsDataURL(file);
   }, [currentPage, onAddObject]);
 
-  // Delete selected object on Delete key
+  // Delete selected object on Delete key (but not when editing text)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.key === "Delete" || e.key === "Backspace") && selectedObjectId) {
+      // Don't delete if we're editing text inline
+      if (editingTextId) return;
+      
+      if (e.key === "Delete" && selectedObjectId) {
         onDeleteObject(selectedObjectId);
       }
     };
     
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedObjectId, onDeleteObject]);
+  }, [selectedObjectId, onDeleteObject, editingTextId]);
 
   const getCursor = () => {
     switch (activeTool) {
