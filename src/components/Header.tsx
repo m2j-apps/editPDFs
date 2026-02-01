@@ -4,11 +4,10 @@ import Link from "next/link";
 import { useState } from "react";
 
 const tools = [
+  { name: "Edit PDF", href: "/editor", icon: "✏️" },
   { name: "Sign PDF", href: "/sign-pdf", icon: "✍️" },
-  { name: "Merge PDF", href: "/merge-pdf", icon: "📎" },
   { name: "Split PDF", href: "/split-pdf", icon: "✂️" },
   { name: "Compress PDF", href: "/compress-pdf", icon: "🗜️" },
-  { name: "Rotate PDF", href: "/rotate-pdf", icon: "🔄" },
 ];
 
 export default function Header() {
@@ -27,31 +26,18 @@ export default function Header() {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Direct tool links */}
           <nav className="hidden md:flex items-center space-x-1">
-            <div className="relative group">
-              <button className="px-4 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition">
-                Tools ▾
-              </button>
-              <div className="absolute top-full left-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
-                {tools.map((tool) => (
-                  <Link
-                    key={tool.href}
-                    href={tool.href}
-                    className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg"
-                  >
-                    <span className="mr-2">{tool.icon}</span>
-                    {tool.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
-            <Link
-              href="/about"
-              className="px-4 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition"
-            >
-              About
-            </Link>
+            {tools.map((tool) => (
+              <Link
+                key={tool.href}
+                href={tool.href}
+                className="flex items-center px-3 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition"
+              >
+                <span className="mr-1.5">{tool.icon}</span>
+                {tool.name}
+              </Link>
+            ))}
           </nav>
 
           {/* Trust Badge */}
@@ -89,13 +75,6 @@ export default function Header() {
                 {tool.name}
               </Link>
             ))}
-            <Link
-              href="/about"
-              className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-lg"
-              onClick={() => setIsOpen(false)}
-            >
-              About
-            </Link>
           </div>
         )}
       </div>

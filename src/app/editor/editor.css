@@ -12,3 +12,82 @@ body {
 main {
   flex: none !important;
 }
+
+/* PDF Text Layer Styles for Inline Editing - Sejda-style approach */
+.react-pdf__Page__textContent {
+  /* Make text layer interactive but text invisible (like Sejda) */
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  z-index: 2 !important;
+}
+
+.react-pdf__Page__textContent span {
+  /* Make text transparent but keep it for click detection */
+  color: transparent !important;
+  transition: background-color 0.15s ease;
+  border-radius: 2px;
+  pointer-events: auto !important;
+  cursor: text !important;
+}
+
+.react-pdf__Page__textContent span:hover {
+  background-color: rgba(59, 130, 246, 0.15) !important;
+}
+
+/* Existing text edit overlay - contenteditable div */
+.existing-text-edit {
+  position: absolute;
+  z-index: 15;
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  padding: 2px 4px;
+  margin: -2px -4px;
+  min-width: 20px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  /* Note: background-color is set via inline styles for highlight support */
+}
+
+.existing-text-edit:focus {
+  outline: 2px solid #2563eb;
+}
+
+/* Text edit toolbar */
+.text-edit-toolbar {
+  position: absolute;
+  z-index: 100;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 4px;
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+
+.text-edit-toolbar button {
+  padding: 6px 8px;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-edit-toolbar button:hover {
+  background: #f3f4f6;
+}
+
+.text-edit-toolbar button.active {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.text-edit-toolbar .separator {
+  width: 1px;
+  height: 20px;
+  background: #e5e7eb;
+  margin: 0 4px;
+}

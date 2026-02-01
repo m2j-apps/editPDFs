@@ -6,21 +6,29 @@ import SignatureCanvas from "@/components/SignatureCanvas";
 interface SignatureModalProps {
   onClose: () => void;
   onSave: (signatureDataUrl: string) => void;
+  mode?: "signature" | "initials";
 }
 
 type SignatureMode = "draw" | "type" | "upload";
 
+// Google Fonts - loaded via @import in globals.css
 const signatureFonts = [
-  { name: "Script", fontFamily: "'Brush Script MT', cursive", style: "italic" },
-  { name: "Elegant", fontFamily: "'Snell Roundhand', 'Brush Script MT', cursive", style: "normal" },
-  { name: "Formal", fontFamily: "'Edwardian Script ITC', 'Brush Script MT', cursive", style: "normal" },
-  { name: "Casual", fontFamily: "'Comic Sans MS', cursive", style: "normal" },
-  { name: "Classic", fontFamily: "'Times New Roman', serif", style: "italic" },
-  { name: "Modern", fontFamily: "'Segoe UI', sans-serif", style: "italic" },
+  { name: "Allura", fontFamily: "'Allura', cursive", style: "normal" },
+  { name: "Great Vibes", fontFamily: "'Great Vibes', cursive", style: "normal" },
+  { name: "Dancing Script", fontFamily: "'Dancing Script', cursive", style: "normal" },
+  { name: "Pacifico", fontFamily: "'Pacifico', cursive", style: "normal" },
+  { name: "Satisfy", fontFamily: "'Satisfy', cursive", style: "normal" },
+  { name: "Sacramento", fontFamily: "'Sacramento', cursive", style: "normal" },
+  { name: "Tangerine", fontFamily: "'Tangerine', cursive", style: "normal" },
+  { name: "Kaushan Script", fontFamily: "'Kaushan Script', cursive", style: "normal" },
 ];
 
-export default function SignatureModal({ onClose, onSave }: SignatureModalProps) {
-  const [signatureMode, setSignatureMode] = useState<SignatureMode>("draw");
+export default function SignatureModal({ onClose, onSave, mode = "signature" }: SignatureModalProps) {
+  const isInitials = mode === "initials";
+  const title = isInitials ? "Create Initials" : "Create Signature";
+  const placeholder = isInitials ? "Type your initials" : "Type your name";
+  const buttonText = isInitials ? "Add Initials" : "Add Signature";
+  const [signatureMode, setSignatureMode] = useState<SignatureMode>("type");
   const [signatureDataUrl, setSignatureDataUrl] = useState<string | null>(null);
   const [typedSignature, setTypedSignature] = useState("");
   const [selectedFont, setSelectedFont] = useState(0);
@@ -79,7 +87,7 @@ export default function SignatureModal({ onClose, onSave }: SignatureModalProps)
       <div className="bg-white rounded-xl shadow-xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold">Create Signature</h2>
+            <h2 className="text-xl font-semibold">{title}</h2>
             <button onClick={onClose} className="text-gray-500 hover:text-gray-700 text-2xl">
               ×
             </button>
@@ -89,20 +97,20 @@ export default function SignatureModal({ onClose, onSave }: SignatureModalProps)
           <div className="border-b border-gray-200 mb-4">
             <nav className="flex space-x-8">
               {[
-                { id: "draw", label: "Draw", icon: "✏️" },
                 { id: "type", label: "Type", icon: "⌨️" },
+                { id: "draw", label: "Draw", icon: "✏️" },
                 { id: "upload", label: "Upload", icon: "📤" },
-              ].map((mode) => (
+              ].map((tab) => (
                 <button
-                  key={mode.id}
-                  onClick={() => setSignatureMode(mode.id as SignatureMode)}
+                  key={tab.id}
+                  onClick={() => setSignatureMode(tab.id as SignatureMode)}
                   className={`py-3 px-1 border-b-2 font-medium text-sm ${
-                    signatureMode === mode.id
+                    signatureMode === tab.id
                       ? "border-blue-500 text-blue-600"
                       : "border-transparent text-gray-500 hover:text-gray-700"
                   }`}
                 >
-                  {mode.icon} {mode.label}
+                  {tab.icon} {tab.label}
                 </button>
               ))}
             </nav>
@@ -120,7 +128,7 @@ export default function SignatureModal({ onClose, onSave }: SignatureModalProps)
                   type="text"
                   value={typedSignature}
                   onChange={(e) => setTypedSignature(e.target.value)}
-                  placeholder="Type your name"
+                  placeholder={placeholder}
                   className="w-full px-4 py-3 text-2xl border-2 border-gray-300 rounded-lg focus:border-blue-500"
                   style={{ 
                     fontFamily: signatureFonts[selectedFont].fontFamily,
@@ -131,26 +139,26 @@ export default function SignatureModal({ onClose, onSave }: SignatureModalProps)
                 {/* Font choices */}
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-gray-700">Choose a style:</label>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-2 gap-3">
                     {signatureFonts.map((font, index) => (
                       <button
                         key={font.name}
                         onClick={() => setSelectedFont(index)}
-                        className={`p-3 border-2 rounded-lg text-left transition ${
+                        className={`p-4 border-2 rounded-lg text-left transition ${
                           selectedFont === index
                             ? "border-blue-500 bg-blue-50"
                             : "border-gray-200 hover:border-gray-300"
                         }`}
                       >
-                        <span className="text-xs text-gray-500 block mb-1">{font.name}</span>
+                        <span className="text-xs text-gray-400 block mb-2">{font.name}</span>
                         <span 
-                          className="text-lg"
+                          className="text-2xl block truncate"
                           style={{ 
                             fontFamily: font.fontFamily,
                             fontStyle: font.style,
                           }}
                         >
-                          {typedSignature || "Your Name"}
+                          {typedSignature || (isInitials ? "MJ" : "Your Name")}
                         </span>
                       </button>
                     ))}
@@ -189,7 +197,7 @@ export default function SignatureModal({ onClose, onSave }: SignatureModalProps)
               disabled={!isValid}
               className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50"
             >
-              Add Signature
+              {buttonText}
             </button>
           </div>
         </div>

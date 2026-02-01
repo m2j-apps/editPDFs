@@ -4,6 +4,7 @@ import { useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import AdUnit from "@/components/AdUnit";
+import { Eraser } from "lucide-react";
 
 export default function Home() {
   const router = useRouter();
@@ -32,11 +33,14 @@ export default function Home() {
 
   const features = [
     { icon: "✏️", title: "Edit Text", desc: "Add, modify, or remove text from any PDF" },
-    { icon: "✍️", title: "Sign Documents", desc: "Draw, type, or upload your signature" },
-    { icon: "🖼️", title: "Add Images", desc: "Insert images anywhere in your document" },
-    { icon: "📄", title: "Manage Pages", desc: "Reorder, delete, or rotate pages" },
-    { icon: "⬜", title: "Shapes & Whiteout", desc: "Add shapes or hide sensitive content" },
-    { icon: "🔖", title: "Annotate", desc: "Highlight text and add annotations" },
+    { icon: "✍️", title: "Sign & Initials", desc: "Draw, type, or upload your signature" },
+    { icon: "🖼️", title: "Add Images", desc: "Insert photos, logos, or graphics" },
+    { icon: "📑", title: "Manage Pages", desc: "Merge, split, reorder, rotate, or delete pages" },
+    { icon: "🔷", title: "Shapes & Lines", desc: "Rectangles, circles, lines, and arrows" },
+    { icon: "🖍️", title: "Highlight & Annotate", desc: "Highlight, underline, or strikethrough text" },
+    { icon: "🖊️", title: "Freehand Draw", desc: "Draw freely anywhere on the document" },
+    { icon: "eraser", title: "Whiteout", desc: "Cover and hide sensitive information" },
+    { icon: "💾", title: "Save & Compress", desc: "Download optimized PDFs directly to your device" },
   ];
 
   return (
@@ -108,7 +112,9 @@ export default function Home() {
                 key={feature.title}
                 className="bg-gray-50 rounded-xl p-6 hover:bg-gray-100 transition-colors"
               >
-                <span className="text-4xl mb-4 block">{feature.icon}</span>
+                <span className="text-4xl mb-4 block">
+                  {feature.icon === "eraser" ? <Eraser className="w-10 h-10 text-gray-700" /> : feature.icon}
+                </span>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
                 <p className="text-gray-600">{feature.desc}</p>
               </div>
@@ -166,33 +172,46 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SEO Content */}
+      {/* Why Choose Us Section */}
       <section className="py-16 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="prose prose-gray max-w-none">
-            <h2>Free Online PDF Editor</h2>
-            <p>
-              EditPDFs.app is a powerful, free PDF editor that runs entirely in your web browser. 
-              Unlike other &quot;free&quot; PDF tools that require signups, impose limits, or upload 
-              your files to remote servers, our editor processes everything locally on your device.
-            </p>
-            <h3>What Can You Do?</h3>
-            <ul>
-              <li><strong>Edit Text</strong> — Add new text or modify existing content</li>
-              <li><strong>Sign Documents</strong> — Draw, type, or upload your signature</li>
-              <li><strong>Add Images</strong> — Insert photos, logos, or graphics</li>
-              <li><strong>Manage Pages</strong> — Reorder, delete, rotate, or add pages</li>
-              <li><strong>Annotate</strong> — Highlight text and add notes</li>
-              <li><strong>Whiteout</strong> — Cover sensitive information</li>
-              <li><strong>Add Shapes</strong> — Insert rectangles, circles, and lines</li>
-            </ul>
-            <h3>Why Choose EditPDFs.app?</h3>
-            <p>
-              We built this tool because we were frustrated with PDF editors that promise 
-              free editing but then demand payment to download your work. Our tool is 
-              completely free, with no hidden costs or premium tiers. The site is supported 
-              by unobtrusive advertising, not by tricking you into subscriptions.
-            </p>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-4">
+            Why Choose EditPDFs.app?
+          </h2>
+          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            We built this because we were tired of &quot;free&quot; PDF tools that demand payment at download time.
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Card 1 */}
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <div className="text-3xl mb-4">💯</div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Actually Free</h3>
+              <p className="text-gray-600">
+                No hidden costs, no premium tiers, no watermarks. Supported by unobtrusive ads, 
+                not subscription traps.
+              </p>
+            </div>
+            
+            {/* Card 2 */}
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <div className="text-3xl mb-4">🔒</div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">100% Private</h3>
+              <p className="text-gray-600">
+                Your files never leave your browser. All processing happens locally — 
+                we literally cannot see your documents.
+              </p>
+            </div>
+            
+            {/* Card 3 */}
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <div className="text-3xl mb-4">⚡</div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Instant & Offline</h3>
+              <p className="text-gray-600">
+                No upload wait times. Process PDFs instantly, and even work offline 
+                once the page loads.
+              </p>
+            </div>
           </div>
         </div>
       </section>

@@ -20,11 +20,10 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold text-gray-900 mb-4">Tools</h3>
             <ul className="space-y-2 text-sm">
+              <li><Link href="/editor" className="text-gray-600 hover:text-gray-900">Edit PDF</Link></li>
               <li><Link href="/sign-pdf" className="text-gray-600 hover:text-gray-900">Sign PDF</Link></li>
-              <li><Link href="/merge-pdf" className="text-gray-600 hover:text-gray-900">Merge PDF</Link></li>
               <li><Link href="/split-pdf" className="text-gray-600 hover:text-gray-900">Split PDF</Link></li>
               <li><Link href="/compress-pdf" className="text-gray-600 hover:text-gray-900">Compress PDF</Link></li>
-              <li><Link href="/rotate-pdf" className="text-gray-600 hover:text-gray-900">Rotate PDF</Link></li>
             </ul>
           </div>
 
@@ -34,7 +33,6 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li><Link href="/privacy" className="text-gray-600 hover:text-gray-900">Privacy Policy</Link></li>
               <li><Link href="/terms" className="text-gray-600 hover:text-gray-900">Terms of Service</Link></li>
-              <li><Link href="/about" className="text-gray-600 hover:text-gray-900">About Us</Link></li>
             </ul>
           </div>
         </div>

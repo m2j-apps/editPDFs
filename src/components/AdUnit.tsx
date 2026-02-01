@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 declare global {
   interface Window {
@@ -15,13 +15,26 @@ interface AdUnitProps {
 }
 
 export default function AdUnit({ slot, format = "auto", className = "" }: AdUnitProps) {
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-      console.error("AdSense error:", e);
-    }
+    setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (mounted) {
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (e) {
+        console.error("AdSense error:", e);
+      }
+    }
+  }, [mounted]);
+
+  // Don't render on server to avoid hydration mismatch
+  if (!mounted) {
+    return <div className={`ad-container ${className}`} />;
+  }
 
   return (
     <div className={`ad-container ${className}`}>
