@@ -294,14 +294,19 @@ export default function EditorPage() {
     URL.revokeObjectURL(url);
   };
 
-  const tools: { id: Tool; icon: string; label: string }[] = [
+  // Tool options state
+  const [textOptions, setTextOptions] = useState({ fontSize: 16, color: "#000000" });
+  const [shapeOptions, setShapeOptions] = useState({ shapeType: "rectangle" as "rectangle" | "circle", color: "#000000", strokeWidth: 2 });
+  const [highlightColor, setHighlightColor] = useState("#ffff00");
+
+  const tools: { id: Tool; icon: React.ReactNode; label: string }[] = [
     { id: "select", icon: "👆", label: "Select" },
-    { id: "text", icon: "T", label: "Add Text" },
+    { id: "text", icon: <span className="font-bold">T</span>, label: "Add Text" },
     { id: "sign", icon: "✍️", label: "Sign" },
     { id: "image", icon: "🖼️", label: "Add Image" },
-    { id: "shape", icon: "○□△", label: "Shapes" },
-    { id: "whiteout", icon: "🧽", label: "Eraser" },
-    { id: "highlight", icon: "🔖", label: "Highlight" },
+    { id: "shape", icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="8" height="8"/><circle cx="17" cy="17" r="4"/></svg>, label: "Shapes" },
+    { id: "whiteout", icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 20H7L3 16c-.6-.6-.6-1.5 0-2.1l10-10c.6-.6 1.5-.6 2.1 0l5.9 5.9c.6.6.6 1.5 0 2.1L13.1 20"/><path d="M6 11l7 7"/></svg>, label: "Eraser" },
+    { id: "highlight", icon: "🖍️", label: "Highlight" },
     { id: "draw", icon: "✏️", label: "Draw" },
   ];
 
@@ -379,14 +384,14 @@ export default function EditorPage() {
             <button
               key={tool.id}
               onClick={() => setActiveTool(tool.id)}
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors relative group ${
+              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors relative group flex items-center justify-center ${
                 activeTool === tool.id
                   ? "bg-blue-600 text-white"
                   : "text-gray-700 hover:bg-gray-200"
               }`}
               title={tool.label}
             >
-              <span className="text-lg">{tool.icon}</span>
+              <span className="text-lg leading-none">{tool.icon}</span>
               {/* Tooltip */}
               <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs bg-gray-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
                 {tool.label}
@@ -394,6 +399,69 @@ export default function EditorPage() {
             </button>
           ))}
         </div>
+
+        {/* Tool Options */}
+        {activeTool === "text" && (
+          <div className="flex items-center space-x-3 bg-gray-100 rounded-lg px-3 py-1">
+            <select
+              value={textOptions.fontSize}
+              onChange={(e) => setTextOptions(prev => ({ ...prev, fontSize: Number(e.target.value) }))}
+              className="px-2 py-1 rounded border border-gray-300 text-sm"
+            >
+              {[10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 48, 64].map(size => (
+                <option key={size} value={size}>{size}px</option>
+              ))}
+            </select>
+            <input
+              type="color"
+              value={textOptions.color}
+              onChange={(e) => setTextOptions(prev => ({ ...prev, color: e.target.value }))}
+              className="w-8 h-8 rounded cursor-pointer border-0"
+            />
+          </div>
+        )}
+
+        {activeTool === "shape" && (
+          <div className="flex items-center space-x-3 bg-gray-100 rounded-lg px-3 py-1">
+            <select
+              value={shapeOptions.shapeType}
+              onChange={(e) => setShapeOptions(prev => ({ ...prev, shapeType: e.target.value as "rectangle" | "circle" }))}
+              className="px-2 py-1 rounded border border-gray-300 text-sm"
+            >
+              <option value="rectangle">Rectangle</option>
+              <option value="circle">Circle</option>
+            </select>
+            <input
+              type="color"
+              value={shapeOptions.color}
+              onChange={(e) => setShapeOptions(prev => ({ ...prev, color: e.target.value }))}
+              className="w-8 h-8 rounded cursor-pointer border-0"
+            />
+            <select
+              value={shapeOptions.strokeWidth}
+              onChange={(e) => setShapeOptions(prev => ({ ...prev, strokeWidth: Number(e.target.value) }))}
+              className="px-2 py-1 rounded border border-gray-300 text-sm"
+            >
+              {[1, 2, 3, 4, 5].map(w => (
+                <option key={w} value={w}>{w}px</option>
+              ))}
+            </select>
+          </div>
+        )}
+
+        {activeTool === "highlight" && (
+          <div className="flex items-center space-x-3 bg-gray-100 rounded-lg px-3 py-1">
+            <span className="text-sm text-gray-600">Color:</span>
+            {["#ffff00", "#00ff00", "#00ffff", "#ff69b4", "#ffa500"].map(color => (
+              <button
+                key={color}
+                onClick={() => setHighlightColor(color)}
+                className={`w-6 h-6 rounded-full border-2 ${highlightColor === color ? "border-blue-500 scale-110" : "border-gray-300"}`}
+                style={{ backgroundColor: color }}
+              />
+            ))}
+          </div>
+        )}
         
         {/* Right side actions */}
         <div className="flex items-center space-x-3">
@@ -476,6 +544,9 @@ export default function EditorPage() {
               onDeleteObject={deleteObject}
               onSelectObject={setSelectedObjectId}
               onPageDimensionsChange={handlePageDimensionsChange}
+              textOptions={textOptions}
+              shapeOptions={shapeOptions}
+              highlightColor={highlightColor}
             />
           )}
         </div>

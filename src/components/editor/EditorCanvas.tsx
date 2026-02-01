@@ -4,7 +4,6 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import type { Tool, EditorObject, ShapeType } from "@/app/editor/page";
 import SignatureModal from "./SignatureModal";
-import TextEditModal from "./TextEditModal";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 
@@ -22,6 +21,9 @@ interface EditorCanvasProps {
   onDeleteObject: (id: string) => void;
   onSelectObject: (id: string | null) => void;
   onPageDimensionsChange?: (width: number, height: number) => void;
+  textOptions?: { fontSize: number; color: string };
+  shapeOptions?: { shapeType: "rectangle" | "circle"; color: string; strokeWidth: number };
+  highlightColor?: string;
 }
 
 type ResizeHandle = "nw" | "ne" | "sw" | "se" | null;
@@ -38,11 +40,16 @@ export default function EditorCanvas({
   onDeleteObject,
   onSelectObject,
   onPageDimensionsChange,
+  textOptions = { fontSize: 16, color: "#000000" },
+  shapeOptions = { shapeType: "rectangle", color: "#000000", strokeWidth: 2 },
+  highlightColor = "#ffff00",
 }: EditorCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const textInputRef = useRef<HTMLInputElement>(null);
   const [pageDimensions, setPageDimensions] = useState({ width: 612, height: 792 });
   const [showSignatureModal, setShowSignatureModal] = useState(false);
-  const [showTextModal, setShowTextModal] = useState(false);
+  const [editingTextId, setEditingTextId] = useState<string | null>(null);
+  const [editingTextValue, setEditingTextValue] = useState("");
   const [pendingPosition, setPendingPosition] = useState<{ x: number; y: number } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [resizeHandle, setResizeHandle] = useState<ResizeHandle>(null);
@@ -65,12 +72,38 @@ export default function EditorCanvas({
     // Deselect current object
     onSelectObject(null);
 
+    // If we're editing text inline and click elsewhere, commit the text
+    if (editingTextId) {
+      if (editingTextValue.trim()) {
+        onUpdateObject(editingTextId, { content: editingTextValue });
+      } else {
+        onDeleteObject(editingTextId);
+      }
+      setEditingTextId(null);
+      setEditingTextValue("");
+      return;
+    }
+
     // Handle tool-specific actions
     switch (activeTool) {
-      case "text":
-        setPendingPosition({ x, y });
-        setShowTextModal(true);
+      case "text": {
+        // Create text object and start editing inline
+        const newId = onAddObject({
+          type: "text",
+          pageNumber: currentPage,
+          x,
+          y,
+          width: 200,
+          height: textOptions.fontSize * 1.5,
+          content: "",
+          fontSize: textOptions.fontSize,
+          color: textOptions.color,
+        });
+        setEditingTextId(newId);
+        setEditingTextValue("");
+        setTimeout(() => textInputRef.current?.focus(), 50);
         break;
+      }
         
       case "sign":
         setPendingPosition({ x, y });
@@ -97,9 +130,9 @@ export default function EditorCanvas({
           y,
           width: 100,
           height: 80,
-          shapeType: "rectangle",
-          color: "#000000",
-          strokeWidth: 2,
+          shapeType: shapeOptions.shapeType,
+          color: shapeOptions.color,
+          strokeWidth: shapeOptions.strokeWidth,
         });
         break;
         
@@ -111,12 +144,12 @@ export default function EditorCanvas({
           y,
           width: 150,
           height: 24,
-          color: "#ffff00",
+          color: highlightColor,
           opacity: 0.4,
         });
         break;
     }
-  }, [activeTool, currentPage, onAddObject, onSelectObject, scale]);
+  }, [activeTool, currentPage, onAddObject, onSelectObject, onUpdateObject, onDeleteObject, scale, textOptions, shapeOptions, highlightColor, editingTextId, editingTextValue]);
 
   const handleObjectMouseDown = useCallback((e: React.MouseEvent, objId: string) => {
     e.stopPropagation();
@@ -220,24 +253,6 @@ export default function EditorCanvas({
       });
     }
     setShowSignatureModal(false);
-    setPendingPosition(null);
-  }, [pendingPosition, currentPage, onAddObject]);
-
-  const handleTextCreate = useCallback((text: string, fontSize: number, color: string) => {
-    if (pendingPosition) {
-      onAddObject({
-        type: "text",
-        pageNumber: currentPage,
-        x: pendingPosition.x,
-        y: pendingPosition.y,
-        width: text.length * fontSize * 0.6,
-        height: fontSize * 1.2,
-        content: text,
-        fontSize,
-        color,
-      });
-    }
-    setShowTextModal(false);
     setPendingPosition(null);
   }, [pendingPosition, currentPage, onAddObject]);
 
@@ -347,19 +362,54 @@ export default function EditorCanvas({
             >
               {/* Render based on object type */}
               {obj.type === "text" && (
-                <div
-                  style={{
-                    fontSize: (obj.fontSize || 16) * scale,
-                    color: obj.color || "#000000",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {obj.content}
-                </div>
+                editingTextId === obj.id ? (
+                  <input
+                    ref={textInputRef}
+                    type="text"
+                    value={editingTextValue}
+                    onChange={(e) => setEditingTextValue(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        if (editingTextValue.trim()) {
+                          onUpdateObject(obj.id, { content: editingTextValue, width: editingTextValue.length * (obj.fontSize || 16) * 0.6 });
+                        } else {
+                          onDeleteObject(obj.id);
+                        }
+                        setEditingTextId(null);
+                        setEditingTextValue("");
+                      } else if (e.key === "Escape") {
+                        onDeleteObject(obj.id);
+                        setEditingTextId(null);
+                        setEditingTextValue("");
+                      }
+                    }}
+                    className="bg-transparent border-none outline-none w-full"
+                    style={{
+                      fontSize: (obj.fontSize || 16) * scale,
+                      color: obj.color || "#000000",
+                      fontFamily: "inherit",
+                    }}
+                    autoFocus
+                  />
+                ) : (
+                  <div
+                    style={{
+                      fontSize: (obj.fontSize || 16) * scale,
+                      color: obj.color || "#000000",
+                      whiteSpace: "nowrap",
+                    }}
+                    onDoubleClick={() => {
+                      setEditingTextId(obj.id);
+                      setEditingTextValue(obj.content || "");
+                    }}
+                  >
+                    {obj.content || " "}
+                  </div>
+                )
               )}
               
               {obj.type === "whiteout" && (
-                <div className="w-full h-full bg-white border border-gray-200" />
+                <div className="w-full h-full bg-white" />
               )}
               
               {obj.type === "highlight" && (
@@ -434,17 +484,6 @@ export default function EditorCanvas({
             setPendingPosition(null);
           }}
           onSave={handleSignatureCreate}
-        />
-      )}
-      
-      {/* Text Modal */}
-      {showTextModal && (
-        <TextEditModal
-          onClose={() => {
-            setShowTextModal(false);
-            setPendingPosition(null);
-          }}
-          onSave={handleTextCreate}
         />
       )}
     </div>
