@@ -16,10 +16,10 @@ export default function Header() {
   return (
     <header className="bg-white shadow-sm border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center h-32 md:h-36">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <img src="/logo.png" alt="EditPDFs.app" className="h-14 md:h-16" />
+            <img src="/logo.png" alt="EditPDFs.app" className="h-28 md:h-32" />
           </Link>
 
           {/* Desktop Navigation - Direct tool links */}
