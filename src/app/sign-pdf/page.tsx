@@ -53,10 +53,20 @@ export default function SignPDFPage() {
     setCurrentPage(1);
   };
 
-  const handlePageClick = (pdfX: number, pdfY: number, pageNumber: number) => {
-    setPlacement({ pdfX, pdfY, pageNumber });
-    setShowSignatureModal(true);
+  const handlePageClick = (pdfX: number, pdfY: number) => {
+    setPlacement({ pdfX, pdfY, pageNumber: currentPage });
+    if (!signatureDataUrl && signatureMode !== "type") {
+      setShowSignatureModal(true);
+    }
   };
+
+  const handlePositionChange = useCallback((x: number, y: number) => {
+    setPlacement(prev => prev ? { ...prev, pdfX: x + signatureSize.width / 2, pdfY: y + signatureSize.height / 2 } : null);
+  }, [signatureSize]);
+
+  const handleSizeChange = useCallback((width: number, height: number) => {
+    setSignatureSize({ width, height });
+  }, []);
 
   const handleTypedSignatureToDataUrl = useCallback(() => {
     if (!typedSignature) return null;
@@ -246,12 +256,45 @@ export default function SignPDFPage() {
                 <PDFViewer
                   fileUrl={pdfUrl}
                   currentPage={currentPage}
-                  totalPages={totalPages}
                   onDocumentLoadSuccess={onDocumentLoadSuccess}
                   onPageClick={handlePageClick}
                   placement={placement}
                   signatureSize={signatureSize}
+                  onPositionChange={handlePositionChange}
+                  onSizeChange={handleSizeChange}
+                  signaturePreview={signatureDataUrl || (signatureMode === "type" && typedSignature ? handleTypedSignatureToDataUrl() : null)}
                 />
+              )}
+
+              {/* Sign button when signature is placed */}
+              {placement && (signatureDataUrl || (signatureMode === "type" && typedSignature)) && (
+                <div className="flex justify-center gap-3 pt-4">
+                  <button
+                    onClick={() => setShowSignatureModal(true)}
+                    className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
+                  >
+                    Change Signature
+                  </button>
+                  <button
+                    onClick={applySignature}
+                    disabled={isProcessing}
+                    className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50"
+                  >
+                    {isProcessing ? "Processing..." : "Sign & Download PDF"}
+                  </button>
+                </div>
+              )}
+
+              {/* Create signature button when box is placed but no signature yet */}
+              {placement && !signatureDataUrl && !(signatureMode === "type" && typedSignature) && (
+                <div className="flex justify-center pt-4">
+                  <button
+                    onClick={() => setShowSignatureModal(true)}
+                    className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition"
+                  >
+                    Create Signature
+                  </button>
+                </div>
               )}
             </div>
           )}
@@ -347,36 +390,6 @@ export default function SignPDFPage() {
                   )}
                 </div>
 
-                {/* Size controls */}
-                <div className="grid grid-cols-2 gap-4 py-4 border-t border-gray-200">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Width: {signatureSize.width}px
-                    </label>
-                    <input
-                      type="range"
-                      min="100"
-                      max="400"
-                      value={signatureSize.width}
-                      onChange={(e) => setSignatureSize(s => ({ ...s, width: Number(e.target.value) }))}
-                      className="w-full"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Height: {signatureSize.height}px
-                    </label>
-                    <input
-                      type="range"
-                      min="30"
-                      max="150"
-                      value={signatureSize.height}
-                      onChange={(e) => setSignatureSize(s => ({ ...s, height: Number(e.target.value) }))}
-                      className="w-full"
-                    />
-                  </div>
-                </div>
-
                 {/* Action buttons */}
                 <div className="flex space-x-3 pt-4 border-t border-gray-200">
                   <button
@@ -386,11 +399,11 @@ export default function SignPDFPage() {
                     Cancel
                   </button>
                   <button
-                    onClick={applySignature}
-                    disabled={isProcessing || (signatureMode === "draw" && !signatureDataUrl) || (signatureMode === "type" && !typedSignature) || (signatureMode === "upload" && !signatureDataUrl)}
+                    onClick={() => setShowSignatureModal(false)}
+                    disabled={(signatureMode === "draw" && !signatureDataUrl) || (signatureMode === "type" && !typedSignature) || (signatureMode === "upload" && !signatureDataUrl)}
                     className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {isProcessing ? "Processing..." : "Sign & Download"}
+                    Place Signature
                   </button>
                 </div>
               </div>
