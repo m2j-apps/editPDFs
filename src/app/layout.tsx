@@ -18,6 +18,10 @@ export const metadata: Metadata = {
   title: "EditPDFs.app - Free PDF Tools | No Signup, No Limits",
   description: "Edit, sign, merge, split, and compress PDFs for free. No signup required. Your files never leave your browser.",
   keywords: "pdf editor, sign pdf, merge pdf, split pdf, compress pdf, free pdf tools",
+  icons: {
+    icon: "/icon.png",
+    apple: "/icon.png",
+  },
 };
 
 export default function RootLayout({

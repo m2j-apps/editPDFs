@@ -45,6 +45,11 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      {/* Top Banner Ad */}
+      <div className="max-w-4xl mx-auto px-4 pt-4">
+        <AdUnit slot="TOP_BANNER" format="horizontal" className="mb-4" />
+      </div>
+
       {/* Hero Section */}
       <section className="py-16 md:py-24">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -123,9 +128,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Ad Section */}
+      {/* Middle Ad Section */}
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <AdUnit slot="HOME_BANNER_1" format="horizontal" />
+        <AdUnit slot="MIDDLE_BANNER" format="horizontal" />
       </div>
 
       {/* How It Works */}
@@ -215,6 +220,11 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Bottom Ad Section */}
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <AdUnit slot="BOTTOM_BANNER" format="horizontal" />
+      </div>
     </div>
   );
 }
