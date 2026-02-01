@@ -33,6 +33,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li><Link href="/privacy" className="text-gray-600 hover:text-gray-900">Privacy Policy</Link></li>
               <li><Link href="/terms" className="text-gray-600 hover:text-gray-900">Terms of Service</Link></li>
+              <li><a href="mailto:bugs@editpdfs.app?subject=Bug Report" className="text-gray-600 hover:text-gray-900">Report a Bug 🐛</a></li>
             </ul>
           </div>
         </div>
