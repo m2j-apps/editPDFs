@@ -36,6 +36,16 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://editpdfs.app/blog</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://editpdfs.app/blog/how-to-edit-pdf-free</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://editpdfs.app/privacy</loc>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
