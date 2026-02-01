@@ -1,0 +1,14 @@
+/* Hide global header and footer on editor page */
+header,
+footer {
+  display: none !important;
+}
+
+/* Override the flex-col layout from body */
+body {
+  display: block !important;
+}
+
+main {
+  flex: none !important;
+}

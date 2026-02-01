@@ -1,144 +1,166 @@
+"use client";
+
+import { useCallback, useRef } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import AdUnit from "@/components/AdUnit";
 
-const tools = [
-  {
-    name: "Sign PDF",
-    description: "Add your signature to any PDF document. Draw, type, or upload your signature.",
-    href: "/sign-pdf",
-    icon: "✍️",
-    color: "bg-blue-500",
-  },
-  {
-    name: "Merge PDF",
-    description: "Combine multiple PDF files into a single document. Drag to reorder.",
-    href: "/merge-pdf",
-    icon: "📎",
-    color: "bg-green-500",
-  },
-  {
-    name: "Split PDF",
-    description: "Extract pages from a PDF. Select which pages to keep.",
-    href: "/split-pdf",
-    icon: "✂️",
-    color: "bg-purple-500",
-  },
-  {
-    name: "Compress PDF",
-    description: "Reduce PDF file size while maintaining quality. Perfect for email.",
-    href: "/compress-pdf",
-    icon: "🗜️",
-    color: "bg-orange-500",
-  },
-  {
-    name: "Rotate PDF",
-    description: "Rotate PDF pages. Fix wrongly oriented scans or documents.",
-    href: "/rotate-pdf",
-    icon: "🔄",
-    color: "bg-pink-500",
-  },
-];
-
-const trustPoints = [
-  { icon: "🔒", title: "100% Private", description: "Files never leave your browser" },
-  { icon: "⚡", title: "Instant", description: "No uploads, no waiting" },
-  { icon: "♾️", title: "No Limits", description: "Unlimited files, unlimited use" },
-  { icon: "🚫", title: "No Signup", description: "Just use it, completely free" },
-];
-
 export default function Home() {
+  const router = useRouter();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileSelect = useCallback((file: File) => {
+    // Store file in sessionStorage for the editor to pick up
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      sessionStorage.setItem("pendingPdfData", e.target?.result as string);
+      sessionStorage.setItem("pendingPdfName", file.name);
+      router.push("/editor");
+    };
+    reader.readAsDataURL(file);
+  }, [router]);
+
+  const handleDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    if (file) handleFileSelect(file);
+  }, [handleFileSelect]);
+
+  const handleDragOver = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+  }, []);
+
+  const features = [
+    { icon: "✏️", title: "Edit Text", desc: "Add, modify, or remove text from any PDF" },
+    { icon: "✍️", title: "Sign Documents", desc: "Draw, type, or upload your signature" },
+    { icon: "🖼️", title: "Add Images", desc: "Insert images anywhere in your document" },
+    { icon: "📄", title: "Manage Pages", desc: "Reorder, delete, or rotate pages" },
+    { icon: "⬜", title: "Shapes & Whiteout", desc: "Add shapes or hide sensitive content" },
+    { icon: "🔖", title: "Annotate", desc: "Highlight text and add annotations" },
+  ];
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Free PDF Tools That Actually Work
+      <section className="py-16 md:py-24">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+            Free PDF Editor
           </h1>
-          <p className="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto">
-            Edit, sign, merge, split, and compress PDFs. No signup. No limits. 
+          <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
+            Edit, sign, annotate, and modify PDFs online. No signup required. 
             Your files never leave your browser.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              href="/sign-pdf"
-              className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition shadow-lg"
-            >
-              Sign a PDF →
-            </Link>
-            <Link
-              href="/merge-pdf"
-              className="bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-600 transition border border-blue-500"
-            >
-              Merge PDFs →
-            </Link>
+          
+          {/* Upload Box */}
+          <div
+            className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl border-2 border-dashed border-gray-300 hover:border-blue-500 transition-all p-12 cursor-pointer group"
+            onClick={() => fileInputRef.current?.click()}
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+          >
+            <div className="text-6xl mb-4 group-hover:scale-110 transition-transform">📄</div>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+              Drop your PDF here
+            </h2>
+            <p className="text-gray-600 mb-6">
+              or click to browse your files
+            </p>
+            <button className="bg-blue-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-blue-700 transition shadow-lg hover:shadow-xl">
+              Select PDF File
+            </button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".pdf,application/pdf"
+              className="hidden"
+              onChange={(e) => e.target.files?.[0] && handleFileSelect(e.target.files[0])}
+            />
+          </div>
+
+          {/* Trust badges */}
+          <div className="mt-8 flex flex-wrap justify-center gap-6 text-sm text-gray-600">
+            <div className="flex items-center gap-2">
+              <span className="text-green-500">🔒</span> 100% Private
+            </div>
+            <div className="flex items-center gap-2">
+              <span>⚡</span> Instant Processing
+            </div>
+            <div className="flex items-center gap-2">
+              <span>♾️</span> No Limits
+            </div>
+            <div className="flex items-center gap-2">
+              <span>🚫</span> No Signup
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Trust Points */}
-      <section className="bg-white py-8 border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {trustPoints.map((point) => (
-              <div key={point.title} className="text-center">
-                <span className="text-3xl mb-2 block">{point.icon}</span>
-                <h3 className="font-semibold text-gray-900">{point.title}</h3>
-                <p className="text-sm text-gray-600">{point.description}</p>
+      {/* Features Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+            Everything You Need to Edit PDFs
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {features.map((feature) => (
+              <div
+                key={feature.title}
+                className="bg-gray-50 rounded-xl p-6 hover:bg-gray-100 transition-colors"
+              >
+                <span className="text-4xl mb-4 block">{feature.icon}</span>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
+                <p className="text-gray-600">{feature.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Tools Grid */}
+      {/* Ad Section */}
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <AdUnit slot="HOME_BANNER_1" format="horizontal" />
+      </div>
+
+      {/* How It Works */}
       <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            All Tools — 100% Free
+            How It Works
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {tools.map((tool) => (
-              <Link
-                key={tool.href}
-                href={tool.href}
-                className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-lg hover:border-blue-300 transition group"
-              >
-                <div className={`w-14 h-14 ${tool.color} rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition`}>
-                  {tool.icon}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { step: "1", title: "Upload", desc: "Drop your PDF or click to browse" },
+              { step: "2", title: "Edit", desc: "Use our tools to make changes" },
+              { step: "3", title: "Download", desc: "Save your edited PDF instantly" },
+            ].map((item) => (
+              <div key={item.step} className="text-center">
+                <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+                  {item.step}
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  {tool.name}
-                </h3>
-                <p className="text-gray-600">
-                  {tool.description}
-                </p>
-              </Link>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h3>
+                <p className="text-gray-600">{item.desc}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Ad Unit */}
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <AdUnit slot="HOME_BANNER_1" format="horizontal" />
-      </div>
-
-      {/* Why Free Section */}
+      {/* Privacy Section */}
       <section className="py-16 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">
-            Why Is This Free?
+            Your Privacy Matters
           </h2>
-          <p className="text-lg text-gray-600 mb-8">
-            We believe PDF tools should be accessible to everyone. This site is supported by 
-            unobtrusive ads — no paywalls, no premium tiers, no bait-and-switch.
-          </p>
-          <div className="bg-blue-50 rounded-xl p-6 border border-blue-100">
-            <p className="text-blue-800 font-medium">
-              🔐 <strong>Privacy First:</strong> Unlike other &quot;free&quot; PDF tools, we process 
-              everything in your browser. Your files are never uploaded to any server. 
-              We literally cannot see your documents.
+          <div className="bg-blue-50 rounded-2xl p-8 border border-blue-100">
+            <p className="text-lg text-blue-800">
+              🔐 <strong>100% Client-Side Processing</strong>
+              <br />
+              <span className="text-blue-700">
+                Your files never leave your browser. We can&apos;t see your documents 
+                because they&apos;re processed entirely on your computer using modern 
+                JavaScript. No uploads, no servers, no data collection.
+              </span>
             </p>
           </div>
         </div>
@@ -147,34 +169,29 @@ export default function Home() {
       {/* SEO Content */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
-            The PDF Tools You Actually Need
-          </h2>
           <div className="prose prose-gray max-w-none">
+            <h2>Free Online PDF Editor</h2>
             <p>
-              EditPDFs.app provides all the essential PDF tools you need, completely free. 
-              Whether you need to sign a contract, merge multiple documents, split a large 
-              PDF into smaller files, compress a PDF for email, or rotate scanned pages — 
-              we&apos;ve got you covered.
+              EditPDFs.app is a powerful, free PDF editor that runs entirely in your web browser. 
+              Unlike other &quot;free&quot; PDF tools that require signups, impose limits, or upload 
+              your files to remote servers, our editor processes everything locally on your device.
             </p>
-            <h3>How It Works</h3>
-            <p>
-              All processing happens directly in your web browser using modern JavaScript 
-              libraries. When you upload a file, it stays on your computer. We use 
-              client-side PDF manipulation which means:
-            </p>
+            <h3>What Can You Do?</h3>
             <ul>
-              <li>Your files never touch our servers</li>
-              <li>Processing is instant (no upload/download wait)</li>
-              <li>Works offline once the page loads</li>
-              <li>Complete privacy for sensitive documents</li>
+              <li><strong>Edit Text</strong> — Add new text or modify existing content</li>
+              <li><strong>Sign Documents</strong> — Draw, type, or upload your signature</li>
+              <li><strong>Add Images</strong> — Insert photos, logos, or graphics</li>
+              <li><strong>Manage Pages</strong> — Reorder, delete, rotate, or add pages</li>
+              <li><strong>Annotate</strong> — Highlight text and add notes</li>
+              <li><strong>Whiteout</strong> — Cover sensitive information</li>
+              <li><strong>Add Shapes</strong> — Insert rectangles, circles, and lines</li>
             </ul>
-            <h3>No Hidden Costs</h3>
+            <h3>Why Choose EditPDFs.app?</h3>
             <p>
-              Tired of PDF tools that let you edit a document then demand payment to 
-              download it? We don&apos;t do that. There are no premium features, no 
-              watermarks, no limits on file sizes or number of operations. The site 
-              is supported by advertising, not by tricking you into a subscription.
+              We built this tool because we were frustrated with PDF editors that promise 
+              free editing but then demand payment to download your work. Our tool is 
+              completely free, with no hidden costs or premium tiers. The site is supported 
+              by unobtrusive advertising, not by tricking you into subscriptions.
             </p>
           </div>
         </div>
