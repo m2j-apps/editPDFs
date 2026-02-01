@@ -37,6 +37,34 @@ export default function RootLayout({
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2930855156227557"
           crossOrigin="anonymous"
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              "name": "EditPDFs.app",
+              "url": "https://editpdfs.app",
+              "description": "Free online PDF editor. Edit, sign, merge, split, and compress PDFs. No signup required. 100% private - files never leave your browser.",
+              "applicationCategory": "BusinessApplication",
+              "operatingSystem": "Any",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+              },
+              "featureList": [
+                "Edit PDF text and images",
+                "Sign PDF documents",
+                "Merge multiple PDFs",
+                "Split PDF pages",
+                "Compress PDF files",
+                "Rotate PDF pages",
+                "Add annotations and shapes"
+              ]
+            })
+          }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 min-h-screen flex flex-col`}
