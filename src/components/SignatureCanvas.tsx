@@ -95,12 +95,12 @@ export default function SignatureCanvas({
 
   return (
     <div className="space-y-4">
-      <div className="border-2 border-gray-300 rounded-lg bg-white overflow-hidden">
+      <div className="border-2 border-gray-300 rounded-lg overflow-hidden" style={{ backgroundImage: "linear-gradient(45deg, #e5e5e5 25%, transparent 25%), linear-gradient(-45deg, #e5e5e5 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #e5e5e5 75%), linear-gradient(-45deg, transparent 75%, #e5e5e5 75%)", backgroundSize: "20px 20px", backgroundPosition: "0 0, 0 10px, 10px -10px, -10px 0px" }}>
         <canvas
           ref={canvasRef}
           width={width}
           height={height}
-          className="w-full touch-none"
+          className="w-full touch-none bg-transparent"
           onMouseDown={startDrawing}
           onMouseMove={draw}
           onMouseUp={stopDrawing}

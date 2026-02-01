@@ -10,10 +10,20 @@ interface SignatureModalProps {
 
 type SignatureMode = "draw" | "type" | "upload";
 
+const signatureFonts = [
+  { name: "Script", fontFamily: "'Brush Script MT', cursive", style: "italic" },
+  { name: "Elegant", fontFamily: "'Snell Roundhand', 'Brush Script MT', cursive", style: "normal" },
+  { name: "Formal", fontFamily: "'Edwardian Script ITC', 'Brush Script MT', cursive", style: "normal" },
+  { name: "Casual", fontFamily: "'Comic Sans MS', cursive", style: "normal" },
+  { name: "Classic", fontFamily: "'Times New Roman', serif", style: "italic" },
+  { name: "Modern", fontFamily: "'Segoe UI', sans-serif", style: "italic" },
+];
+
 export default function SignatureModal({ onClose, onSave }: SignatureModalProps) {
   const [signatureMode, setSignatureMode] = useState<SignatureMode>("draw");
   const [signatureDataUrl, setSignatureDataUrl] = useState<string | null>(null);
   const [typedSignature, setTypedSignature] = useState("");
+  const [selectedFont, setSelectedFont] = useState(0);
 
   const handleTypedSignatureToDataUrl = useCallback(() => {
     if (!typedSignature) return null;
@@ -24,16 +34,19 @@ export default function SignatureModal({ onClose, onSave }: SignatureModalProps)
     const ctx = canvas.getContext("2d");
     if (!ctx) return null;
     
-    ctx.fillStyle = "white";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Transparent background - no fill
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Draw text
     ctx.fillStyle = "black";
-    ctx.font = "italic 48px 'Brush Script MT', cursive, sans-serif";
+    const font = signatureFonts[selectedFont];
+    ctx.font = `${font.style} 48px ${font.fontFamily}`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.fillText(typedSignature, canvas.width / 2, canvas.height / 2);
     
     return canvas.toDataURL("image/png");
-  }, [typedSignature]);
+  }, [typedSignature, selectedFont]);
 
   const handleUploadSignature = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -108,9 +121,41 @@ export default function SignatureModal({ onClose, onSave }: SignatureModalProps)
                   value={typedSignature}
                   onChange={(e) => setTypedSignature(e.target.value)}
                   placeholder="Type your name"
-                  className="w-full px-4 py-3 text-2xl italic border-2 border-gray-300 rounded-lg focus:border-blue-500"
-                  style={{ fontFamily: "'Brush Script MT', cursive" }}
+                  className="w-full px-4 py-3 text-2xl border-2 border-gray-300 rounded-lg focus:border-blue-500"
+                  style={{ 
+                    fontFamily: signatureFonts[selectedFont].fontFamily,
+                    fontStyle: signatureFonts[selectedFont].style,
+                  }}
                 />
+                
+                {/* Font choices */}
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-gray-700">Choose a style:</label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {signatureFonts.map((font, index) => (
+                      <button
+                        key={font.name}
+                        onClick={() => setSelectedFont(index)}
+                        className={`p-3 border-2 rounded-lg text-left transition ${
+                          selectedFont === index
+                            ? "border-blue-500 bg-blue-50"
+                            : "border-gray-200 hover:border-gray-300"
+                        }`}
+                      >
+                        <span className="text-xs text-gray-500 block mb-1">{font.name}</span>
+                        <span 
+                          className="text-lg"
+                          style={{ 
+                            fontFamily: font.fontFamily,
+                            fontStyle: font.style,
+                          }}
+                        >
+                          {typedSignature || "Your Name"}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
             )}
             
