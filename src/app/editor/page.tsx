@@ -53,8 +53,33 @@ export default function EditorPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [pageOrder, setPageOrder] = useState<number[]>([]);
   const [deletedPages, setDeletedPages] = useState<Set<number>>(new Set());
+  const [pageDimensions, setPageDimensions] = useState({ width: 612, height: 792 });
   
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const editorContainerRef = useRef<HTMLDivElement>(null);
+
+  // Calculate fit-to-page zoom when page dimensions change
+  const calculateFitZoom = useCallback(() => {
+    if (!editorContainerRef.current) return 100;
+    const container = editorContainerRef.current;
+    const padding = 64; // 32px padding on each side
+    const availableWidth = container.clientWidth - padding;
+    const availableHeight = container.clientHeight - padding;
+    
+    const widthZoom = (availableWidth / pageDimensions.width) * 100;
+    const heightZoom = (availableHeight / pageDimensions.height) * 100;
+    
+    return Math.min(widthZoom, heightZoom, 200); // Cap at 200%
+  }, [pageDimensions]);
+
+  const handlePageDimensionsChange = useCallback((width: number, height: number) => {
+    setPageDimensions({ width, height });
+    // Calculate and set fit-to-page zoom
+    setTimeout(() => {
+      const fitZoom = calculateFitZoom();
+      setZoom(Math.round(fitZoom));
+    }, 100);
+  }, [calculateFitZoom]);
 
   // Initialize page order when PDF loads
   useEffect(() => {
@@ -129,6 +154,8 @@ export default function EditorPage() {
     };
     setObjects(prev => [...prev, newObj]);
     setSelectedObjectId(newObj.id);
+    // Auto-switch to select tool after adding object
+    setActiveTool("select");
     return newObj.id;
   }, []);
 
@@ -272,8 +299,8 @@ export default function EditorPage() {
     { id: "text", icon: "T", label: "Add Text" },
     { id: "sign", icon: "✍️", label: "Sign" },
     { id: "image", icon: "🖼️", label: "Add Image" },
-    { id: "shape", icon: "⬜", label: "Shapes" },
-    { id: "whiteout", icon: "⬜", label: "Whiteout" },
+    { id: "shape", icon: "○□△", label: "Shapes" },
+    { id: "whiteout", icon: "🧽", label: "Eraser" },
     { id: "highlight", icon: "🔖", label: "Highlight" },
     { id: "draw", icon: "✏️", label: "Draw" },
   ];
@@ -435,7 +462,7 @@ export default function EditorPage() {
         </div>
         
         {/* Center - PDF Canvas */}
-        <div className="flex-1 overflow-auto bg-gray-200 p-4">
+        <div ref={editorContainerRef} className="flex-1 overflow-auto bg-gray-200 p-4">
           {pdfUrl && (
             <EditorCanvas
               fileUrl={pdfUrl}
@@ -448,6 +475,7 @@ export default function EditorPage() {
               onUpdateObject={updateObject}
               onDeleteObject={deleteObject}
               onSelectObject={setSelectedObjectId}
+              onPageDimensionsChange={handlePageDimensionsChange}
             />
           )}
         </div>

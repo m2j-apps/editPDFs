@@ -21,7 +21,10 @@ interface EditorCanvasProps {
   onUpdateObject: (id: string, updates: Partial<EditorObject>) => void;
   onDeleteObject: (id: string) => void;
   onSelectObject: (id: string | null) => void;
+  onPageDimensionsChange?: (width: number, height: number) => void;
 }
+
+type ResizeHandle = "nw" | "ne" | "sw" | "se" | null;
 
 export default function EditorCanvas({
   fileUrl,
@@ -34,6 +37,7 @@ export default function EditorCanvas({
   onUpdateObject,
   onDeleteObject,
   onSelectObject,
+  onPageDimensionsChange,
 }: EditorCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [pageDimensions, setPageDimensions] = useState({ width: 612, height: 792 });
@@ -41,8 +45,9 @@ export default function EditorCanvas({
   const [showTextModal, setShowTextModal] = useState(false);
   const [pendingPosition, setPendingPosition] = useState<{ x: number; y: number } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [isResizing, setIsResizing] = useState(false);
+  const [resizeHandle, setResizeHandle] = useState<ResizeHandle>(null);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [resizeStart, setResizeStart] = useState({ x: 0, y: 0, width: 0, height: 0, objX: 0, objY: 0 });
 
   const scale = zoom / 100;
 
@@ -123,26 +128,83 @@ export default function EditorCanvas({
     }
   }, [activeTool, onSelectObject]);
 
+  const handleResizeStart = useCallback((e: React.MouseEvent, objId: string, handle: ResizeHandle) => {
+    e.stopPropagation();
+    e.preventDefault();
+    const obj = objects.find(o => o.id === objId);
+    if (!obj) return;
+    
+    setResizeHandle(handle);
+    setResizeStart({
+      x: e.clientX,
+      y: e.clientY,
+      width: obj.width,
+      height: obj.height,
+      objX: obj.x,
+      objY: obj.y,
+    });
+  }, [objects]);
+
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (!isDragging || !selectedObjectId) return;
+    if (!selectedObjectId) return;
     
-    const dx = (e.clientX - dragStart.x) / scale;
-    const dy = (e.clientY - dragStart.y) / scale;
-    
-    const obj = objects.find(o => o.id === selectedObjectId);
-    if (obj) {
+    if (isDragging) {
+      const dx = (e.clientX - dragStart.x) / scale;
+      const dy = (e.clientY - dragStart.y) / scale;
+      
+      const obj = objects.find(o => o.id === selectedObjectId);
+      if (obj) {
+        onUpdateObject(selectedObjectId, {
+          x: obj.x + dx,
+          y: obj.y + dy,
+        });
+      }
+      
+      setDragStart({ x: e.clientX, y: e.clientY });
+    } else if (resizeHandle) {
+      const dx = (e.clientX - resizeStart.x) / scale;
+      const dy = (e.clientY - resizeStart.y) / scale;
+      
+      let newWidth = resizeStart.width;
+      let newHeight = resizeStart.height;
+      let newX = resizeStart.objX;
+      let newY = resizeStart.objY;
+      
+      switch (resizeHandle) {
+        case "se":
+          newWidth = Math.max(30, resizeStart.width + dx);
+          newHeight = Math.max(20, resizeStart.height + dy);
+          break;
+        case "sw":
+          newWidth = Math.max(30, resizeStart.width - dx);
+          newHeight = Math.max(20, resizeStart.height + dy);
+          newX = resizeStart.objX + (resizeStart.width - newWidth);
+          break;
+        case "ne":
+          newWidth = Math.max(30, resizeStart.width + dx);
+          newHeight = Math.max(20, resizeStart.height - dy);
+          newY = resizeStart.objY + (resizeStart.height - newHeight);
+          break;
+        case "nw":
+          newWidth = Math.max(30, resizeStart.width - dx);
+          newHeight = Math.max(20, resizeStart.height - dy);
+          newX = resizeStart.objX + (resizeStart.width - newWidth);
+          newY = resizeStart.objY + (resizeStart.height - newHeight);
+          break;
+      }
+      
       onUpdateObject(selectedObjectId, {
-        x: obj.x + dx,
-        y: obj.y + dy,
+        x: newX,
+        y: newY,
+        width: newWidth,
+        height: newHeight,
       });
     }
-    
-    setDragStart({ x: e.clientX, y: e.clientY });
-  }, [isDragging, selectedObjectId, objects, onUpdateObject, scale, dragStart]);
+  }, [isDragging, resizeHandle, selectedObjectId, objects, onUpdateObject, scale, dragStart, resizeStart]);
 
   const handleMouseUp = useCallback(() => {
     setIsDragging(false);
-    setIsResizing(false);
+    setResizeHandle(null);
   }, []);
 
   const handleSignatureCreate = useCallback((signatureDataUrl: string) => {
@@ -259,6 +321,7 @@ export default function EditorCanvas({
                 width: page.originalWidth, 
                 height: page.originalHeight 
               });
+              onPageDimensionsChange?.(page.originalWidth, page.originalHeight);
             }}
             renderTextLayer={false}
             renderAnnotationLayer={false}
@@ -330,10 +393,22 @@ export default function EditorCanvas({
               {/* Resize handles for selected object */}
               {selectedObjectId === obj.id && (
                 <>
-                  <div className="absolute -top-1 -left-1 w-3 h-3 bg-blue-500 rounded-sm cursor-nwse-resize" />
-                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-blue-500 rounded-sm cursor-nesw-resize" />
-                  <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-blue-500 rounded-sm cursor-nesw-resize" />
-                  <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-blue-500 rounded-sm cursor-nwse-resize" />
+                  <div 
+                    className="absolute -top-1.5 -left-1.5 w-3 h-3 bg-blue-500 rounded-sm cursor-nwse-resize"
+                    onMouseDown={(e) => handleResizeStart(e, obj.id, "nw")}
+                  />
+                  <div 
+                    className="absolute -top-1.5 -right-1.5 w-3 h-3 bg-blue-500 rounded-sm cursor-nesw-resize"
+                    onMouseDown={(e) => handleResizeStart(e, obj.id, "ne")}
+                  />
+                  <div 
+                    className="absolute -bottom-1.5 -left-1.5 w-3 h-3 bg-blue-500 rounded-sm cursor-nesw-resize"
+                    onMouseDown={(e) => handleResizeStart(e, obj.id, "sw")}
+                  />
+                  <div 
+                    className="absolute -bottom-1.5 -right-1.5 w-3 h-3 bg-blue-500 rounded-sm cursor-nwse-resize"
+                    onMouseDown={(e) => handleResizeStart(e, obj.id, "se")}
+                  />
                 </>
               )}
             </div>
