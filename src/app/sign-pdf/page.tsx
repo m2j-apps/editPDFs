@@ -172,7 +172,7 @@ export default function SignPDFPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
@@ -183,11 +183,22 @@ export default function SignPDFPage() {
           </p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
-          {!pdfFile ? (
-            <PDFDropzone onFileSelect={handleFileSelect} />
-          ) : (
-            <div className="space-y-4">
+        {/* Main content with sidebar ads */}
+        <div className="flex gap-4">
+          {/* Left sidebar ad */}
+          <div className="hidden xl:block w-[160px] flex-shrink-0">
+            <div className="sticky top-4">
+              <AdUnit slot="SIGN_PDF_LEFT" format="vertical" className="min-h-[600px]" />
+            </div>
+          </div>
+
+          {/* Main editor */}
+          <div className="flex-1 min-w-0">
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
+              {!pdfFile ? (
+                <PDFDropzone onFileSelect={handleFileSelect} />
+              ) : (
+                <div className="space-y-4">
               {/* File info and controls */}
               <div className="flex items-center justify-between bg-gray-50 rounded-lg p-4">
                 <div className="flex items-center space-x-3">
@@ -244,6 +255,15 @@ export default function SignPDFPage() {
               )}
             </div>
           )}
+            </div>
+          </div>
+
+          {/* Right sidebar ad */}
+          <div className="hidden xl:block w-[160px] flex-shrink-0">
+            <div className="sticky top-4">
+              <AdUnit slot="SIGN_PDF_RIGHT" format="vertical" className="min-h-[600px]" />
+            </div>
+          </div>
         </div>
 
         {/* Signature Modal */}
