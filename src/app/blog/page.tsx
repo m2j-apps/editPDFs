@@ -11,6 +11,13 @@ const posts = [
     readTime: "4 min read",
   },
   {
+    slug: "how-to-merge-pdfs",
+    title: "How to Merge PDFs for Free (2026 Guide)",
+    excerpt: "Combine multiple PDF files into one document in seconds. Drag, drop, reorder — completely free and private.",
+    date: "2026-02-02",
+    readTime: "5 min read",
+  },
+  {
     slug: "how-to-edit-pdf-free",
     title: "How to Edit a PDF for Free in 2026",
     excerpt: "Learn how to edit PDF files without paying for expensive software. No signup, no watermarks, no limits.",

@@ -51,6 +51,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://editpdfs.app/blog/how-to-merge-pdfs</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://editpdfs.app/privacy</loc>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
