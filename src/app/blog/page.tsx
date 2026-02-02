@@ -4,6 +4,13 @@ import Link from "next/link";
 
 const posts = [
   {
+    slug: "how-to-sign-pdf",
+    title: "How to Sign a PDF for Free (2026 Guide)",
+    excerpt: "Add your signature to any PDF in seconds. Draw, type, or upload — completely free and private.",
+    date: "2026-02-03",
+    readTime: "4 min read",
+  },
+  {
     slug: "how-to-edit-pdf-free",
     title: "How to Edit a PDF for Free in 2026",
     excerpt: "Learn how to edit PDF files without paying for expensive software. No signup, no watermarks, no limits.",
