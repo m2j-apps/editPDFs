@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import AdUnit from "@/components/AdUnit";
 
 export default function HowToEditPdfFree() {
   return (
@@ -19,6 +20,9 @@ export default function HowToEditPdfFree() {
             <span>5 min read</span>
           </div>
         </header>
+
+        {/* Top Ad */}
+        <AdUnit slot="TOP_BANNER" format="horizontal" className="mb-8" />
 
         <div className="prose prose-lg max-w-none">
           <p className="text-xl text-gray-600 mb-8">
@@ -51,6 +55,9 @@ export default function HowToEditPdfFree() {
             <Link href="/" className="text-blue-600 hover:underline font-semibold">EditPDFs.app</Link> is 
             one such tool — it&apos;s 100% free, requires no signup, and processes files entirely in your browser.
           </p>
+
+          {/* Middle Ad */}
+          <AdUnit slot="MIDDLE_BANNER" format="horizontal" className="my-8" />
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
             How to Edit a PDF in 3 Simple Steps
@@ -89,17 +96,17 @@ export default function HowToEditPdfFree() {
           </p>
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Other Free PDF Tasks You Can Do
+            All PDF Tasks in One Editor
           </h2>
           <p className="text-gray-700 mb-4">
-            Beyond editing, you might need to:
+            Our editor includes everything you need:
           </p>
           <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
-            <li><Link href="/sign-pdf" className="text-blue-600 hover:underline">Sign a PDF</Link> — Add your signature to contracts and forms</li>
-            <li><Link href="/merge-pdf" className="text-blue-600 hover:underline">Merge PDFs</Link> — Combine multiple PDFs into one</li>
-            <li><Link href="/split-pdf" className="text-blue-600 hover:underline">Split a PDF</Link> — Extract specific pages</li>
-            <li><Link href="/compress-pdf" className="text-blue-600 hover:underline">Compress a PDF</Link> — Reduce file size for email</li>
-            <li><Link href="/rotate-pdf" className="text-blue-600 hover:underline">Rotate pages</Link> — Fix sideways or upside-down pages</li>
+            <li><strong>Sign PDFs</strong> — Add your signature to contracts and forms</li>
+            <li><strong>Merge PDFs</strong> — Combine multiple PDFs into one</li>
+            <li><strong>Manage pages</strong> — Delete, reorder, or rotate pages</li>
+            <li><strong>Add images</strong> — Insert logos, stamps, or photos</li>
+            <li><strong>Annotate</strong> — Highlight, underline, draw, and more</li>
           </ul>
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
@@ -170,6 +177,9 @@ export default function HowToEditPdfFree() {
             Yes, EditPDFs.app works on any device with a modern web browser.
           </p>
         </div>
+
+        {/* Bottom Ad */}
+        <AdUnit slot="BOTTOM_BANNER" format="horizontal" className="mt-8" />
       </article>
     </div>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import AdUnit from "@/components/AdUnit";
 
 export default function HowToSignPdf() {
   return (
@@ -19,6 +20,9 @@ export default function HowToSignPdf() {
             <span>4 min read</span>
           </div>
         </header>
+
+        {/* Top Ad */}
+        <AdUnit slot="TOP_BANNER" format="horizontal" className="mb-8" />
 
         <div className="prose prose-lg max-w-none">
           <p className="text-xl text-gray-600 mb-8">
@@ -60,23 +64,26 @@ export default function HowToSignPdf() {
             across all your documents.
           </p>
 
+          {/* Middle Ad */}
+          <AdUnit slot="MIDDLE_BANNER" format="horizontal" className="my-8" />
+
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
             How to Sign a PDF in 4 Simple Steps
           </h2>
           
           <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            Step 1: Open the PDF Signing Tool
+            Step 1: Open the PDF Editor
           </h3>
           <p className="text-gray-700 mb-4">
-            Go to <Link href="/sign-pdf" className="text-blue-600 hover:underline">EditPDFs.app/sign-pdf</Link> and 
+            Go to <Link href="/" className="text-blue-600 hover:underline">EditPDFs.app</Link> and 
             drag your PDF onto the upload area, or click to browse your files.
           </p>
 
           <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            Step 2: Click Where You Want to Sign
+            Step 2: Select the Signature Tool
           </h3>
           <p className="text-gray-700 mb-4">
-            Navigate to the page where your signature is needed and click on the exact spot. 
+            Click the signature tool in the toolbar, then click where you want to place your signature.
             A signature box will appear that you can drag and resize.
           </p>
 
@@ -92,7 +99,7 @@ export default function HowToSignPdf() {
             Step 4: Download Your Signed PDF
           </h3>
           <p className="text-gray-700 mb-6">
-            Click &quot;Sign &amp; Download PDF&quot; to save your signed document. The signature is 
+            Click Download to save your signed document. The signature is 
             embedded directly in the PDF — it&apos;s not a separate layer that can be removed.
           </p>
 
@@ -104,7 +111,7 @@ export default function HowToSignPdf() {
               No signup, no watermarks, no limits. Your files stay private.
             </p>
             <Link
-              href="/sign-pdf"
+              href="/"
               className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
             >
               Sign Your PDF Now →
@@ -151,14 +158,17 @@ export default function HowToSignPdf() {
           </p>
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Other PDF Tools You Might Need
+            Everything You Can Do in the Editor
           </h2>
+          <p className="text-gray-700 mb-4">
+            Besides signing, our editor lets you:
+          </p>
           <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
-            <li><Link href="/editor" className="text-blue-600 hover:underline">Edit a PDF</Link> — add text, images, and annotations</li>
-            <li><Link href="/merge-pdf" className="text-blue-600 hover:underline">Merge PDFs</Link> — combine multiple PDFs into one</li>
-            <li><Link href="/split-pdf" className="text-blue-600 hover:underline">Split a PDF</Link> — extract specific pages</li>
-            <li><Link href="/compress-pdf" className="text-blue-600 hover:underline">Compress a PDF</Link> — reduce file size for email</li>
-            <li><Link href="/rotate-pdf" className="text-blue-600 hover:underline">Rotate pages</Link> — fix sideways pages</li>
+            <li><strong>Edit text</strong> — Add or modify text in your PDF</li>
+            <li><strong>Add images</strong> — Insert logos, photos, or stamps</li>
+            <li><strong>Merge PDFs</strong> — Combine multiple documents into one</li>
+            <li><strong>Manage pages</strong> — Delete, reorder, or rotate pages</li>
+            <li><strong>Annotate</strong> — Highlight, underline, and draw</li>
           </ul>
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
@@ -203,6 +213,9 @@ export default function HowToSignPdf() {
             anywhere in the document.
           </p>
         </div>
+
+        {/* Bottom Ad */}
+        <AdUnit slot="BOTTOM_BANNER" format="horizontal" className="mt-8" />
       </article>
     </div>
   );

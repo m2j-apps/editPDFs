@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import AdUnit from "@/components/AdUnit";
 
 export default function HowToMergePdfs() {
   return (
@@ -19,6 +20,9 @@ export default function HowToMergePdfs() {
             <span>5 min read</span>
           </div>
         </header>
+
+        {/* Top Ad */}
+        <AdUnit slot="TOP_BANNER" format="horizontal" className="mb-8" />
 
         <div className="prose prose-lg max-w-none">
           <p className="text-xl text-gray-600 mb-8">
@@ -50,27 +54,28 @@ export default function HowToMergePdfs() {
             Step 1: Upload Your PDF Files
           </h3>
           <p className="text-gray-700 mb-4">
-            Go to <Link href="/merge-pdf" className="text-blue-600 hover:underline">EditPDFs.app/merge-pdf</Link> and 
-            drag your PDF files onto the upload area, or click to browse. You can select multiple 
-            files at once.
+            Go to <Link href="/" className="text-blue-600 hover:underline">EditPDFs.app</Link> and 
+            upload your first PDF. Then use the &quot;Add Pages&quot; feature to add more PDFs.
           </p>
 
           <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
             Step 2: Arrange the Order
           </h3>
           <p className="text-gray-700 mb-4">
-            Drag and drop the files to rearrange them in your preferred order. The first file 
-            will be at the beginning of your merged PDF, and so on. You can also remove files 
-            you don&apos;t want to include.
+            Use the page panel on the left to drag and drop pages into your preferred order. 
+            You can also delete pages you don&apos;t want to include.
           </p>
 
           <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            Step 3: Merge and Download
+            Step 3: Download Your Merged PDF
           </h3>
           <p className="text-gray-700 mb-6">
-            Click &quot;Merge PDFs&quot; and your combined document will be created instantly. Download 
-            your new single PDF file, ready to share or print.
+            Click Download and your combined document will be created instantly. 
+            Your new single PDF file is ready to share or print.
           </p>
+
+          {/* Middle Ad */}
+          <AdUnit slot="MIDDLE_BANNER" format="horizontal" className="my-8" />
 
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 my-8">
             <h3 className="text-xl font-semibold text-blue-900 mb-2">
@@ -80,7 +85,7 @@ export default function HowToMergePdfs() {
               No signup, no watermarks, no limits. Your files stay private.
             </p>
             <Link
-              href="/merge-pdf"
+              href="/"
               className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
             >
               Merge PDFs Now →
@@ -129,11 +134,11 @@ export default function HowToMergePdfs() {
           </h2>
           
           <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Check the order before merging
+            Check the order before downloading
           </h3>
           <p className="text-gray-700 mb-4">
-            Take a moment to review the file order. It&apos;s easier to arrange them correctly 
-            before merging than to redo the whole process.
+            Take a moment to review the page order. It&apos;s easier to arrange them correctly 
+            before downloading than to redo the whole process.
           </p>
 
           <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
@@ -141,37 +146,21 @@ export default function HowToMergePdfs() {
           </h3>
           <p className="text-gray-700 mb-4">
             Before uploading, rename your files with clear names (like &quot;01-cover-letter.pdf&quot;, 
-            &quot;02-resume.pdf&quot;) so you can easily identify them in the merge tool.
+            &quot;02-resume.pdf&quot;) so you can easily identify them.
           </p>
 
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Merge related documents together
-          </h3>
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
+            Everything You Can Do in the Editor
+          </h2>
           <p className="text-gray-700 mb-4">
-            Keep logically related content in the same merged file. For example, merge all 
-            chapters of a report together, but keep appendices as a separate merged file if 
-            it makes sense for your use case.
+            Our editor includes all the PDF tools you need:
           </p>
-
-          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Merge vs. Combine: What&apos;s the Difference?
-          </h2>
-          <p className="text-gray-700 mb-6">
-            You might see these terms used interchangeably, and that&apos;s fine — they mean the 
-            same thing when it comes to PDFs. Merging, combining, joining, or concatenating 
-            PDFs all refer to the same process: taking multiple PDF files and creating a 
-            single PDF that contains all their pages in sequence.
-          </p>
-
-          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Other PDF Tools You Might Need
-          </h2>
           <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
-            <li><Link href="/split-pdf" className="text-blue-600 hover:underline">Split a PDF</Link> — extract specific pages from a document</li>
-            <li><Link href="/editor" className="text-blue-600 hover:underline">Edit a PDF</Link> — add text, images, and annotations</li>
-            <li><Link href="/sign-pdf" className="text-blue-600 hover:underline">Sign a PDF</Link> — add your signature to documents</li>
-            <li><Link href="/compress-pdf" className="text-blue-600 hover:underline">Compress a PDF</Link> — reduce file size for email</li>
-            <li><Link href="/rotate-pdf" className="text-blue-600 hover:underline">Rotate pages</Link> — fix sideways or upside-down pages</li>
+            <li><strong>Sign PDFs</strong> — Add your signature to documents</li>
+            <li><strong>Edit text</strong> — Add or modify text content</li>
+            <li><strong>Add images</strong> — Insert logos, photos, or stamps</li>
+            <li><strong>Manage pages</strong> — Delete, reorder, or rotate pages</li>
+            <li><strong>Annotate</strong> — Highlight, underline, and draw</li>
           </ul>
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
@@ -218,25 +207,10 @@ export default function HowToMergePdfs() {
             Yes! EditPDFs.app works on any device with a modern browser. The interface adapts 
             to smaller screens, making it easy to merge PDFs on the go.
           </p>
-
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            What if one of my PDFs is password-protected?
-          </h3>
-          <p className="text-gray-700 mb-4">
-            Password-protected PDFs need to be unlocked before they can be merged. You can use 
-            a PDF unlocking tool first (provided you have the password), then merge the 
-            unlocked files.
-          </p>
-
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Can I merge PDFs with different page sizes?
-          </h3>
-          <p className="text-gray-700 mb-4">
-            Yes. If your PDFs have different page sizes (for example, letter and legal, or A4 
-            and A5), they&apos;ll all be included in the merged file with their original dimensions 
-            preserved.
-          </p>
         </div>
+
+        {/* Bottom Ad */}
+        <AdUnit slot="BOTTOM_BANNER" format="horizontal" className="mt-8" />
       </article>
     </div>
   );
