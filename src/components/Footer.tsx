@@ -12,18 +12,18 @@ export default function Footer() {
               <span className="font-bold text-lg text-gray-900">EditPDFs.app</span>
             </div>
             <p className="text-gray-600 text-sm">
-              Free PDF tools that respect your privacy. No uploads, no signups, no limits.
+              Free PDF editor that respects your privacy. No uploads, no signups, no limits.
             </p>
           </div>
 
-          {/* Tools */}
+          {/* Resources */}
           <div>
-            <h3 className="font-semibold text-gray-900 mb-4">Tools</h3>
+            <h3 className="font-semibold text-gray-900 mb-4">Resources</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/editor" className="text-gray-600 hover:text-gray-900">Edit PDF</Link></li>
-              <li><Link href="/sign-pdf" className="text-gray-600 hover:text-gray-900">Sign PDF</Link></li>
-              <li><Link href="/split-pdf" className="text-gray-600 hover:text-gray-900">Split PDF</Link></li>
-              <li><Link href="/compress-pdf" className="text-gray-600 hover:text-gray-900">Compress PDF</Link></li>
+              <li><Link href="/editor" className="text-gray-600 hover:text-gray-900">PDF Editor</Link></li>
+              <li><Link href="/blog" className="text-gray-600 hover:text-gray-900">Blog</Link></li>
+              <li><Link href="/blog/how-to-edit-pdf-free" className="text-gray-600 hover:text-gray-900">How to Edit PDFs</Link></li>
+              <li><Link href="/blog/how-to-sign-pdf" className="text-gray-600 hover:text-gray-900">How to Sign PDFs</Link></li>
             </ul>
           </div>
 
