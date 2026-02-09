@@ -5,6 +5,13 @@ import AdUnit from "@/components/AdUnit";
 
 const posts = [
   {
+    slug: "how-to-compress-pdf",
+    title: "How to Compress PDF Files for Free (2026 Guide)",
+    excerpt: "Reduce PDF file size in seconds. No quality loss, no uploads to servers — completely free and private.",
+    date: "2026-02-09",
+    readTime: "5 min read",
+  },
+  {
     slug: "how-to-sign-pdf",
     title: "How to Sign a PDF for Free (2026 Guide)",
     excerpt: "Add your signature to any PDF in seconds. Draw, type, or upload — completely free and private.",
