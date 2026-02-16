@@ -5,6 +5,13 @@ import AdUnit from "@/components/AdUnit";
 
 const posts = [
   {
+    slug: "how-to-password-protect-pdf",
+    title: "How to Password Protect a PDF for Free (2026 Guide)",
+    excerpt: "Add password protection to secure sensitive documents. Free, private, no signup required.",
+    date: "2026-02-16",
+    readTime: "6 min read",
+  },
+  {
     slug: "best-free-pdf-editors-compared",
     title: "Best Free PDF Editors Compared (2026)",
     excerpt: "We tested the top free PDF editors to help you find the right one. Honest comparison of features, privacy, and limitations.",
