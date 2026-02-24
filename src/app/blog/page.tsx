@@ -5,6 +5,13 @@ import AdUnit from "@/components/AdUnit";
 
 const posts = [
   {
+    slug: "how-to-remove-password-from-pdf",
+    title: "How to Remove a Password from a PDF (If You Know It)",
+    excerpt: "Remove password protection from a PDF in seconds if you know the current password. Free and private.",
+    date: "2026-02-23",
+    readTime: "5 min read",
+  },
+  {
     slug: "how-to-password-protect-pdf",
     title: "How to Password Protect a PDF for Free (2026 Guide)",
     excerpt: "Add password protection to secure sensitive documents. Free, private, no signup required.",
