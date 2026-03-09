@@ -3,9 +3,7 @@
 import Link from "next/link";
 import AdUnit from "@/components/AdUnit";
 
-const posts = [
-  {
-    slug: "how-to-reduce-pdf-file-size",
+
     title: "How to Reduce PDF File Size Without Losing Quality (2026 Guide)",
     excerpt: "Shrink large PDFs for email, uploads, and sharing without blurry images or broken formatting. Free and private.",
     date: "2026-03-09",
