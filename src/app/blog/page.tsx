@@ -3,7 +3,44 @@
 import Link from "next/link";
 import AdUnit from "@/components/AdUnit";
 
-
+const posts = [
+  {
+    slug: "how-to-merge-pdf-files-without-software",
+    title: "How to Merge PDF Files Without Software",
+    excerpt: "Merge multiple PDFs from your browser with no installation. Includes ordering, cleanup, and privacy tips.",
+    date: "2026-03-09",
+    readTime: "9 min read",
+  },
+  {
+    slug: "best-free-pdf-tools-online-2026",
+    title: "Best Free PDF Tools Online in 2026",
+    excerpt: "The best free tools for merge, split, compress, sign, and edit tasks, plus what to avoid.",
+    date: "2026-03-09",
+    readTime: "11 min read",
+  },
+  {
+    slug: "how-to-convert-pdf-to-word-for-free",
+    title: "How to Convert PDF to Word for Free",
+    excerpt: "Turn PDFs into editable Word files for free with practical fixes for formatting issues.",
+    date: "2026-03-09",
+    readTime: "10 min read",
+  },
+  {
+    slug: "how-to-compress-a-pdf-on-iphone",
+    title: "How to Compress a PDF on iPhone",
+    excerpt: "Shrink large PDF files on iPhone so they upload and email easily, without installing extra apps.",
+    date: "2026-03-09",
+    readTime: "10 min read",
+  },
+  {
+    slug: "how-to-remove-password-from-a-pdf",
+    title: "How to Remove Password from a PDF",
+    excerpt: "A safe step by step guide to remove PDF passwords when you know the current password.",
+    date: "2026-03-09",
+    readTime: "9 min read",
+  },
+  {
+    slug: "how-to-reduce-pdf-file-size",
     title: "How to Reduce PDF File Size Without Losing Quality (2026 Guide)",
     excerpt: "Shrink large PDFs for email, uploads, and sharing without blurry images or broken formatting. Free and private.",
     date: "2026-03-09",
@@ -61,7 +98,7 @@ import AdUnit from "@/components/AdUnit";
   {
     slug: "how-to-add-text-to-pdf",
     title: "How to Add Text to a PDF for Free (2026 Guide)",
-    excerpt: "Insert text anywhere in your PDF. Fill forms, add labels, or include notes — completely free.",
+    excerpt: "Insert text anywhere in your PDF. Fill forms, add labels, or include notes - completely free.",
     date: "2026-02-12",
     readTime: "5 min read",
   },
@@ -110,21 +147,21 @@ import AdUnit from "@/components/AdUnit";
   {
     slug: "how-to-compress-pdf",
     title: "How to Compress PDF Files for Free (2026 Guide)",
-    excerpt: "Reduce PDF file size in seconds. No quality loss, no uploads to servers — completely free and private.",
+    excerpt: "Reduce PDF file size in seconds. No quality loss, no uploads to servers - completely free and private.",
     date: "2026-01-24",
     readTime: "5 min read",
   },
   {
     slug: "how-to-sign-pdf",
     title: "How to Sign a PDF for Free (2026 Guide)",
-    excerpt: "Add your signature to any PDF in seconds. Draw, type, or upload — completely free and private.",
+    excerpt: "Add your signature to any PDF in seconds. Draw, type, or upload - completely free and private.",
     date: "2026-01-21",
     readTime: "4 min read",
   },
   {
     slug: "how-to-merge-pdfs",
     title: "How to Merge PDFs for Free (2026 Guide)",
-    excerpt: "Combine multiple PDF files into one document in seconds. Drag, drop, reorder — completely free and private.",
+    excerpt: "Combine multiple PDF files into one document in seconds. Drag, drop, reorder - completely free and private.",
     date: "2026-01-18",
     readTime: "5 min read",
   },
@@ -146,7 +183,6 @@ export default function BlogPage() {
           Tips, guides, and tutorials for working with PDFs
         </p>
 
-        {/* Top Ad */}
         <AdUnit slot="TOP_BANNER" format="horizontal" className="mb-8" />
 
         <div className="space-y-8">
@@ -165,8 +201,7 @@ export default function BlogPage() {
                   <span>{post.readTime}</span>
                 </div>
               </article>
-              
-              {/* Ad after every 4th post */}
+
               {(index + 1) % 4 === 0 && index < posts.length - 1 && (
                 <div className="mt-8">
                   <AdUnit slot="MIDDLE_BANNER" format="horizontal" />
@@ -176,7 +211,6 @@ export default function BlogPage() {
           ))}
         </div>
 
-        {/* Bottom Ad */}
         <AdUnit slot="BOTTOM_BANNER" format="horizontal" className="mt-8" />
       </div>
     </div>
