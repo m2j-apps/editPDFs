@@ -48,10 +48,10 @@ const posts = [
   },
   {
     slug: "how-to-flatten-pdf",
-    title: "How to Flatten a PDF for Free (2026 Guide)",
-    excerpt: "Flatten a PDF to lock in annotations, signatures, and form fields so they display correctly everywhere.",
-    date: "2026-03-02",
-    readTime: "6 min read",
+    title: "How to Flatten a PDF (What It Does, When to Use It, and Step-by-Step)",
+    excerpt: "Flatten forms, signatures, and annotations so your PDF displays consistently and can’t be accidentally edited.",
+    date: "2026-03-12",
+    readTime: "9 min read",
   },
   {
     slug: "how-to-remove-password-from-pdf",
