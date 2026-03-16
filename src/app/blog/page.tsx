@@ -54,6 +54,13 @@ const posts = [
     readTime: "9 min read",
   },
   {
+    slug: "how-to-extract-images-from-pdf",
+    title: "How to Extract Images from a PDF for Free (2026 Guide)",
+    excerpt: "Learn how to extract images from PDF files online for free. Save photos, graphics, and diagrams from PDFs in their original quality without installing software.",
+    date: "2026-03-16",
+    readTime: "11 min read",
+  },
+  {
     slug: "how-to-remove-password-from-pdf",
     title: "How to Remove a Password from a PDF (If You Know It)",
     excerpt: "Remove password protection from a PDF in seconds if you know the current password. Free and private.",
