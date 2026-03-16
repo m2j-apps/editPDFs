@@ -11,6 +11,8 @@ export default function BestFreePdfToolsOnline2026() {
           <Link href="/blog" className="text-blue-600 hover:underline mb-4 block">← Back to Blog</Link>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Best Free PDF Tools Online in 2026</h1>
           <div className="flex items-center text-gray-500 text-sm">
+            <span>EditPDFs Team</span>
+            <span className="mx-2">•</span>
             <span>March 9, 2026</span>
             <span className="mx-2">•</span>
             <span>11 min read</span>

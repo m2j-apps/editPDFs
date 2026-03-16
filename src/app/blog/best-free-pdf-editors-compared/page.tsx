@@ -15,6 +15,8 @@ export default function BestFreePdfEditorsCompared() {
             Best Free PDF Editors Compared (2026)
           </h1>
           <div className="flex items-center text-gray-500 text-sm">
+            <span>EditPDFs Team</span>
+            <span className="mx-2">•</span>
             <span>February 14, 2026</span>
             <span className="mx-2">•</span>
             <span>8 min read</span>

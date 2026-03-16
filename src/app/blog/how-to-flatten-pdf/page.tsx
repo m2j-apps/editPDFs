@@ -15,6 +15,8 @@ export default function HowToFlattenPdf() {
             How to Flatten a PDF (What It Does, When to Use It, and Step-by-Step)
           </h1>
           <div className="flex items-center text-gray-500 text-sm">
+            <span>EditPDFs Team</span>
+            <span className="mx-2">•</span>
             <span>March 12, 2026</span>
             <span className="mx-2">•</span>
             <span>9 min read</span>

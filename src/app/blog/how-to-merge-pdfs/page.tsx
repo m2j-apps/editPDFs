@@ -15,6 +15,8 @@ export default function HowToMergePdfs() {
             How to Merge PDFs for Free (2026 Guide)
           </h1>
           <div className="flex items-center text-gray-500 text-sm">
+            <span>EditPDFs Team</span>
+            <span className="mx-2">•</span>
             <span>February 2, 2026</span>
             <span className="mx-2">•</span>
             <span>5 min read</span>

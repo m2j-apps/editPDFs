@@ -33,13 +33,6 @@ const posts = [
     readTime: "10 min read",
   },
   {
-    slug: "how-to-remove-password-from-a-pdf",
-    title: "How to Remove Password from a PDF",
-    excerpt: "A safe step by step guide to remove PDF passwords when you know the current password.",
-    date: "2026-03-09",
-    readTime: "9 min read",
-  },
-  {
     slug: "how-to-reduce-pdf-file-size",
     title: "How to Reduce PDF File Size Without Losing Quality (2026 Guide)",
     excerpt: "Shrink large PDFs for email, uploads, and sharing without blurry images or broken formatting. Free and private.",
@@ -203,6 +196,8 @@ export default function BlogPage() {
                 </Link>
                 <p className="text-gray-600 mb-4">{post.excerpt}</p>
                 <div className="flex items-center text-sm text-gray-500">
+                  <span>EditPDFs Team</span>
+                  <span className="mx-2">•</span>
                   <span>{post.date}</span>
                   <span className="mx-2">•</span>
                   <span>{post.readTime}</span>

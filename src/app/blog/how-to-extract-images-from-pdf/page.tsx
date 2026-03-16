@@ -9,6 +9,7 @@ export default function HowToExtractImagesFromPdf() {
   return (
     <article className="prose lg:prose-xl mx-auto">
       <h1>How to Extract Images from a PDF for Free (2026 Guide)</h1>
+      <p className="text-sm text-gray-500">EditPDFs Team &middot; March 16, 2026 &middot; 11 min read</p>
       <p>
         Need to save a photo, logo, diagram, or graphic from a PDF file? Extracting images from PDFs is easier than you think.
         Whether you're working on a project, creating a presentation, or just want to reuse an image, you can extract PDF images

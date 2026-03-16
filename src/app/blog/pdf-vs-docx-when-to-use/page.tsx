@@ -15,6 +15,8 @@ export default function PdfVsDocxWhenToUse() {
             PDF vs Word (DOCX): When to Use Each Format
           </h1>
           <div className="flex items-center text-gray-500 text-sm">
+            <span>EditPDFs Team</span>
+            <span className="mx-2">•</span>
             <span>February 14, 2026</span>
             <span className="mx-2">•</span>
             <span>7 min read</span>

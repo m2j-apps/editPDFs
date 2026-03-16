@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ArticleJsonLd from "@/components/ArticleJsonLd";
 
 export const metadata: Metadata = {
   title: "How to Merge PDF Files Without Software | EditPDFs.app",
@@ -13,6 +14,20 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ArticleLayout({ children }: { children: React.ReactNode }) {
-  return children;
+export default function ArticleLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <>
+      <ArticleJsonLd
+        title="How to Merge PDF Files Without Software"
+        description="Merge multiple PDF files without installing software. Step by step browser method with tips for order and quality."
+        slug="how-to-merge-pdf-files-without-software"
+        datePublished="2026-03-09"
+      />
+      {children}
+    </>
+  );
 }

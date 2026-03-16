@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ArticleJsonLd from "@/components/ArticleJsonLd";
 
 export const metadata: Metadata = {
   title: "Best Free PDF Tools Online in 2026 | EditPDFs.app",
@@ -13,6 +14,20 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ArticleLayout({ children }: { children: React.ReactNode }) {
-  return children;
+export default function ArticleLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <>
+      <ArticleJsonLd
+        title="Best Free PDF Tools Online in 2026"
+        description="A practical list of the best free PDF tools in 2026, what each tool is best for, and how to choose safely."
+        slug="best-free-pdf-tools-online-2026"
+        datePublished="2026-03-09"
+      />
+      {children}
+    </>
+  );
 }

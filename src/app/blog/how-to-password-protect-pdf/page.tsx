@@ -15,6 +15,8 @@ export default function HowToPasswordProtectPdf() {
             How to Password Protect a PDF for Free (2026 Guide)
           </h1>
           <div className="flex items-center text-gray-500 text-sm">
+            <span>EditPDFs Team</span>
+            <span className="mx-2">•</span>
             <span>February 16, 2026</span>
             <span className="mx-2">•</span>
             <span>6 min read</span>

@@ -15,6 +15,8 @@ export default function HowToFillPdfForms() {
             How to Fill Out PDF Forms for Free (2026 Guide)
           </h1>
           <div className="flex items-center text-gray-500 text-sm">
+            <span>EditPDFs Team</span>
+            <span className="mx-2">•</span>
             <span>February 14, 2026</span>
             <span className="mx-2">•</span>
             <span>5 min read</span>

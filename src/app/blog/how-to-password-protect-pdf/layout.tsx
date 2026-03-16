@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ArticleJsonLd from "@/components/ArticleJsonLd";
 
 export const metadata: Metadata = {
   title: "How to Password Protect a PDF for Free (2026 Guide) | EditPDFs.app",
@@ -16,5 +17,15 @@ export default function ArticleLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      <ArticleJsonLd
+        title="How to Password Protect a PDF for Free (2026 Guide)"
+        description="Learn how to add password protection to your PDF files for free. Secure sensitive documents with encryption. No account required, completely private."
+        slug="how-to-password-protect-pdf"
+        datePublished="2026-02-22"
+      />
+      {children}
+    </>
+  );
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ArticleJsonLd from "@/components/ArticleJsonLd";
 
 export const metadata: Metadata = {
   title: "How to Reduce PDF File Size Without Losing Quality (2026 Guide) | EditPDFs.app",
@@ -16,5 +17,15 @@ export default function ArticleLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      <ArticleJsonLd
+        title="How to Reduce PDF File Size Without Losing Quality (2026 Guide)"
+        description="Learn how to reduce PDF file size without losing quality. 5 proven tips to shrink large PDFs for email, web uploads, and sharing. Free, private, no signup."
+        slug="how-to-reduce-pdf-file-size"
+        datePublished="2026-03-09"
+      />
+      {children}
+    </>
+  );
 }

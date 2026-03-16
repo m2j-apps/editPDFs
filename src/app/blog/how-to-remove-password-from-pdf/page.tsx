@@ -15,6 +15,8 @@ export default function HowToRemovePasswordFromPdf() {
             How to Remove a Password from a PDF (If You Know It)
           </h1>
           <div className="flex items-center text-gray-500 text-sm">
+            <span>EditPDFs Team</span>
+            <span className="mx-2">•</span>
             <span>February 23, 2026</span>
             <span className="mx-2">•</span>
             <span>5 min read</span>
