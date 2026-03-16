@@ -2,16 +2,26 @@
 
 import { useState, useCallback } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
-import { X, FileUp, File } from "lucide-react";
+import { X, FileUp, File, ChevronDown, ChevronRight, Trash2 } from "lucide-react";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
+interface UploadedPdf {
+  id: string;
+  name: string;
+  url: string;
+  bytes: Uint8Array;
+  totalPages: number;
+  selectedPages: Set<number>;
+  expanded: boolean;
+}
+
 interface AddPagesModalProps {
   onClose: () => void;
   onAddBlankPage: () => void;
-  onAddPdfPages: (pdfBytes: Uint8Array, selectedPages: number[]) => void;
+  onAddPdfPages: (pdfs: Array<{ bytes: Uint8Array; selectedPages: number[] }>) => void;
 }
 
 export default function AddPagesModal({
@@ -20,59 +30,105 @@ export default function AddPagesModal({
   onAddPdfPages,
 }: AddPagesModalProps) {
   const [mode, setMode] = useState<"choose" | "selectPages">("choose");
-  const [uploadedPdf, setUploadedPdf] = useState<{
-    url: string;
-    bytes: Uint8Array;
-    totalPages: number;
-  } | null>(null);
-  const [selectedPages, setSelectedPages] = useState<Set<number>>(new Set());
+  const [uploadedPdfs, setUploadedPdfs] = useState<UploadedPdf[]>([]);
 
   const handleFileUpload = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
 
-    const arrayBuffer = await file.arrayBuffer();
-    const bytes = new Uint8Array(arrayBuffer);
-    const url = URL.createObjectURL(file);
+    const newPdfs: UploadedPdf[] = [];
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const arrayBuffer = await file.arrayBuffer();
+      const bytes = new Uint8Array(arrayBuffer);
+      const url = URL.createObjectURL(file);
 
-    setUploadedPdf({ url, bytes, totalPages: 0 });
+      newPdfs.push({
+        id: `pdf-${Date.now()}-${i}`,
+        name: file.name,
+        url,
+        bytes,
+        totalPages: 0, // Will be set when Document loads
+        selectedPages: new Set(),
+        expanded: files.length === 1, // Auto-expand if only 1 file
+      });
+    }
+
+    setUploadedPdfs(prev => [...prev, ...newPdfs]);
     setMode("selectPages");
-    setSelectedPages(new Set());
+
+    // Reset input so the same files can be selected again
+    e.target.value = "";
   }, []);
 
-  const handlePdfLoad = useCallback(({ numPages }: { numPages: number }) => {
-    if (uploadedPdf) {
-      setUploadedPdf({ ...uploadedPdf, totalPages: numPages });
-      // Select all pages by default
-      setSelectedPages(new Set(Array.from({ length: numPages }, (_, i) => i + 1)));
-    }
-  }, [uploadedPdf]);
+  const handlePdfLoad = useCallback((pdfId: string, numPages: number) => {
+    setUploadedPdfs(prev => prev.map(pdf => {
+      if (pdf.id !== pdfId) return pdf;
+      return {
+        ...pdf,
+        totalPages: numPages,
+        selectedPages: new Set(Array.from({ length: numPages }, (_, i) => i + 1)),
+      };
+    }));
+  }, []);
 
-  const togglePage = (pageNum: number) => {
-    setSelectedPages(prev => {
-      const newSet = new Set(prev);
+  const togglePage = (pdfId: string, pageNum: number) => {
+    setUploadedPdfs(prev => prev.map(pdf => {
+      if (pdf.id !== pdfId) return pdf;
+      const newSet = new Set(pdf.selectedPages);
       if (newSet.has(pageNum)) {
         newSet.delete(pageNum);
       } else {
         newSet.add(pageNum);
       }
-      return newSet;
+      return { ...pdf, selectedPages: newSet };
+    }));
+  };
+
+  const selectAll = (pdfId: string) => {
+    setUploadedPdfs(prev => prev.map(pdf => {
+      if (pdf.id !== pdfId) return pdf;
+      return {
+        ...pdf,
+        selectedPages: new Set(Array.from({ length: pdf.totalPages }, (_, i) => i + 1)),
+      };
+    }));
+  };
+
+  const selectNone = (pdfId: string) => {
+    setUploadedPdfs(prev => prev.map(pdf => {
+      if (pdf.id !== pdfId) return pdf;
+      return { ...pdf, selectedPages: new Set() };
+    }));
+  };
+
+  const toggleExpanded = (pdfId: string) => {
+    setUploadedPdfs(prev => prev.map(pdf => {
+      if (pdf.id !== pdfId) return pdf;
+      return { ...pdf, expanded: !pdf.expanded };
+    }));
+  };
+
+  const removePdf = (pdfId: string) => {
+    setUploadedPdfs(prev => {
+      const updated = prev.filter(pdf => pdf.id !== pdfId);
+      if (updated.length === 0) setMode("choose");
+      return updated;
     });
   };
 
-  const selectAll = () => {
-    if (uploadedPdf) {
-      setSelectedPages(new Set(Array.from({ length: uploadedPdf.totalPages }, (_, i) => i + 1)));
-    }
-  };
-
-  const selectNone = () => {
-    setSelectedPages(new Set());
-  };
+  const totalSelectedPages = uploadedPdfs.reduce((sum, pdf) => sum + pdf.selectedPages.size, 0);
 
   const handleAddPages = () => {
-    if (uploadedPdf && selectedPages.size > 0) {
-      onAddPdfPages(uploadedPdf.bytes, Array.from(selectedPages).sort((a, b) => a - b));
+    const pdfs = uploadedPdfs
+      .filter(pdf => pdf.selectedPages.size > 0)
+      .map(pdf => ({
+        bytes: pdf.bytes,
+        selectedPages: Array.from(pdf.selectedPages).sort((a, b) => a - b),
+      }));
+
+    if (pdfs.length > 0) {
+      onAddPdfPages(pdfs);
     }
     onClose();
   };
@@ -107,13 +163,14 @@ export default function AddPagesModal({
                 <input
                   type="file"
                   accept=".pdf,application/pdf"
+                  multiple
                   className="hidden"
                   onChange={handleFileUpload}
                 />
                 <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-blue-500 hover:bg-blue-50 transition-colors">
                   <FileUp className="w-12 h-12 text-gray-400 mx-auto mb-3" />
                   <h3 className="font-medium text-gray-900 mb-1">Import from PDF</h3>
-                  <p className="text-sm text-gray-500">Upload another PDF and select pages to add</p>
+                  <p className="text-sm text-gray-500">Upload one or more PDFs and select pages to add</p>
                 </div>
               </label>
 
@@ -127,79 +184,132 @@ export default function AddPagesModal({
                 <p className="text-sm text-gray-500">Add an empty page to your document</p>
               </button>
             </div>
-          ) : uploadedPdf ? (
-            <div>
-              {/* Selection controls */}
-              <div className="flex items-center justify-between mb-4">
-                <div className="text-sm text-gray-600">
-                  {selectedPages.size} of {uploadedPdf.totalPages} pages selected
-                </div>
-                <div className="flex gap-2">
-                  <button
-                    onClick={selectAll}
-                    className="text-sm text-blue-600 hover:text-blue-800"
-                  >
-                    Select All
-                  </button>
-                  <span className="text-gray-300">|</span>
-                  <button
-                    onClick={selectNone}
-                    className="text-sm text-blue-600 hover:text-blue-800"
-                  >
-                    Select None
-                  </button>
-                </div>
-              </div>
+          ) : (
+            <div className="space-y-4">
+              {/* Add more files button */}
+              <label className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg cursor-pointer transition-colors">
+                <FileUp className="w-4 h-4" />
+                Add more PDFs
+                <input
+                  type="file"
+                  accept=".pdf,application/pdf"
+                  multiple
+                  className="hidden"
+                  onChange={handleFileUpload}
+                />
+              </label>
 
-              {/* Page thumbnails grid */}
-              <div className="grid grid-cols-4 gap-3">
-                <Document
-                  file={uploadedPdf.url}
-                  onLoadSuccess={handlePdfLoad}
-                  loading={
-                    <div className="col-span-4 text-center py-8 text-gray-500">
-                      Loading PDF...
-                    </div>
-                  }
-                >
-                  {Array.from({ length: uploadedPdf.totalPages }, (_, i) => i + 1).map((pageNum) => (
-                    <div
-                      key={pageNum}
-                      onClick={() => togglePage(pageNum)}
-                      className={`relative cursor-pointer rounded-lg overflow-hidden transition-all ${
-                        selectedPages.has(pageNum)
-                          ? "ring-2 ring-blue-500 shadow-lg"
-                          : "ring-1 ring-gray-200 hover:ring-gray-300"
-                      }`}
+              {/* PDF list */}
+              {uploadedPdfs.map((pdf) => (
+                <div key={pdf.id} className="border border-gray-200 rounded-lg overflow-hidden">
+                  {/* PDF header row */}
+                  <div className="flex items-center gap-2 px-4 py-3 bg-gray-50 hover:bg-gray-100 transition-colors">
+                    <button
+                      onClick={() => toggleExpanded(pdf.id)}
+                      className="p-0.5 text-gray-500 hover:text-gray-700"
                     >
-                      <Page
-                        pageNumber={pageNum}
-                        width={120}
-                        renderTextLayer={false}
-                        renderAnnotationLayer={false}
-                      />
-                      {/* Checkbox overlay */}
-                      <div className={`absolute top-2 left-2 w-5 h-5 rounded border-2 flex items-center justify-center ${
-                        selectedPages.has(pageNum)
-                          ? "bg-blue-500 border-blue-500 text-white"
-                          : "bg-white border-gray-300"
-                      }`}>
-                        {selectedPages.has(pageNum) && (
-                          <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
-                        )}
-                      </div>
-                      {/* Page number */}
-                      <div className="absolute bottom-1 right-1 bg-black/60 text-white text-xs px-1.5 py-0.5 rounded">
-                        {pageNum}
+                      {pdf.expanded
+                        ? <ChevronDown className="w-4 h-4" />
+                        : <ChevronRight className="w-4 h-4" />
+                      }
+                    </button>
+                    <button
+                      onClick={() => toggleExpanded(pdf.id)}
+                      className="flex-1 text-left min-w-0"
+                    >
+                      <span className="text-sm font-medium text-gray-900 truncate block">
+                        {pdf.name}
+                      </span>
+                      <span className="text-xs text-gray-500">
+                        {pdf.totalPages > 0
+                          ? `${pdf.selectedPages.size} of ${pdf.totalPages} pages selected`
+                          : "Loading..."}
+                      </span>
+                    </button>
+                    <button
+                      onClick={() => removePdf(pdf.id)}
+                      className="p-1 text-gray-400 hover:text-red-500 rounded"
+                      title="Remove"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  {/* Expanded: page selection */}
+                  {pdf.expanded && (
+                    <div className="p-4 border-t border-gray-200">
+                      {/* Selection controls */}
+                      {pdf.totalPages > 0 && (
+                        <div className="flex items-center justify-end gap-2 mb-3">
+                          <button
+                            onClick={() => selectAll(pdf.id)}
+                            className="text-xs text-blue-600 hover:text-blue-800"
+                          >
+                            Select All
+                          </button>
+                          <span className="text-gray-300">|</span>
+                          <button
+                            onClick={() => selectNone(pdf.id)}
+                            className="text-xs text-blue-600 hover:text-blue-800"
+                          >
+                            Select None
+                          </button>
+                        </div>
+                      )}
+
+                      {/* Page thumbnails grid */}
+                      <div className="grid grid-cols-4 gap-3">
+                        <Document
+                          file={pdf.url}
+                          onLoadSuccess={({ numPages }) => handlePdfLoad(pdf.id, numPages)}
+                          loading={
+                            <div className="col-span-4 text-center py-8 text-gray-500">
+                              Loading PDF...
+                            </div>
+                          }
+                        >
+                          {Array.from({ length: pdf.totalPages }, (_, i) => i + 1).map((pageNum) => (
+                            <div
+                              key={pageNum}
+                              onClick={() => togglePage(pdf.id, pageNum)}
+                              className={`relative cursor-pointer rounded-lg overflow-hidden transition-all ${
+                                pdf.selectedPages.has(pageNum)
+                                  ? "ring-2 ring-blue-500 shadow-lg"
+                                  : "ring-1 ring-gray-200 hover:ring-gray-300"
+                              }`}
+                            >
+                              <Page
+                                pageNumber={pageNum}
+                                width={120}
+                                renderTextLayer={false}
+                                renderAnnotationLayer={false}
+                              />
+                              {/* Checkbox overlay */}
+                              <div className={`absolute top-2 left-2 w-5 h-5 rounded border-2 flex items-center justify-center ${
+                                pdf.selectedPages.has(pageNum)
+                                  ? "bg-blue-500 border-blue-500 text-white"
+                                  : "bg-white border-gray-300"
+                              }`}>
+                                {pdf.selectedPages.has(pageNum) && (
+                                  <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                  </svg>
+                                )}
+                              </div>
+                              {/* Page number */}
+                              <div className="absolute bottom-1 right-1 bg-black/60 text-white text-xs px-1.5 py-0.5 rounded">
+                                {pageNum}
+                              </div>
+                            </div>
+                          ))}
+                        </Document>
                       </div>
                     </div>
-                  ))}
-                </Document>
-              </div>
+                  )}
+                </div>
+              ))}
             </div>
-          ) : null}
+          )}
         </div>
 
         {/* Footer */}
@@ -208,11 +318,11 @@ export default function AddPagesModal({
             <button
               onClick={() => {
                 setMode("choose");
-                setUploadedPdf(null);
+                setUploadedPdfs([]);
               }}
               className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg"
             >
-              ← Back
+              &larr; Back
             </button>
             <div className="flex gap-3">
               <button
@@ -223,10 +333,10 @@ export default function AddPagesModal({
               </button>
               <button
                 onClick={handleAddPages}
-                disabled={selectedPages.size === 0}
+                disabled={totalSelectedPages === 0}
                 className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Add {selectedPages.size} Page{selectedPages.size !== 1 ? "s" : ""}
+                Add {totalSelectedPages} Page{totalSelectedPages !== 1 ? "s" : ""}
               </button>
             </div>
           </div>

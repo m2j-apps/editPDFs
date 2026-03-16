@@ -214,21 +214,36 @@ export default function EditorPage() {
     }
   }, []);
 
+  // Ref to track whether extra PDFs have been merged (prevents double-merge in strict mode)
+  const extraPdfsMergedRef = useRef(false);
+
   // Check for pending PDF from homepage
   useEffect(() => {
     const pendingData = sessionStorage.getItem("pendingPdfData");
     const pendingName = sessionStorage.getItem("pendingPdfName");
-    
+
     if (pendingData && pendingName) {
       sessionStorage.removeItem("pendingPdfData");
       sessionStorage.removeItem("pendingPdfName");
-      
-      // Convert data URL to File
+
+      const extraPdfsRaw = sessionStorage.getItem("pendingExtraPdfs");
+      sessionStorage.removeItem("pendingExtraPdfs");
+
+      // Convert data URL to File and load main PDF
       fetch(pendingData)
         .then(res => res.blob())
-        .then(blob => {
+        .then(async (blob) => {
           const file = new File([blob], pendingName, { type: "application/pdf" });
-          handleFileSelect(file);
+          await handleFileSelect(file);
+
+          // If there are extra PDFs to merge, queue them up
+          if (extraPdfsRaw && !extraPdfsMergedRef.current) {
+            extraPdfsMergedRef.current = true;
+            const extras: string[] = JSON.parse(extraPdfsRaw);
+            // We need to wait for the main PDF to be loaded and pdfBytes to be set,
+            // so we store them and handle merging in a separate effect
+            sessionStorage.setItem("_pendingMerge", JSON.stringify(extras));
+          }
         });
     }
   }, [handleFileSelect]);
@@ -423,44 +438,66 @@ export default function EditorPage() {
     }
   }, [pdfBytes]);
 
-  const addPdfPages = useCallback(async (newPdfBytes: Uint8Array, selectedPages: number[]) => {
+  const addPdfPages = useCallback(async (pdfs: Array<{ bytes: Uint8Array; selectedPages: number[] }>) => {
     if (!pdfBytes) return;
-    
+
     try {
-      // Load both PDFs
       const mainPdf = await PDFDocument.load(pdfBytes);
-      const sourcePdf = await PDFDocument.load(newPdfBytes);
-      
-      // Copy selected pages from source to main
-      const pageIndices = selectedPages.map(p => p - 1); // Convert to 0-based
-      const copiedPages = await mainPdf.copyPages(sourcePdf, pageIndices);
-      
-      // Add copied pages to main PDF
-      copiedPages.forEach(page => {
-        mainPdf.addPage(page);
-      });
-      
-      // Save the merged PDF
+
+      for (const { bytes, selectedPages } of pdfs) {
+        const sourcePdf = await PDFDocument.load(bytes);
+        const pageIndices = selectedPages.map(p => p - 1);
+        const copiedPages = await mainPdf.copyPages(sourcePdf, pageIndices);
+        copiedPages.forEach(page => {
+          mainPdf.addPage(page);
+        });
+      }
+
       const mergedBytes = await mainPdf.save();
       const mergedUint8 = new Uint8Array(mergedBytes);
-      
-      // Update state with merged PDF
+
       setPdfBytes(mergedUint8);
-      
-      // Create new URL for the merged PDF
+
       const blob = new Blob([mergedUint8], { type: "application/pdf" });
       const newUrl = URL.createObjectURL(blob);
       setPdfUrl(newUrl);
-      
-      // Update page count and order
+
       const newTotalPages = mainPdf.getPageCount();
       setTotalPages(newTotalPages);
       setPageOrder(Array.from({ length: newTotalPages }, (_, i) => i + 1));
-      
+
     } catch (error) {
       console.error("Error merging PDFs:", error);
       alert("Error adding pages from PDF. Please try again.");
     }
+  }, [pdfBytes]);
+
+  // Merge extra PDFs that were queued from the homepage multi-file upload
+  useEffect(() => {
+    if (!pdfBytes) return;
+    const pendingMerge = sessionStorage.getItem("_pendingMerge");
+    if (!pendingMerge) return;
+    sessionStorage.removeItem("_pendingMerge");
+
+    const extras: string[] = JSON.parse(pendingMerge);
+    (async () => {
+      const pdfs: Array<{ bytes: Uint8Array; selectedPages: number[] }> = [];
+      for (const dataUrl of extras) {
+        const res = await fetch(dataUrl);
+        const buf = await res.arrayBuffer();
+        const bytes = new Uint8Array(buf);
+        const doc = await PDFDocument.load(bytes);
+        const pageCount = doc.getPageCount();
+        pdfs.push({
+          bytes,
+          selectedPages: Array.from({ length: pageCount }, (_, i) => i + 1),
+        });
+      }
+      if (pdfs.length > 0) {
+        addPdfPages(pdfs);
+      }
+    })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pdfBytes]);
 
   const handleImageSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -1035,6 +1072,7 @@ export default function EditorPage() {
               ref={fileInputRef}
               type="file"
               accept=".pdf,application/pdf"
+              multiple
               className="hidden"
               onChange={(e) => e.target.files?.[0] && handleFileSelect(e.target.files[0])}
             />

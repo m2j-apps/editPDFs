@@ -8,21 +8,40 @@ export default function Home() {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileSelect = useCallback((file: File) => {
+  const handleFilesSelect = useCallback((files: FileList) => {
+    if (files.length === 0) return;
+
+    // Read the first file as the main PDF
+    const mainFile = files[0];
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = async (e) => {
       sessionStorage.setItem("pendingPdfData", e.target?.result as string);
-      sessionStorage.setItem("pendingPdfName", file.name);
+      sessionStorage.setItem("pendingPdfName", mainFile.name);
+
+      // If multiple files, store the extras for merging on editor load
+      if (files.length > 1) {
+        const extras: string[] = [];
+        for (let i = 1; i < files.length; i++) {
+          const extraData = await new Promise<string>((resolve) => {
+            const r = new FileReader();
+            r.onload = (ev) => resolve(ev.target?.result as string);
+            r.readAsDataURL(files[i]);
+          });
+          extras.push(extraData);
+        }
+        sessionStorage.setItem("pendingExtraPdfs", JSON.stringify(extras));
+      }
+
       router.push("/editor");
     };
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(mainFile);
   }, [router]);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    if (file) handleFileSelect(file);
-  }, [handleFileSelect]);
+    const files = e.dataTransfer.files;
+    if (files.length > 0) handleFilesSelect(files);
+  }, [handleFilesSelect]);
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -50,20 +69,21 @@ export default function Home() {
           >
             <div className="text-6xl mb-4 group-hover:scale-110 transition-transform">📄</div>
             <h2 className="text-2xl font-semibold text-gray-800 mb-2">
-              Drop your PDF here
+              Drop your PDFs here
             </h2>
             <p className="text-gray-600 mb-6">
-              or click to browse your files
+              or click to browse — select multiple files to merge
             </p>
             <button className="bg-blue-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-blue-700 transition shadow-lg hover:shadow-xl">
-              Select PDF File
+              Select PDF Files
             </button>
             <input
               ref={fileInputRef}
               type="file"
               accept=".pdf,application/pdf"
+              multiple
               className="hidden"
-              onChange={(e) => e.target.files?.[0] && handleFileSelect(e.target.files[0])}
+              onChange={(e) => e.target.files && e.target.files.length > 0 && handleFilesSelect(e.target.files)}
             />
           </div>
 
