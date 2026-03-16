@@ -7,6 +7,7 @@ export const metadata: Metadata = {
     "Learn how to convert PDF to Word for free while keeping formatting intact. Includes troubleshooting and quality tips.",
   keywords:
     "convert pdf to word free, pdf to docx, editable word from pdf, free pdf converter",
+  alternates: { canonical: "https://editpdfs.app/blog/how-to-convert-pdf-to-word-for-free" },
   openGraph: {
     title: "How to Convert PDF to Word for Free",
     description: "Simple steps to convert PDF files into editable Word documents.",
@@ -26,6 +27,7 @@ export default function ArticleLayout({
         description="Learn how to convert PDF to Word for free while keeping formatting intact. Includes troubleshooting and quality tips."
         slug="how-to-convert-pdf-to-word-for-free"
         datePublished="2026-03-09"
+        author="Jen"
       />
       {children}
     </>

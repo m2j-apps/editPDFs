@@ -8,6 +8,7 @@ export const metadata: Metadata = {
     "Learn how to extract images from PDF files online for free. Save photos, graphics, and diagrams from PDFs in their original quality without installing software.",
   keywords:
     "extract images from pdf, pdf image extractor, save images from pdf, get images from pdf, pdf to images free",
+  alternates: { canonical: "https://editpdfs.app/blog/how-to-extract-images-from-pdf" },
   openGraph: {
     title: "How to Extract Images from a PDF for Free (2026 Guide)",
     description:
@@ -28,6 +29,7 @@ export default function ArticleLayout({
         description="Learn how to extract images from PDF files online for free. Save photos, graphics, and diagrams from PDFs in their original quality without installing software."
         slug="how-to-extract-images-from-pdf"
         datePublished="2026-03-16"
+        author="Jen"
       />
       <FaqJsonLd
         questions={[

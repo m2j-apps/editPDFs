@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "How to Fill Out PDF Forms for Free (2026 Guide) | EditPDFs.app",
   description: "Learn how to fill in PDF forms digitally. Complete applications, contracts, and official forms without printing. Free online tool, no signup.",
   keywords: "fill pdf form, fill out pdf, complete pdf form, fillable pdf, pdf form filler free, type in pdf form",
+  alternates: { canonical: "https://editpdfs.app/blog/how-to-fill-pdf-forms" },
   openGraph: {
     title: "How to Fill Out PDF Forms for Free (2026 Guide)",
     description: "Complete PDF forms digitally. No printing needed. Free, private, no signup.",
@@ -25,6 +26,7 @@ export default function ArticleLayout({
         description="Learn how to fill in PDF forms digitally. Complete applications, contracts, and official forms without printing. Free online tool, no signup."
         slug="how-to-fill-pdf-forms"
         datePublished="2026-01-30"
+        author="Jen"
       />
       <FaqJsonLd
         questions={[

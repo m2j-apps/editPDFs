@@ -15,9 +15,9 @@ export default function HowToSplitPdf() {
             How to Split a PDF into Multiple Files for Free (2026 Guide)
           </h1>
           <div className="flex items-center text-gray-500 text-sm">
-            <span>EditPDFs Team</span>
+            <span>Mike</span>
             <span className="mx-2">•</span>
-            <span>February 14, 2026</span>
+            <time dateTime="2026-02-16T07:27:00-05:00">February 14, 2026</time>
             <span className="mx-2">•</span>
             <span>6 min read</span>
           </div>
@@ -80,8 +80,6 @@ export default function HowToSplitPdf() {
             10 separate single-page PDFs. This is useful when you need to process or 
             distribute pages individually.
           </p>
-
-          <AdUnit slot="MIDDLE_BANNER" format="horizontal" className="my-8" />
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
             How to Split a PDF: Step-by-Step

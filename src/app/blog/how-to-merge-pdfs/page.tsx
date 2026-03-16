@@ -15,9 +15,9 @@ export default function HowToMergePdfs() {
             How to Merge PDFs for Free (2026 Guide)
           </h1>
           <div className="flex items-center text-gray-500 text-sm">
-            <span>EditPDFs Team</span>
+            <span>Jen</span>
             <span className="mx-2">•</span>
-            <span>February 2, 2026</span>
+            <time dateTime="2026-01-18T08:15:00-05:00">February 2, 2026</time>
             <span className="mx-2">•</span>
             <span>5 min read</span>
           </div>
@@ -76,8 +76,6 @@ export default function HowToMergePdfs() {
             Your new single PDF file is ready to share or print.
           </p>
 
-          {/* Middle Ad */}
-          <AdUnit slot="MIDDLE_BANNER" format="horizontal" className="my-8" />
 
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 my-8">
             <h3 className="text-xl font-semibold text-blue-900 mb-2">

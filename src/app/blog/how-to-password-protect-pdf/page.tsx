@@ -15,9 +15,9 @@ export default function HowToPasswordProtectPdf() {
             How to Password Protect a PDF for Free (2026 Guide)
           </h1>
           <div className="flex items-center text-gray-500 text-sm">
-            <span>EditPDFs Team</span>
+            <span>Jen</span>
             <span className="mx-2">•</span>
-            <span>February 16, 2026</span>
+            <time dateTime="2026-02-22T08:37:00-05:00">February 16, 2026</time>
             <span className="mx-2">•</span>
             <span>6 min read</span>
           </div>
@@ -97,9 +97,6 @@ export default function HowToPasswordProtectPdf() {
             Save the file and your PDF is now encrypted. Anyone who tries to open it 
             will need the password you set.
           </p>
-
-          {/* Middle Ad */}
-          <AdUnit slot="MIDDLE_BANNER" format="horizontal" className="my-8" />
 
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 my-8">
             <h3 className="text-xl font-semibold text-blue-900 mb-2">

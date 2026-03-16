@@ -11,9 +11,9 @@ export default function BestFreePdfToolsOnline2026() {
           <Link href="/blog" className="text-blue-600 hover:underline mb-4 block">← Back to Blog</Link>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Best Free PDF Tools Online in 2026</h1>
           <div className="flex items-center text-gray-500 text-sm">
-            <span>EditPDFs Team</span>
+            <span>Mike</span>
             <span className="mx-2">•</span>
-            <span>March 9, 2026</span>
+            <time dateTime="2026-03-09T07:33:00-05:00">March 9, 2026</time>
             <span className="mx-2">•</span>
             <span>11 min read</span>
           </div>
@@ -63,8 +63,6 @@ export default function BestFreePdfToolsOnline2026() {
           <p className="text-gray-700 mb-6">
             If your job involves sending packets, applications, or legal bundles, you need reliable page reordering plus quick delete and rotate actions. This is where an integrated editor saves a ton of time compared to one-off mini tools.
           </p>
-
-          <AdUnit slot="MIDDLE_BANNER" format="horizontal" className="my-8" />
 
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 my-8">
             <h3 className="text-xl font-semibold text-blue-900 mb-2">One tab workflow</h3>
@@ -131,6 +129,15 @@ export default function BestFreePdfToolsOnline2026() {
           <p className="text-gray-700 mb-6">
             The best free PDF tool in 2026 is the one that lets you finish the job without surprises. If you want speed, simplicity, and privacy in one place, start with an all-in-one browser editor and keep your workflow in a single tab.
           </p>
+
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
+            Related Guides
+          </h2>
+          <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+            <li><Link href="/blog/how-to-edit-pdf-free" className="text-blue-600 hover:underline">How to Edit a PDF for Free</Link></li>
+            <li><Link href="/blog/how-to-compress-pdf" className="text-blue-600 hover:underline">How to Compress a PDF</Link></li>
+            <li><Link href="/blog/best-free-pdf-editors-compared" className="text-blue-600 hover:underline">Best Free PDF Editors Compared</Link></li>
+          </ul>
         </div>
 
         <AdUnit slot="BOTTOM_BANNER" format="horizontal" className="mt-8" />

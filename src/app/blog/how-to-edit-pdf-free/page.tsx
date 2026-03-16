@@ -15,9 +15,9 @@ export default function HowToEditPdfFree() {
             How to Edit a PDF for Free in 2026
           </h1>
           <div className="flex items-center text-gray-500 text-sm">
-            <span>EditPDFs Team</span>
+            <span>Mike</span>
             <span className="mx-2">•</span>
-            <span>February 1, 2026</span>
+            <time dateTime="2026-01-15T07:23:00-05:00">February 1, 2026</time>
             <span className="mx-2">•</span>
             <span>5 min read</span>
           </div>
@@ -58,8 +58,6 @@ export default function HowToEditPdfFree() {
             one such tool — it&apos;s 100% free, requires no signup, and processes files entirely in your browser.
           </p>
 
-          {/* Middle Ad */}
-          <AdUnit slot="MIDDLE_BANNER" format="horizontal" className="my-8" />
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
             How to Edit a PDF in 3 Simple Steps

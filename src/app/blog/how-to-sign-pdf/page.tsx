@@ -15,9 +15,9 @@ export default function HowToSignPdf() {
             How to Sign a PDF for Free (2026 Guide)
           </h1>
           <div className="flex items-center text-gray-500 text-sm">
-            <span>EditPDFs Team</span>
+            <span>Mike</span>
             <span className="mx-2">•</span>
-            <span>February 3, 2026</span>
+            <time dateTime="2026-01-21T07:45:00-05:00">February 3, 2026</time>
             <span className="mx-2">•</span>
             <span>4 min read</span>
           </div>
@@ -66,8 +66,6 @@ export default function HowToSignPdf() {
             across all your documents.
           </p>
 
-          {/* Middle Ad */}
-          <AdUnit slot="MIDDLE_BANNER" format="horizontal" className="my-8" />
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
             How to Sign a PDF in 4 Simple Steps

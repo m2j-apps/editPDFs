@@ -11,9 +11,9 @@ export default function HowToCompressPdfOnIphone() {
           <Link href="/blog" className="text-blue-600 hover:underline mb-4 block">← Back to Blog</Link>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">How to Compress a PDF on iPhone</h1>
           <div className="flex items-center text-gray-500 text-sm">
-            <span>EditPDFs Team</span>
+            <span>Mike</span>
             <span className="mx-2">•</span>
-            <span>March 9, 2026</span>
+            <time dateTime="2026-03-09T07:42:00-05:00">March 9, 2026</time>
             <span className="mx-2">•</span>
             <span>10 min read</span>
           </div>
@@ -61,8 +61,6 @@ export default function HowToCompressPdfOnIphone() {
           <p className="text-gray-700 mb-6">
             Save the compressed copy back to Files. Then share it by email, upload form, text message, or your cloud drive.
           </p>
-
-          <AdUnit slot="MIDDLE_BANNER" format="horizontal" className="my-8" />
 
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 my-8">
             <h3 className="text-xl font-semibold text-blue-900 mb-2">Quick win</h3>
@@ -150,6 +148,15 @@ export default function HowToCompressPdfOnIphone() {
           <p className="text-gray-700 mb-6">
             For most users, a quick pass through compression plus a page cleanup is enough to get under upload limits. Once you do it a couple times, it becomes a 2 minute routine.
           </p>
+
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
+            Related Guides
+          </h2>
+          <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+            <li><Link href="/blog/how-to-reduce-pdf-file-size" className="text-blue-600 hover:underline">How to Reduce PDF File Size Without Losing Quality</Link></li>
+            <li><Link href="/blog/how-to-compress-pdf" className="text-blue-600 hover:underline">How to Compress a PDF</Link></li>
+            <li><Link href="/blog/how-to-merge-pdfs" className="text-blue-600 hover:underline">How to Merge PDFs</Link></li>
+          </ul>
         </div>
 
         <AdUnit slot="BOTTOM_BANNER" format="horizontal" className="mt-8" />

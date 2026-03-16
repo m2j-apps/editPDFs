@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "How to Reorder PDF Pages for Free (2026 Guide) | EditPDFs.app",
   description: "Learn how to rearrange pages in a PDF document. Drag and drop to change page order instantly. Free online tool, no signup required.",
   keywords: "reorder pdf pages, rearrange pdf pages, change pdf page order, move pages in pdf, reorganize pdf free",
+  alternates: { canonical: "https://editpdfs.app/blog/how-to-reorder-pdf-pages" },
   openGraph: {
     title: "How to Reorder PDF Pages for Free (2026 Guide)",
     description: "Rearrange PDF pages with simple drag and drop. Free, private, no signup.",

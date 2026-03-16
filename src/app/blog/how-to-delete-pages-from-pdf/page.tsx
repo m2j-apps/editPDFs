@@ -15,9 +15,9 @@ export default function HowToDeletePagesFromPdf() {
             How to Delete Pages from a PDF for Free (2026 Guide)
           </h1>
           <div className="flex items-center text-gray-500 text-sm">
-            <span>EditPDFs Team</span>
+            <span>Jen</span>
             <span className="mx-2">•</span>
-            <span>February 14, 2026</span>
+            <time dateTime="2026-02-10T08:20:00-05:00">February 14, 2026</time>
             <span className="mx-2">•</span>
             <span>4 min read</span>
           </div>
@@ -78,8 +78,6 @@ export default function HowToDeletePagesFromPdf() {
             Click the delete button to remove the selected pages, then download your 
             updated PDF.
           </p>
-
-          <AdUnit slot="MIDDLE_BANNER" format="horizontal" className="my-8" />
 
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 my-8">
             <h3 className="text-xl font-semibold text-blue-900 mb-2">

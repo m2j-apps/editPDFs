@@ -4,12 +4,14 @@ export default function ArticleJsonLd({
   slug,
   datePublished,
   dateModified,
+  author = "Mike",
 }: {
   title: string;
   description: string;
   slug: string;
   datePublished: string;
   dateModified?: string;
+  author?: string;
 }) {
   const jsonLd = {
     "@context": "https://schema.org",
@@ -17,9 +19,8 @@ export default function ArticleJsonLd({
     headline: title,
     description: description,
     author: {
-      "@type": "Organization",
-      name: "EditPDFs Team",
-      url: "https://editpdfs.app/about",
+      "@type": "Person",
+      name: author,
     },
     publisher: {
       "@type": "Organization",

@@ -7,6 +7,7 @@ export const metadata: Metadata = {
     "Learn what flattening a PDF does, when to use it, and how to create a final non-editable copy that displays correctly across devices.",
   keywords:
     "flatten pdf, how to flatten pdf, make pdf non editable, lock pdf form fields, flatten annotations pdf",
+  alternates: { canonical: "https://editpdfs.app/blog/how-to-flatten-pdf" },
   openGraph: {
     title: "How to Flatten a PDF (Step-by-Step)",
     description:

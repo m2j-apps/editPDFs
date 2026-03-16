@@ -15,9 +15,9 @@ export default function HowToReducePdfFileSize() {
             How to Reduce PDF File Size Without Losing Quality (2026 Guide)
           </h1>
           <div className="flex items-center text-gray-500 text-sm">
-            <span>EditPDFs Team</span>
+            <span>Jen</span>
             <span className="mx-2">&bull;</span>
-            <span>March 9, 2026</span>
+            <time dateTime="2026-03-09T08:25:00-05:00">March 9, 2026</time>
             <span className="mx-2">&bull;</span>
             <span>7 min read</span>
           </div>
@@ -78,8 +78,6 @@ export default function HowToReducePdfFileSize() {
             Save the smaller file and use it wherever you need &mdash; email attachments,
             form submissions, cloud storage, or your website.
           </p>
-
-          <AdUnit slot="MIDDLE_BANNER" format="horizontal" className="my-8" />
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
             5 Tips to Reduce PDF Size Without Losing Quality

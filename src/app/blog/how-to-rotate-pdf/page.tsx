@@ -15,9 +15,9 @@ export default function HowToRotatePdf() {
             How to Rotate PDF Pages for Free (2026 Guide)
           </h1>
           <div className="flex items-center text-gray-500 text-sm">
-            <span>EditPDFs Team</span>
+            <span>Jen</span>
             <span className="mx-2">•</span>
-            <span>February 14, 2026</span>
+            <time dateTime="2026-02-14T08:41:00-05:00">February 14, 2026</time>
             <span className="mx-2">•</span>
             <span>5 min read</span>
           </div>
@@ -74,8 +74,6 @@ export default function HowToRotatePdf() {
             Flips the page completely upside down. Use this when a page is completely 
             inverted — text readable but upside down.
           </p>
-
-          <AdUnit slot="MIDDLE_BANNER" format="horizontal" className="my-8" />
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
             How to Rotate PDF Pages: Step-by-Step

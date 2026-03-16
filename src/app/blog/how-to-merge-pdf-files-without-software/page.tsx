@@ -11,9 +11,9 @@ export default function HowToMergePdfFilesWithoutSoftware() {
           <Link href="/blog" className="text-blue-600 hover:underline mb-4 block">← Back to Blog</Link>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">How to Merge PDF Files Without Software</h1>
           <div className="flex items-center text-gray-500 text-sm">
-            <span>EditPDFs Team</span>
+            <span>Jen</span>
             <span className="mx-2">•</span>
-            <span>March 9, 2026</span>
+            <time dateTime="2026-03-09T08:51:00-05:00">March 9, 2026</time>
             <span className="mx-2">•</span>
             <span>9 min read</span>
           </div>
@@ -60,8 +60,6 @@ export default function HowToMergePdfFilesWithoutSoftware() {
 
           <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Step 6: Download final merged file</h3>
           <p className="text-gray-700 mb-6">Export once and name the file clearly, for example client-intake-packet-final.pdf.</p>
-
-          <AdUnit slot="MIDDLE_BANNER" format="horizontal" className="my-8" />
 
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 my-8">
             <h3 className="text-xl font-semibold text-blue-900 mb-2">Order first, export once</h3>
@@ -127,6 +125,15 @@ export default function HowToMergePdfFilesWithoutSoftware() {
           <p className="text-gray-700 mb-6">
             If all you need is one clean combined PDF, browser merging is usually the fastest and most practical path.
           </p>
+
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
+            Related Guides
+          </h2>
+          <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+            <li><Link href="/blog/how-to-merge-pdfs" className="text-blue-600 hover:underline">How to Merge PDFs</Link></li>
+            <li><Link href="/blog/how-to-reorder-pdf-pages" className="text-blue-600 hover:underline">How to Reorder PDF Pages</Link></li>
+            <li><Link href="/blog/how-to-split-pdf" className="text-blue-600 hover:underline">How to Split a PDF</Link></li>
+          </ul>
         </div>
 
         <AdUnit slot="BOTTOM_BANNER" format="horizontal" className="mt-8" />

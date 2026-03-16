@@ -15,9 +15,9 @@ export default function HowToCompressPdf() {
             How to Compress PDF Files for Free (2026 Guide)
           </h1>
           <div className="flex items-center text-gray-500 text-sm">
-            <span>EditPDFs Team</span>
+            <span>Jen</span>
             <span className="mx-2">•</span>
-            <span>February 9, 2026</span>
+            <time dateTime="2026-01-24T08:32:00-05:00">February 9, 2026</time>
             <span className="mx-2">•</span>
             <span>5 min read</span>
           </div>
@@ -89,8 +89,6 @@ export default function HowToCompressPdf() {
             removes redundant data and optimizes the structure.
           </p>
 
-          {/* Middle Ad */}
-          <AdUnit slot="MIDDLE_BANNER" format="horizontal" className="my-8" />
 
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 my-8">
             <h3 className="text-xl font-semibold text-blue-900 mb-2">

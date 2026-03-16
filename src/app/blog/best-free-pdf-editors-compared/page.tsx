@@ -15,9 +15,9 @@ export default function BestFreePdfEditorsCompared() {
             Best Free PDF Editors Compared (2026)
           </h1>
           <div className="flex items-center text-gray-500 text-sm">
-            <span>EditPDFs Team</span>
+            <span>Mike</span>
             <span className="mx-2">•</span>
-            <span>February 14, 2026</span>
+            <time dateTime="2026-02-20T07:55:00-05:00">February 14, 2026</time>
             <span className="mx-2">•</span>
             <span>8 min read</span>
           </div>
@@ -75,8 +75,6 @@ export default function BestFreePdfEditorsCompared() {
             <li>Requires modern browser</li>
             <li>Very large files may be slower (depends on device)</li>
           </ul>
-
-          <AdUnit slot="MIDDLE_BANNER" format="horizontal" className="my-8" />
 
           <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
             2. Adobe Acrobat Online

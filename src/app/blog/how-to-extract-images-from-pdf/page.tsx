@@ -10,7 +10,7 @@ export default function HowToExtractImagesFromPdf() {
   return (
     <article className="prose lg:prose-xl mx-auto">
       <h1>How to Extract Images from a PDF for Free (2026 Guide)</h1>
-      <p className="text-sm text-gray-500">EditPDFs Team &middot; March 16, 2026 &middot; 11 min read</p>
+      <p className="text-sm text-gray-500">Jen &middot; <time dateTime="2026-03-16T08:44:00-05:00">March 16, 2026</time> &middot; 11 min read</p>
       <p>
         Need to save a photo, logo, diagram, or graphic from a PDF file? Extracting images from PDFs is easier than you think.
         Whether you're working on a project, creating a presentation, or just want to reuse an image, you can extract PDF images
@@ -80,8 +80,6 @@ export default function HowToExtractImagesFromPdf() {
       <p>
         This approach ensures your documents remain private and secure while still giving you access to the images you need.
       </p>
-
-      <AdUnit slot="MIDDLE_BANNER" format="horizontal" className="my-8" />
 
       <h2>Common Use Cases for Extracted PDF Images</h2>
       <p>
@@ -161,6 +159,14 @@ export default function HowToExtractImagesFromPdf() {
       <p>
         Ready to extract images from your PDF? <a href="/">Try our free PDF image extractor</a> and get started in just a few clicks.
       </p>
+
+      <h2>Related Guides</h2>
+      <ul>
+        <li><a href="/blog/how-to-add-images-to-pdf">How to Add Images to a PDF</a></li>
+        <li><a href="/blog/how-to-compress-pdf">How to Compress a PDF</a></li>
+        <li><a href="/blog/how-to-edit-pdf-free">How to Edit a PDF for Free</a></li>
+      </ul>
+
       <AdUnit slot="BOTTOM_BANNER" format="horizontal" className="mt-8" />
     </article>
   );

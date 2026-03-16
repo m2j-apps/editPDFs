@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "How to Compress PDF Files for Free (2026 Guide) | EditPDFs.app",
   description: "Learn how to reduce PDF file size for free. Compress PDFs without quality loss. No account required, completely private — files never leave your browser.",
   keywords: "compress pdf, reduce pdf size, shrink pdf, compress pdf free, pdf compressor online, make pdf smaller",
+  alternates: { canonical: "https://editpdfs.app/blog/how-to-compress-pdf" },
   openGraph: {
     title: "How to Compress PDF Files for Free (2026 Guide)",
     description: "Reduce PDF file size in seconds. Free, private, no signup required.",
@@ -25,6 +26,7 @@ export default function ArticleLayout({
         description="Learn how to reduce PDF file size for free. Compress PDFs without quality loss. No account required, completely private — files never leave your browser."
         slug="how-to-compress-pdf"
         datePublished="2026-01-24"
+        author="Jen"
       />
       <FaqJsonLd
         questions={[

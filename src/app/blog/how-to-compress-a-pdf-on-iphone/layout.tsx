@@ -7,6 +7,7 @@ export const metadata: Metadata = {
     "Learn multiple ways to compress PDF files on iPhone, including browser tools, Files app workflows, and quality tips.",
   keywords:
     "compress pdf on iphone, reduce pdf size iphone, iphone pdf compressor, shrink pdf ios",
+  alternates: { canonical: "https://editpdfs.app/blog/how-to-compress-a-pdf-on-iphone" },
   openGraph: {
     title: "How to Compress a PDF on iPhone",
     description:

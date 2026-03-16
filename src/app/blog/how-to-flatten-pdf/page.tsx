@@ -15,9 +15,9 @@ export default function HowToFlattenPdf() {
             How to Flatten a PDF (What It Does, When to Use It, and Step-by-Step)
           </h1>
           <div className="flex items-center text-gray-500 text-sm">
-            <span>EditPDFs Team</span>
+            <span>Mike</span>
             <span className="mx-2">•</span>
-            <span>March 12, 2026</span>
+            <time dateTime="2026-03-12T07:15:00-05:00">March 12, 2026</time>
             <span className="mx-2">•</span>
             <span>9 min read</span>
           </div>
@@ -98,8 +98,6 @@ export default function HowToFlattenPdf() {
             Reopen the downloaded PDF and click on previously editable fields. They should no longer be editable.
             Check one desktop and one mobile viewer when possible.
           </p>
-
-          <AdUnit slot="MIDDLE_BANNER" format="horizontal" className="my-8" />
 
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 my-8">
             <h3 className="text-xl font-semibold text-blue-900 mb-2">Best practice</h3>

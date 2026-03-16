@@ -15,9 +15,9 @@ export default function HowToAnnotatePdf() {
             How to Annotate a PDF for Free (2026 Guide)
           </h1>
           <div className="flex items-center text-gray-500 text-sm">
-            <span>EditPDFs Team</span>
+            <span>Mike</span>
             <span className="mx-2">•</span>
-            <span>February 14, 2026</span>
+            <time dateTime="2026-02-02T07:36:00-05:00">February 14, 2026</time>
             <span className="mx-2">•</span>
             <span>5 min read</span>
           </div>
@@ -94,8 +94,6 @@ export default function HowToAnnotatePdf() {
             Save your annotated document. All annotations are embedded in the PDF and 
             will be visible in any PDF reader.
           </p>
-
-          <AdUnit slot="MIDDLE_BANNER" format="horizontal" className="my-8" />
 
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 my-8">
             <h3 className="text-xl font-semibold text-blue-900 mb-2">

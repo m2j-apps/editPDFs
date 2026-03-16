@@ -10,6 +10,7 @@ const posts = [
     excerpt: "Merge multiple PDFs from your browser with no installation. Includes ordering, cleanup, and privacy tips.",
     date: "2026-03-09",
     readTime: "9 min read",
+    author: "Jen",
   },
   {
     slug: "best-free-pdf-tools-online-2026",
@@ -17,6 +18,7 @@ const posts = [
     excerpt: "The best free tools for merge, split, compress, sign, and edit tasks, plus what to avoid.",
     date: "2026-03-09",
     readTime: "11 min read",
+    author: "Mike",
   },
   {
     slug: "how-to-convert-pdf-to-word-for-free",
@@ -24,6 +26,7 @@ const posts = [
     excerpt: "Turn PDFs into editable Word files for free with practical fixes for formatting issues.",
     date: "2026-03-09",
     readTime: "10 min read",
+    author: "Jen",
   },
   {
     slug: "how-to-compress-a-pdf-on-iphone",
@@ -31,6 +34,7 @@ const posts = [
     excerpt: "Shrink large PDF files on iPhone so they upload and email easily, without installing extra apps.",
     date: "2026-03-09",
     readTime: "10 min read",
+    author: "Mike",
   },
   {
     slug: "how-to-reduce-pdf-file-size",
@@ -38,13 +42,15 @@ const posts = [
     excerpt: "Shrink large PDFs for email, uploads, and sharing without blurry images or broken formatting. Free and private.",
     date: "2026-03-09",
     readTime: "7 min read",
+    author: "Jen",
   },
   {
     slug: "how-to-flatten-pdf",
     title: "How to Flatten a PDF (What It Does, When to Use It, and Step-by-Step)",
-    excerpt: "Flatten forms, signatures, and annotations so your PDF displays consistently and can’t be accidentally edited.",
+    excerpt: "Flatten forms, signatures, and annotations so your PDF displays consistently and can't be accidentally edited.",
     date: "2026-03-12",
     readTime: "9 min read",
+    author: "Mike",
   },
   {
     slug: "how-to-extract-images-from-pdf",
@@ -52,6 +58,7 @@ const posts = [
     excerpt: "Learn how to extract images from PDF files online for free. Save photos, graphics, and diagrams from PDFs in their original quality without installing software.",
     date: "2026-03-16",
     readTime: "11 min read",
+    author: "Jen",
   },
   {
     slug: "how-to-remove-password-from-pdf",
@@ -59,6 +66,7 @@ const posts = [
     excerpt: "Remove password protection from a PDF in seconds if you know the current password. Free and private.",
     date: "2026-02-25",
     readTime: "5 min read",
+    author: "Mike",
   },
   {
     slug: "how-to-password-protect-pdf",
@@ -66,6 +74,7 @@ const posts = [
     excerpt: "Add password protection to secure sensitive documents. Free, private, no signup required.",
     date: "2026-02-22",
     readTime: "6 min read",
+    author: "Jen",
   },
   {
     slug: "best-free-pdf-editors-compared",
@@ -73,6 +82,7 @@ const posts = [
     excerpt: "We tested the top free PDF editors to help you find the right one. Honest comparison of features, privacy, and limitations.",
     date: "2026-02-20",
     readTime: "8 min read",
+    author: "Mike",
   },
   {
     slug: "pdf-vs-docx-when-to-use",
@@ -80,6 +90,7 @@ const posts = [
     excerpt: "Confused about whether to send a PDF or Word document? Here's a complete guide to choosing the right format.",
     date: "2026-02-18",
     readTime: "7 min read",
+    author: "Jen",
   },
   {
     slug: "how-to-split-pdf",
@@ -87,6 +98,7 @@ const posts = [
     excerpt: "Extract specific pages, split by ranges, or separate every page. Free, private, no signup required.",
     date: "2026-02-16",
     readTime: "6 min read",
+    author: "Mike",
   },
   {
     slug: "how-to-rotate-pdf",
@@ -94,6 +106,7 @@ const posts = [
     excerpt: "Fix sideways or upside-down pages instantly. Rotate 90 or 180 degrees with a single click.",
     date: "2026-02-14",
     readTime: "5 min read",
+    author: "Jen",
   },
   {
     slug: "how-to-add-text-to-pdf",
@@ -101,6 +114,7 @@ const posts = [
     excerpt: "Insert text anywhere in your PDF. Fill forms, add labels, or include notes - completely free.",
     date: "2026-02-12",
     readTime: "5 min read",
+    author: "Mike",
   },
   {
     slug: "how-to-delete-pages-from-pdf",
@@ -108,6 +122,7 @@ const posts = [
     excerpt: "Remove unwanted pages from any PDF in seconds. Delete blank pages, sensitive content, or irrelevant sections.",
     date: "2026-02-10",
     readTime: "4 min read",
+    author: "Jen",
   },
   {
     slug: "how-to-reorder-pdf-pages",
@@ -115,6 +130,7 @@ const posts = [
     excerpt: "Rearrange pages in your PDF with simple drag and drop. Fix page order in seconds.",
     date: "2026-02-07",
     readTime: "4 min read",
+    author: "Mike",
   },
   {
     slug: "how-to-add-images-to-pdf",
@@ -122,6 +138,7 @@ const posts = [
     excerpt: "Insert photos, logos, and diagrams into any PDF. Position and resize anywhere on the page.",
     date: "2026-02-05",
     readTime: "5 min read",
+    author: "Jen",
   },
   {
     slug: "how-to-annotate-pdf",
@@ -129,6 +146,7 @@ const posts = [
     excerpt: "Highlight, underline, and add notes to PDFs. Mark up documents for review, study, or collaboration.",
     date: "2026-02-02",
     readTime: "5 min read",
+    author: "Mike",
   },
   {
     slug: "how-to-fill-pdf-forms",
@@ -136,6 +154,7 @@ const posts = [
     excerpt: "Complete PDF forms digitally without printing. Fill applications, contracts, and official forms online.",
     date: "2026-01-30",
     readTime: "5 min read",
+    author: "Jen",
   },
   {
     slug: "how-to-convert-pdf-to-word",
@@ -143,6 +162,7 @@ const posts = [
     excerpt: "Convert PDFs to editable Word documents. Tips for getting the best conversion results.",
     date: "2026-01-27",
     readTime: "6 min read",
+    author: "Mike",
   },
   {
     slug: "how-to-compress-pdf",
@@ -150,6 +170,7 @@ const posts = [
     excerpt: "Reduce PDF file size in seconds. No quality loss, no uploads to servers - completely free and private.",
     date: "2026-01-24",
     readTime: "5 min read",
+    author: "Jen",
   },
   {
     slug: "how-to-sign-pdf",
@@ -157,6 +178,7 @@ const posts = [
     excerpt: "Add your signature to any PDF in seconds. Draw, type, or upload - completely free and private.",
     date: "2026-01-21",
     readTime: "4 min read",
+    author: "Mike",
   },
   {
     slug: "how-to-merge-pdfs",
@@ -164,6 +186,7 @@ const posts = [
     excerpt: "Combine multiple PDF files into one document in seconds. Drag, drop, reorder - completely free and private.",
     date: "2026-01-18",
     readTime: "5 min read",
+    author: "Jen",
   },
   {
     slug: "how-to-edit-pdf-free",
@@ -171,6 +194,7 @@ const posts = [
     excerpt: "Learn how to edit PDF files without paying for expensive software. No signup, no watermarks, no limits.",
     date: "2026-01-15",
     readTime: "5 min read",
+    author: "Mike",
   },
 ];
 
@@ -196,15 +220,15 @@ export default function BlogPage() {
                 </Link>
                 <p className="text-gray-600 mb-4">{post.excerpt}</p>
                 <div className="flex items-center text-sm text-gray-500">
-                  <span>EditPDFs Team</span>
-                  <span className="mx-2">•</span>
-                  <span>{post.date}</span>
-                  <span className="mx-2">•</span>
+                  <span>{post.author}</span>
+                  <span className="mx-2">&bull;</span>
+                  <time dateTime={post.date}>{post.date}</time>
+                  <span className="mx-2">&bull;</span>
                   <span>{post.readTime}</span>
                 </div>
               </article>
 
-              {(index + 1) % 4 === 0 && index < posts.length - 1 && (
+              {(index + 1) % 5 === 0 && index < posts.length - 1 && (
                 <div className="mt-8">
                   <AdUnit slot="MIDDLE_BANNER" format="horizontal" />
                 </div>

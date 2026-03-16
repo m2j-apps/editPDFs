@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "PDF vs Word (DOCX): When to Use Each Format (2026 Guide) | EditPDFs.app",
   description: "Learn when to use PDF vs Word documents. Understand the differences, advantages, and best use cases for each file format.",
   keywords: "pdf vs word, pdf vs docx, when to use pdf, pdf or word document, file format comparison",
+  alternates: { canonical: "https://editpdfs.app/blog/pdf-vs-docx-when-to-use" },
   openGraph: {
     title: "PDF vs Word (DOCX): When to Use Each Format",
     description: "Understand when to use PDF vs Word. Best practices for choosing the right format.",
@@ -25,6 +26,7 @@ export default function ArticleLayout({
         description="Learn when to use PDF vs Word documents. Understand the differences, advantages, and best use cases for each file format."
         slug="pdf-vs-docx-when-to-use"
         datePublished="2026-02-18"
+        author="Jen"
       />
       <FaqJsonLd
         questions={[

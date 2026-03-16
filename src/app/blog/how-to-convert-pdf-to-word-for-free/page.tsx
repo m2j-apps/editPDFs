@@ -11,9 +11,9 @@ export default function HowToConvertPdfToWordForFree() {
           <Link href="/blog" className="text-blue-600 hover:underline mb-4 block">← Back to Blog</Link>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">How to Convert PDF to Word for Free</h1>
           <div className="flex items-center text-gray-500 text-sm">
-            <span>EditPDFs Team</span>
+            <span>Jen</span>
             <span className="mx-2">•</span>
-            <span>March 9, 2026</span>
+            <time dateTime="2026-03-09T08:08:00-05:00">March 9, 2026</time>
             <span className="mx-2">•</span>
             <span>10 min read</span>
           </div>
@@ -60,8 +60,6 @@ export default function HowToConvertPdfToWordForFree() {
           <p className="text-gray-700 mb-6">
             Once edits are done, keep both versions: the original PDF and the updated Word file. If needed, export back to PDF for sharing.
           </p>
-
-          <AdUnit slot="MIDDLE_BANNER" format="horizontal" className="my-8" />
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">What Affects Conversion Quality</h2>
           <p className="text-gray-700 mb-4">Not every PDF is built the same. These factors matter most:</p>
@@ -132,6 +130,15 @@ export default function HowToConvertPdfToWordForFree() {
           <p className="text-gray-700 mb-6">
             Converting PDF to Word for free is one of the easiest ways to recover edit control over locked-looking files. Use a tool that respects privacy, do a quick formatting pass, and keep the original PDF as your backup source.
           </p>
+
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
+            Related Guides
+          </h2>
+          <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+            <li><Link href="/blog/how-to-convert-pdf-to-word" className="text-blue-600 hover:underline">How to Convert PDF to Word</Link></li>
+            <li><Link href="/blog/pdf-vs-docx-when-to-use" className="text-blue-600 hover:underline">PDF vs DOCX: When to Use Each Format</Link></li>
+            <li><Link href="/blog/how-to-edit-pdf-free" className="text-blue-600 hover:underline">How to Edit a PDF for Free</Link></li>
+          </ul>
         </div>
 
         <AdUnit slot="BOTTOM_BANNER" format="horizontal" className="mt-8" />
