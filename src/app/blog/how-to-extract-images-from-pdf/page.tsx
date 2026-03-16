@@ -1,4 +1,5 @@
 import Image from "next/image";
+import AdUnit from "@/components/AdUnit";
 
 export const metadata = {
   title: "How to Extract Images from a PDF for Free (2026 Guide)",
@@ -28,6 +29,8 @@ export default function HowToExtractImagesFromPdf() {
         <li>Getting product images from catalogs or spec sheets</li>
         <li>Recovering images when you only have the PDF version</li>
       </ul>
+
+      <AdUnit slot="TOP_BANNER" format="horizontal" className="mb-8" />
 
       <h2>How to Extract Images from a PDF Online</h2>
       <p>
@@ -77,6 +80,8 @@ export default function HowToExtractImagesFromPdf() {
       <p>
         This approach ensures your documents remain private and secure while still giving you access to the images you need.
       </p>
+
+      <AdUnit slot="MIDDLE_BANNER" format="horizontal" className="my-8" />
 
       <h2>Common Use Cases for Extracted PDF Images</h2>
       <p>
@@ -156,6 +161,7 @@ export default function HowToExtractImagesFromPdf() {
       <p>
         Ready to extract images from your PDF? <a href="/">Try our free PDF image extractor</a> and get started in just a few clicks.
       </p>
+      <AdUnit slot="BOTTOM_BANNER" format="horizontal" className="mt-8" />
     </article>
   );
 }
