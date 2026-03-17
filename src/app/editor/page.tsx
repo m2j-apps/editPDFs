@@ -7,6 +7,7 @@ import { Download, ZoomIn, ZoomOut } from "lucide-react";
 // No ads in editor - ads are on homepage only
 import Toolbar from "@/components/editor/Toolbar";
 import FindReplaceModal from "@/components/editor/FindReplaceModal";
+import { getPendingPdf } from "@/lib/pdfStore";
 
 const AddPagesModal = dynamic(() => import("@/components/editor/AddPagesModal"), {
   ssr: false,
@@ -216,35 +217,17 @@ export default function EditorPage() {
 
   // Ref to track whether extra PDFs have been merged (prevents double-merge in strict mode)
   const extraPdfsMergedRef = useRef(false);
+  // Ref to store extra files for merging after main PDF loads
+  const pendingExtraFilesRef = useRef<File[]>([]);
 
-  // Check for pending PDF from homepage
+  // Check for pending PDF from homepage (in-memory store, no size limits)
   useEffect(() => {
-    const pendingData = sessionStorage.getItem("pendingPdfData");
-    const pendingName = sessionStorage.getItem("pendingPdfName");
-
-    if (pendingData && pendingName) {
-      sessionStorage.removeItem("pendingPdfData");
-      sessionStorage.removeItem("pendingPdfName");
-
-      const extraPdfsRaw = sessionStorage.getItem("pendingExtraPdfs");
-      sessionStorage.removeItem("pendingExtraPdfs");
-
-      // Convert data URL to File and load main PDF
-      fetch(pendingData)
-        .then(res => res.blob())
-        .then(async (blob) => {
-          const file = new File([blob], pendingName, { type: "application/pdf" });
-          await handleFileSelect(file);
-
-          // If there are extra PDFs to merge, queue them up
-          if (extraPdfsRaw && !extraPdfsMergedRef.current) {
-            extraPdfsMergedRef.current = true;
-            const extras: string[] = JSON.parse(extraPdfsRaw);
-            // We need to wait for the main PDF to be loaded and pdfBytes to be set,
-            // so we store them and handle merging in a separate effect
-            sessionStorage.setItem("_pendingMerge", JSON.stringify(extras));
-          }
-        });
+    const { file, extras } = getPendingPdf();
+    if (file) {
+      handleFileSelect(file);
+      if (extras.length > 0) {
+        pendingExtraFilesRef.current = extras;
+      }
     }
   }, [handleFileSelect]);
 
@@ -475,16 +458,17 @@ export default function EditorPage() {
   // Merge extra PDFs that were queued from the homepage multi-file upload
   useEffect(() => {
     if (!pdfBytes) return;
-    const pendingMerge = sessionStorage.getItem("_pendingMerge");
-    if (!pendingMerge) return;
-    sessionStorage.removeItem("_pendingMerge");
+    if (pendingExtraFilesRef.current.length === 0) return;
+    if (extraPdfsMergedRef.current) return;
+    extraPdfsMergedRef.current = true;
 
-    const extras: string[] = JSON.parse(pendingMerge);
+    const extraFiles = pendingExtraFilesRef.current;
+    pendingExtraFilesRef.current = [];
+
     (async () => {
       const pdfs: Array<{ bytes: Uint8Array; selectedPages: number[] }> = [];
-      for (const dataUrl of extras) {
-        const res = await fetch(dataUrl);
-        const buf = await res.arrayBuffer();
+      for (const file of extraFiles) {
+        const buf = await file.arrayBuffer();
         const bytes = new Uint8Array(buf);
         const doc = await PDFDocument.load(bytes);
         const pageCount = doc.getPageCount();

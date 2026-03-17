@@ -3,6 +3,7 @@
 import { useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import AdUnit from "@/components/AdUnit";
+import { setPendingPdf } from "@/lib/pdfStore";
 
 export default function Home() {
   const router = useRouter();
@@ -11,30 +12,10 @@ export default function Home() {
   const handleFilesSelect = useCallback((files: FileList) => {
     if (files.length === 0) return;
 
-    // Read the first file as the main PDF
     const mainFile = files[0];
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      sessionStorage.setItem("pendingPdfData", e.target?.result as string);
-      sessionStorage.setItem("pendingPdfName", mainFile.name);
-
-      // If multiple files, store the extras for merging on editor load
-      if (files.length > 1) {
-        const extras: string[] = [];
-        for (let i = 1; i < files.length; i++) {
-          const extraData = await new Promise<string>((resolve) => {
-            const r = new FileReader();
-            r.onload = (ev) => resolve(ev.target?.result as string);
-            r.readAsDataURL(files[i]);
-          });
-          extras.push(extraData);
-        }
-        sessionStorage.setItem("pendingExtraPdfs", JSON.stringify(extras));
-      }
-
-      router.push("/editor");
-    };
-    reader.readAsDataURL(mainFile);
+    const extras = Array.from(files).slice(1);
+    setPendingPdf(mainFile, extras);
+    router.push("/editor");
   }, [router]);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
