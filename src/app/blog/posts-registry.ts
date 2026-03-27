@@ -59,15 +59,6 @@ export const posts: BlogPost[] = [
     author: "Mike",
   },
   {
-    slug: "how-to-convert-pdf-to-word-for-free",
-    title: "How to Convert PDF to Word for Free",
-    excerpt:
-      "Turn PDFs into editable Word files for free with practical fixes for formatting issues.",
-    date: "2026-03-09",
-    readTime: "10 min read",
-    author: "Jen",
-  },
-  {
     slug: "how-to-compress-a-pdf-on-iphone",
     title: "How to Compress a PDF on iPhone",
     excerpt:
