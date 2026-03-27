@@ -53,6 +53,14 @@ const posts = [
     author: "Mike",
   },
   {
+    slug: "how-to-convert-images-to-pdf",
+    title: "How to Convert Images to PDF for Free (2026 Guide)",
+    excerpt: "Learn how to convert JPG, PNG, and other images to PDF online for free. Combine multiple photos into one PDF or convert a single image — no software needed.",
+    date: "2026-03-23",
+    readTime: "9 min read",
+    author: "Jen",
+  },
+  {
     slug: "how-to-extract-images-from-pdf",
     title: "How to Extract Images from a PDF for Free (2026 Guide)",
     excerpt: "Learn how to extract images from PDF files online for free. Save photos, graphics, and diagrams from PDFs in their original quality without installing software.",
