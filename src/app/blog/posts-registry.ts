@@ -14,6 +14,51 @@ export interface BlogPost {
 
 export const posts: BlogPost[] = [
   {
+    slug: "how-to-convert-pdf-to-excel",
+    title: "How to Convert PDF to Excel for Free (2026 Guide)",
+    excerpt:
+      "Extract tables and data from PDFs into editable Excel spreadsheets. Free, private, no retyping required.",
+    date: "2026-03-28",
+    readTime: "10 min read",
+    author: "Jen",
+  },
+  {
+    slug: "how-to-add-watermark-to-pdf",
+    title: "How to Add a Watermark to a PDF for Free",
+    excerpt:
+      "Stamp PDFs with text or image watermarks. Mark documents as Draft, Confidential, or add your logo — no software needed.",
+    date: "2026-03-28",
+    readTime: "7 min read",
+    author: "Mike",
+  },
+  {
+    slug: "how-to-redact-pdf",
+    title: "How to Redact a PDF: Remove Sensitive Information Safely",
+    excerpt:
+      "Permanently remove sensitive text, images, and data from PDFs before sharing. Free, browser-based, no software needed.",
+    date: "2026-03-28",
+    readTime: "9 min read",
+    author: "Jen",
+  },
+  {
+    slug: "how-to-create-fillable-pdf-forms",
+    title: "How to Create a Fillable PDF Form for Free",
+    excerpt:
+      "Build interactive PDF forms with text fields, checkboxes, and signatures. No Adobe Acrobat or software needed.",
+    date: "2026-03-28",
+    readTime: "9 min read",
+    author: "Mike",
+  },
+  {
+    slug: "how-to-make-pdf-searchable",
+    title: "How to Make a PDF Searchable (OCR Guide)",
+    excerpt:
+      "Convert scanned PDFs into searchable, selectable-text documents using OCR. Free, private, works on any device.",
+    date: "2026-03-28",
+    readTime: "8 min read",
+    author: "Jen",
+  },
+  {
     slug: "how-to-convert-images-to-pdf",
     title: "How to Convert Images to PDF for Free (2026 Guide)",
     excerpt:

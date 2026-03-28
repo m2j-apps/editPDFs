@@ -1,10 +1,4 @@
-import Image from "next/image";
 import AdUnit from "@/components/AdUnit";
-
-export const metadata = {
-  title: "How to Convert Images to PDF for Free (2026 Guide)",
-  description: "Learn how to convert JPG, PNG, and other images to PDF online for free. Combine multiple photos into one PDF or convert a single image — no software needed.",
-};
 
 export default function HowToConvertImagesToPdf() {
   return (
