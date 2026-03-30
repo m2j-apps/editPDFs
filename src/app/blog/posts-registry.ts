@@ -14,6 +14,15 @@ export interface BlogPost {
 
 export const posts: BlogPost[] = [
   {
+    slug: "pdf-accessibility-screen-reader",
+    title: "PDF Accessibility: Making PDFs Screen Reader Friendly",
+    excerpt:
+      "Learn how to make your PDFs accessible to screen reader users. Tags, reading order, alt text, and a quick pre-publish checklist.",
+    date: "2026-03-30",
+    readTime: "9 min read",
+    author: "Mike",
+  },
+  {
     slug: "how-to-convert-pdf-to-excel",
     title: "How to Convert PDF to Excel for Free (2026 Guide)",
     excerpt:
