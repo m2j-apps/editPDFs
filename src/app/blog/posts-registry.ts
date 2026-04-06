@@ -14,6 +14,15 @@ export interface BlogPost {
 
 export const posts: BlogPost[] = [
   {
+    slug: "how-to-highlight-pdf",
+    title: "How to Highlight Text in a PDF for Free (2026 Guide)",
+    excerpt:
+      "Learn how to highlight text in a PDF for free, including fixes for scanned or restricted files and mobile tips.",
+    date: "2026-04-06",
+    readTime: "8 min read",
+    author: "Mike",
+  },
+  {
     slug: "pdf-accessibility-screen-reader",
     title: "PDF Accessibility: Making PDFs Screen Reader Friendly",
     excerpt:
