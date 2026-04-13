@@ -14,6 +14,15 @@ export interface BlogPost {
 
 export const posts: BlogPost[] = [
   {
+    slug: "how-to-remove-highlights-from-pdf",
+    title: "How to Remove Highlights from a PDF for Free (2026 Guide)",
+    excerpt:
+      "Learn how to remove highlights from a PDF quickly, including fixes for locked or flattened files and mobile steps.",
+    date: "2026-04-13",
+    readTime: "9 min read",
+    author: "Jen",
+  },
+  {
     slug: "how-to-highlight-pdf",
     title: "How to Highlight Text in a PDF for Free (2026 Guide)",
     excerpt:
