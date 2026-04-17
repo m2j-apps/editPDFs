@@ -41,9 +41,9 @@ export default function PrivacyPage() {
 
           <h2>Advertising</h2>
           <p>
-            We display advertisements to support this free service. Our advertising partners 
-            may use cookies to serve relevant ads. You can opt out of personalized advertising 
-            through your browser settings or by visiting{" "}
+            We may display advertisements in the future to support this free service. If we do,
+            advertising partners may use cookies to serve relevant ads. You can opt out of
+            personalized advertising through your browser settings or by visiting{" "}
             <a href="https://optout.aboutads.info/" target="_blank" rel="noopener noreferrer">
               aboutads.info
             </a>.
@@ -53,7 +53,7 @@ export default function PrivacyPage() {
           <p>We use cookies for:</p>
           <ul>
             <li>Analytics (understanding site usage)</li>
-            <li>Advertising (serving and measuring ads)</li>
+            <li>Advertising (if ads are enabled in the future)</li>
           </ul>
           <p>
             We do not use cookies to track your PDF activity or store any document data.
@@ -63,7 +63,7 @@ export default function PrivacyPage() {
           <p>We use the following third-party services:</p>
           <ul>
             <li><strong>Google Analytics</strong> — for understanding site usage</li>
-            <li><strong>Google AdSense</strong> — for displaying advertisements</li>
+            <li><strong>Google AdSense</strong> — for future advertising support</li>
             <li><strong>Vercel</strong> — for hosting the website</li>
           </ul>
           <p>

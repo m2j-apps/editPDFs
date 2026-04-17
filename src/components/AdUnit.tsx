@@ -14,15 +14,17 @@ interface AdUnitProps {
   className?: string;
 }
 
+const ADS_ENABLED = process.env.NEXT_PUBLIC_ADS_ENABLED === "true";
+
 export default function AdUnit({ slot, format = "auto", className = "" }: AdUnitProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    if (ADS_ENABLED) setMounted(true);
   }, []);
 
   useEffect(() => {
-    if (mounted) {
+    if (mounted && ADS_ENABLED) {
       try {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
       } catch (e) {
@@ -30,6 +32,8 @@ export default function AdUnit({ slot, format = "auto", className = "" }: AdUnit
       }
     }
   }, [mounted]);
+
+  if (!ADS_ENABLED) return null;
 
   // Don't render on server to avoid hydration mismatch
   if (!mounted) {

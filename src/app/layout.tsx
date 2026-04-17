@@ -50,12 +50,14 @@ export default function RootLayout({
             `,
           }}
         />
-        {/* Google AdSense */}
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2930855156227557"
-          crossOrigin="anonymous"
-        />
+        {/* Google AdSense - only load when ads are enabled */}
+        {process.env.NEXT_PUBLIC_ADS_ENABLED === "true" && (
+          <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2930855156227557"
+            crossOrigin="anonymous"
+          />
+        )}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

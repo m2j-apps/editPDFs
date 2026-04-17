@@ -60,10 +60,10 @@ export default function AboutPage() {
 
           <h2>Why Free?</h2>
           <p>
-            EditPDFs.app is supported by advertisements displayed on our homepage and blog.
-            The PDF editor itself is ad-free so you can focus on your work without distractions.
-            This model lets us keep the tool free for everyone while covering the costs of
-            development and hosting.
+            We believe basic PDF editing shouldn&apos;t cost money. EditPDFs.app runs entirely
+            in your browser with no server-side processing, which keeps our operating costs low.
+            That lets us offer the full tool for free — no premium tier, no feature gates, no
+            strings attached.
           </p>
 
           <h2>Our Values</h2>

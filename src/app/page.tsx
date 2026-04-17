@@ -206,7 +206,7 @@ export default function Home() {
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Actually Free</h3>
               <p className="text-gray-600 text-sm">
                 No hidden costs, no premium tiers, no watermarks on your files. 
-                We&apos;re supported by ads, not subscription traps.
+                No hidden costs. No subscription traps.
               </p>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-sm">
