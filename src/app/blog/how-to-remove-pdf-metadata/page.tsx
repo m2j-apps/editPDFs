@@ -116,6 +116,18 @@ export default function HowToRemovePdfMetadata() {
         <li>Open the final file and verify all changes.</li>
       </ol>
 
+      <h2>Common Metadata Mistakes to Avoid</h2>
+      <ul>
+        <li><strong>Editing only one field</strong> and assuming everything is gone. Check all standard fields.</li>
+        <li><strong>Overwriting the original file</strong>. Keep a clean export and an internal source copy.</li>
+        <li><strong>Skipping final verification</strong>. Always reopen the exported PDF and inspect properties.</li>
+        <li><strong>Forgetting supporting files</strong>. If you send multiple PDFs, clean each one before attaching.</li>
+      </ul>
+      <p>
+        Teams often create a simple outbound rule: no external PDF leaves the company without metadata cleanup,
+        redaction checks, and a final review. That one habit prevents most avoidable document privacy errors.
+      </p>
+
       <h2>Frequently Asked Questions</h2>
 
       <h3>Can someone see metadata in a PDF easily?</h3>
