@@ -14,6 +14,15 @@ export interface BlogPost {
 
 export const posts: BlogPost[] = [
   {
+    slug: "how-to-remove-pdf-metadata",
+    title: "How to Remove Metadata from a PDF for Free (2026 Guide)",
+    excerpt:
+      "Strip hidden PDF metadata like author, title, and timestamps before sharing. Quick privacy checklist included.",
+    date: "2026-04-20",
+    readTime: "9 min read",
+    author: "Jen",
+  },
+  {
     slug: "how-to-remove-highlights-from-pdf",
     title: "How to Remove Highlights from a PDF for Free (2026 Guide)",
     excerpt:
