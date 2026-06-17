@@ -1,8 +1,74 @@
+import type { Metadata } from "next";
 import AdUnit from "@/components/AdUnit";
+import ArticleJsonLd from "@/components/ArticleJsonLd";
+import FaqJsonLd from "@/components/FaqJsonLd";
+
+export const metadata: Metadata = {
+  title: "How to Remove Metadata from a PDF for Free (2026 Guide) | EditPDFs.app",
+  description:
+    "Strip hidden PDF metadata like author, title, software, and timestamps before sharing. Free, private, browser-based — with a quick pre-send privacy checklist.",
+  keywords:
+    "remove pdf metadata, clear pdf metadata, pdf author info, strip pdf metadata, pdf privacy, remove pdf properties, xmp metadata",
+  alternates: { canonical: "https://editpdfs.app/blog/how-to-remove-pdf-metadata" },
+  openGraph: {
+    title: "How to Remove Metadata from a PDF for Free (2026 Guide)",
+    description:
+      "Strip hidden PDF metadata like author, title, and timestamps before sharing. Free and private.",
+    type: "article",
+  },
+};
+
+const faqs = [
+  {
+    question: "What information does PDF metadata include?",
+    answer:
+      "Common fields are Title, Author, Subject, Keywords, Creator, Producer, and creation/modified dates. Many PDFs also carry richer XMP metadata added by the software that made them.",
+  },
+  {
+    question: "Can someone see metadata in a PDF easily?",
+    answer:
+      "Yes. Most PDF viewers have a document-properties panel where metadata can be viewed in seconds, so anyone you send the file to can read it.",
+  },
+  {
+    question: "Will removing metadata change how my PDF looks?",
+    answer:
+      "No. Metadata cleanup modifies hidden file properties only — the visible page content, layout, and text stay exactly the same.",
+  },
+  {
+    question: "Can removed metadata be recovered?",
+    answer:
+      "Once you export the cleaned file, the stripped fields are gone from that copy. Keep your original if you need the metadata later, since the cleanup can't be reversed on the new file.",
+  },
+  {
+    question: "Can I remove metadata on a phone?",
+    answer:
+      "Yes. Browser-based tools like EditPDFs.app work on iPhone and Android, so you can clean metadata without installing desktop software.",
+  },
+  {
+    question: "Is removing PDF metadata free and private?",
+    answer:
+      "On EditPDFs.app it's free with no signup, and the file is processed in your browser — it never gets uploaded to a server, which matters for the sensitive documents you'd want cleaned in the first place.",
+  },
+  {
+    question: "Should I remove metadata for every file?",
+    answer:
+      "For anything external, legal, HR, or sensitive, yes. For internal working drafts it depends on your process — many teams make cleanup a standard step only for outbound files.",
+  },
+];
 
 export default function HowToRemovePdfMetadata() {
   return (
-    <article className="prose lg:prose-xl mx-auto">
+    <>
+      <ArticleJsonLd
+        title="How to Remove Metadata from a PDF for Free (2026 Guide)"
+        description="Strip hidden PDF metadata like author, title, and timestamps before sharing. Free and private."
+        slug="how-to-remove-pdf-metadata"
+        datePublished="2026-04-20"
+        dateModified="2026-06-17"
+        author="Jen"
+      />
+      <FaqJsonLd questions={faqs} />
+      <article className="prose lg:prose-xl mx-auto">
       <h1>How to Remove Metadata from a PDF for Free (2026 Guide)</h1>
       <p className="text-sm text-gray-500">Jen &middot; <time dateTime="2026-04-20T08:00:00-04:00">April 20, 2026</time> &middot; 9 min read</p>
       <p>
@@ -130,26 +196,46 @@ export default function HowToRemovePdfMetadata() {
 
       <h2>Frequently Asked Questions</h2>
 
+      <h3>What information does PDF metadata include?</h3>
+      <p>
+        Common fields are Title, Author, Subject, Keywords, Creator, Producer, and creation/modified dates. Many
+        PDFs also carry richer XMP metadata added by the software that made them.
+      </p>
+
       <h3>Can someone see metadata in a PDF easily?</h3>
       <p>
-        Yes. Most PDF viewers have a properties panel where metadata can be viewed in seconds.
+        Yes. Most PDF viewers have a document-properties panel where metadata can be viewed in seconds, so anyone
+        you send the file to can read it.
       </p>
 
       <h3>Will removing metadata change how my PDF looks?</h3>
       <p>
-        No, metadata cleanup generally does not change visible page content. It modifies hidden file properties.
+        No. Metadata cleanup modifies hidden file properties only — the visible page content, layout, and text
+        stay exactly the same.
       </p>
 
-      <h3>Can I remove metadata on phone?</h3>
+      <h3>Can removed metadata be recovered?</h3>
+      <p>
+        Once you export the cleaned file, the stripped fields are gone from that copy. Keep your original if you
+        need the metadata later, since the cleanup can&apos;t be reversed on the new file.
+      </p>
+
+      <h3>Can I remove metadata on a phone?</h3>
       <p>
         Yes. Browser-based tools like EditPDFs.app work on iPhone and Android, so you can clean metadata without
         desktop software.
       </p>
 
+      <h3>Is removing PDF metadata free and private?</h3>
+      <p>
+        On EditPDFs.app it&apos;s free with no signup, and the file is processed in your browser — it never gets
+        uploaded to a server, which matters for the sensitive documents you&apos;d want cleaned in the first place.
+      </p>
+
       <h3>Should I remove metadata for every file?</h3>
       <p>
         For anything external, legal, HR, or sensitive, yes. For internal working drafts, it depends on your
-        process.
+        process — many teams make cleanup a standard step only for outbound files.
       </p>
 
       <h2>Conclusion</h2>
@@ -172,5 +258,6 @@ export default function HowToRemovePdfMetadata() {
 
       <AdUnit slot="BOTTOM_BANNER" format="horizontal" className="mt-8" />
     </article>
+    </>
   );
 }

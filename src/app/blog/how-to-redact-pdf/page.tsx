@@ -157,6 +157,14 @@ export default function HowToRedactPdf() {
 
       <h2>Frequently Asked Questions</h2>
 
+      <h3>Why isn&apos;t drawing a black box the same as redacting?</h3>
+      <p>
+        A black box drawn with annotation or drawing tools sits on top of the page — the original text or
+        image stays in the file underneath it. Anyone can delete the box, recolor it, or select and copy the
+        text beneath. True redaction permanently deletes the underlying data, so there&apos;s nothing left to
+        recover.
+      </p>
+
       <h3>Can redaction be reversed?</h3>
       <p>
         True redaction cannot be reversed — the underlying data is permanently deleted. This is why you
@@ -188,6 +196,14 @@ export default function HowToRedactPdf() {
         Redaction makes sensitive information invisible, but the legality of sharing a document depends on
         applicable laws and agreements, not just the technical redaction. Consult a lawyer if you're unsure
         about what must be redacted and whether a document can be shared after redaction.
+      </p>
+
+      <h3>Should I remove metadata after redacting?</h3>
+      <p>
+        Yes — redaction removes visible content, but a PDF can still carry hidden metadata like author name,
+        creation software, and revision history. For a truly private document, remove the metadata as a
+        separate step after redacting. See our guide on{" "}
+        <a href="/blog/how-to-remove-pdf-metadata">how to remove metadata from a PDF</a>.
       </p>
 
       <h2>Conclusion</h2>

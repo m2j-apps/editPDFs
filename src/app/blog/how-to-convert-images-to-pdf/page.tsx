@@ -214,6 +214,27 @@ export default function HowToConvertImagesToPdf() {
         embedding the PNG inside a PDF page is the right approach for your use case.
       </p>
 
+      <h3>How do I control the page order when combining multiple images?</h3>
+      <p>
+        After you upload several images, you arrange them by dragging each into the position you want before converting —
+        the order you set is the order the pages appear in the finished PDF. If your tool doesn't offer drag reordering,
+        rename the files numerically (01, 02, 03…) first so they upload in sequence.
+      </p>
+
+      <h3>What if the converted PDF is too large to email?</h3>
+      <p>
+        High-resolution photos can produce big PDFs. If the file exceeds an email or upload limit, run it through a{" "}
+        <a href="/blog/how-to-compress-pdf">PDF compressor</a> afterward, or use lower-resolution versions of the images.
+        A handful of phone photos can easily total 20–30 MB before compression.
+      </p>
+
+      <h3>Is converting images to PDF the same as adding an image to an existing PDF?</h3>
+      <p>
+        No. This guide turns standalone image files into PDF pages. If you instead want to place a photo or logo onto a
+        PDF you already have, see our separate guide on{" "}
+        <a href="/blog/how-to-add-images-to-pdf">how to add images to a PDF</a>.
+      </p>
+
       <h2>Conclusion</h2>
       <p>
         Converting images to PDF is one of the most useful things you can do with photos from your phone or computer. Whether

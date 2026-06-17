@@ -181,6 +181,20 @@ export default function HowToAddWatermarkToPdf() {
         processing them individually is straightforward.
       </p>
 
+      <h3>What&apos;s the difference between a text and image watermark?</h3>
+      <p>
+        A text watermark overlays words like &quot;DRAFT&quot; or &quot;CONFIDENTIAL&quot; that you type and
+        style directly. An image watermark places a graphic such as a logo or seal — use a PNG with a
+        transparent background so no white box appears around it.
+      </p>
+
+      <h3>Will the watermark show up when the PDF is printed?</h3>
+      <p>
+        Yes. A watermark is part of the page, so it prints exactly as it appears on screen, including its
+        opacity and position. If you only want an on-screen marking, lower the opacity rather than
+        expecting it to be hidden in print.
+      </p>
+
       <h2>Conclusion</h2>
       <p>
         Adding a watermark to a PDF takes under a minute and gives your documents an instantly professional,

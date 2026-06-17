@@ -320,6 +320,61 @@ export default function PdfAccessibilityScreenReader() {
         stop. Clear structure, searchable text, and logical organization make any PDF easier to use for
         everyone.
       </p>
+
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>What makes a PDF accessible?</h3>
+      <p>
+        An accessible PDF has real, selectable text (not a scanned image), structural tags that identify
+        headings, lists, and tables, a logical reading order, alt text on meaningful images, labeled form
+        fields, a set document language, and a meaningful title. Together these let assistive technology
+        read and navigate the document the way a sighted user reads the layout.
+      </p>
+
+      <h3>Do screen readers read any PDF?</h3>
+      <p>
+        No. A screen reader interprets the PDF&apos;s underlying tag structure, not its visual appearance.
+        An untagged or image-only PDF may read back as silence, gibberish, or a scrambled jumble — even
+        though it looks perfectly normal on screen.
+      </p>
+
+      <h3>What are PDF tags, and why do they matter?</h3>
+      <p>
+        Tags are invisible structural markers embedded in the file — the PDF equivalent of HTML. They tell
+        assistive tech what each element is (heading, paragraph, list, figure, table) and the order to read
+        it in. Without tags, a screen reader has no way to navigate the content meaningfully.
+      </p>
+
+      <h3>Is a scanned PDF accessible?</h3>
+      <p>
+        Not on its own — a scan is just an image of a page, so there&apos;s no text for a screen reader to
+        read. You first need to run OCR to add a real text layer, then tag the document. See our{" "}
+        <a href="/blog/how-to-make-pdf-searchable">guide to making a PDF searchable with OCR</a> for that
+        first step.
+      </p>
+
+      <h3>How do I add alt text to images in a PDF?</h3>
+      <p>
+        The most reliable way is to add alt text in the source document (Word, Google Docs, InDesign)
+        before exporting to a tagged PDF. To fix an existing PDF, Adobe Acrobat Pro lets you edit a
+        figure&apos;s alternate text in the tag tree. Describe what the image communicates — &quot;Bar
+        graph showing sales rising from $1.2M to $1.8M&quot; — not just &quot;chart.&quot;
+      </p>
+
+      <h3>How do I check whether my PDF meets PDF/UA, WCAG, or Section 508?</h3>
+      <p>
+        Start with a free automated checker like PAC 2024, which tests against PDF/UA-1 and WCAG 2.2 and
+        lists failures by page. Then confirm with a real screen reader, since automated tools can&apos;t
+        judge whether alt text or reading order actually makes sense. Section 508 and the ADA generally
+        point back to WCAG AA, so passing WCAG is the practical target.
+      </p>
+
+      <h3>Does making a PDF accessible help with SEO?</h3>
+      <p>
+        Yes. The same tags and real text that screen readers rely on also let search engines index the
+        document&apos;s structure and content more accurately. Accessible PDFs tend to be cleaner, more
+        portable, and easier for every reader — which is good for both rankings and users.
+      </p>
     </article>
   );
 }

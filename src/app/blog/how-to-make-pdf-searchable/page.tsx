@@ -194,6 +194,21 @@ export default function HowToMakePdfSearchable() {
         Word or use a dedicated PDF editor that supports full text editing.
       </p>
 
+      <h3>What languages does OCR support?</h3>
+      <p>
+        Most OCR engines support dozens of languages, including non-Latin scripts like Cyrillic, Greek, Arabic,
+        and CJK (Chinese, Japanese, Korean). Accuracy is highest when you tell the tool which language to expect,
+        so set the language before processing rather than relying on auto-detection — especially for documents
+        that mix scripts.
+      </p>
+
+      <h3>I ran OCR but the text still isn't selectable — why?</h3>
+      <p>
+        Usually one of three things: you're viewing the original file instead of the downloaded output, the scan
+        quality was too low for OCR to detect characters, or the page was too skewed. Re-open the downloaded copy,
+        and if it still won't select, rescan at 300 DPI or higher and straighten the pages before trying again.
+      </p>
+
       <h2>Conclusion</h2>
       <p>
         Making a scanned PDF searchable takes less than a minute and unlocks a lot of practical value — you can
