@@ -38,18 +38,32 @@ export default function RootLayout({
       <head>
         {/* Google AdSense verification */}
         <meta name="google-adsense-account" content="ca-pub-2930855156227557" />
-        {/* Google Analytics */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-NL8LQ2FFM1" />
+        {/* Google Consent Mode v2 — deny ad/analytics storage by default in the
+            EEA, UK, and Switzerland until the user consents. Google's built-in
+            GDPR message (configured in AdSense → Privacy & messaging) updates
+            these signals to 'granted' when the visitor accepts. Outside these
+            regions no default is set, so consent is treated as granted. This
+            must run before gtag config and the AdSense tag. */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
+              gtag('consent', 'default', {
+                ad_storage: 'denied',
+                ad_user_data: 'denied',
+                ad_personalization: 'denied',
+                analytics_storage: 'denied',
+                wait_for_update: 500,
+                region: ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH']
+              });
               gtag('js', new Date());
               gtag('config', 'G-NL8LQ2FFM1');
             `,
           }}
         />
+        {/* Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-NL8LQ2FFM1" />
         {/* Google AdSense - only load when ads are enabled */}
         {process.env.NEXT_PUBLIC_ADS_ENABLED === "true" && (
           <script
