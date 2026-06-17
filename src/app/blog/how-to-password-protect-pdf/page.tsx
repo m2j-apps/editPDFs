@@ -17,93 +17,88 @@ export default function HowToPasswordProtectPdf() {
           <div className="flex items-center text-gray-500 text-sm">
             <span>Jen</span>
             <span className="mx-2">•</span>
-            <time dateTime="2026-02-22T08:37:00-05:00">February 16, 2026</time>
+            <time dateTime="2026-02-22">February 22, 2026</time>
             <span className="mx-2">•</span>
-            <span>6 min read</span>
+            <span>8 min read</span>
           </div>
         </header>
 
-        {/* Top Ad */}
         <AdUnit slot="TOP_BANNER" format="horizontal" className="mb-8" />
 
         <div className="prose prose-lg max-w-none">
           <p className="text-xl text-gray-600 mb-8">
-            Need to secure a sensitive PDF before sharing it? You can add password protection 
-            in seconds — completely free, no account required, and your files stay private.
+            About to email a tax return, a signed contract, or a scan of your passport? A PDF travels
+            through inboxes, shared drives, and phones you don&apos;t control — and once it&apos;s out
+            there, you can&apos;t pull it back. Adding a password encrypts the file so only people with the
+            key can open it. This guide shows you exactly how to do it for free, which type of password to
+            choose, how to share the key without undermining the whole point, and how to fix the snags
+            people hit along the way.
           </p>
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Why Password Protect PDFs?
+            Two Kinds of PDF Password — Pick the Right One
           </h2>
           <p className="text-gray-700 mb-4">
-            Password protection adds a layer of security to your documents. Here&apos;s when it matters:
+            A PDF can hold two different passwords, and they do very different jobs. Choosing the wrong one
+            is the most common reason &quot;protection&quot; doesn&apos;t behave the way people expect.
           </p>
-          <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
-            <li><strong>Confidential contracts</strong> — Protect legal agreements from unauthorized access</li>
-            <li><strong>Financial documents</strong> — Secure tax returns, bank statements, and invoices</li>
-            <li><strong>Medical records</strong> — Keep health information private when sharing</li>
-            <li><strong>Business proposals</strong> — Prevent competitors from viewing sensitive plans</li>
-            <li><strong>Personal identification</strong> — Protect copies of IDs, passports, or licenses</li>
-            <li><strong>Email attachments</strong> — Add security when sending sensitive files</li>
-          </ul>
 
-          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Types of PDF Password Protection
-          </h2>
-          <p className="text-gray-700 mb-4">
-            There are two types of passwords you can add to a PDF:
-          </p>
-          
           <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            Open Password (User Password)
+            Open password (user password) — controls who can read it
           </h3>
           <p className="text-gray-700 mb-4">
-            Requires a password to open and view the PDF. Without it, the document 
-            cannot be accessed at all. This is the most common and secure option.
+            Nobody can open or view the document without it. The file is genuinely encrypted, so this is
+            the option you want for anything truly confidential. If in doubt, use this one.
           </p>
 
           <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            Permissions Password (Owner Password)
-          </h3>
-          <p className="text-gray-700 mb-4">
-            Allows viewing but restricts actions like printing, copying text, or editing. 
-            Useful when you want people to read a document but not modify or extract content.
-          </p>
-
-          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            How to Add a Password to Your PDF
-          </h2>
-          
-          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            Step 1: Open Your PDF
-          </h3>
-          <p className="text-gray-700 mb-4">
-            Go to <Link href="/" className="text-blue-600 hover:underline">EditPDFs.app</Link> and 
-            upload your PDF file. Drag and drop or click to browse.
-          </p>
-
-          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            Step 2: Enable Password Protection
-          </h3>
-          <p className="text-gray-700 mb-4">
-            Look for the security or password protection option in the editor. Enter a 
-            strong password that you&apos;ll share with authorized recipients.
-          </p>
-
-          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            Step 3: Download Your Protected PDF
+            Permissions password (owner password) — controls what readers can do
           </h3>
           <p className="text-gray-700 mb-6">
-            Save the file and your PDF is now encrypted. Anyone who tries to open it 
-            will need the password you set.
+            The file opens normally, but actions like printing, copying text, or editing are restricted.
+            Use it when you&apos;re fine with people <em>reading</em> a document but don&apos;t want them
+            reprinting or lifting content from it. Note that permission restrictions are honored by most
+            viewers but are weaker than an open password — some tools can bypass them. For real secrecy,
+            rely on the open password (you can apply both at once).
+          </p>
+
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
+            How to Add a Password to Your PDF: Step-by-Step
+          </h2>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Step 1: Upload your PDF</h3>
+          <p className="text-gray-700 mb-4">
+            Open <Link href="/" className="text-blue-600 hover:underline">EditPDFs.app</Link> and drag your
+            file in (or click to browse). It loads straight into the editor — there&apos;s no account to
+            create and nothing is sent to a server.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Step 2: Open the security settings</h3>
+          <p className="text-gray-700 mb-4">
+            Find the security or password option. You&apos;ll be able to set an open password, a
+            permissions password, or both — decide based on the section above.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Step 3: Set your password and restrictions</h3>
+          <p className="text-gray-700 mb-4">
+            Type the password (you&apos;ll usually confirm it twice to avoid typos), and if you&apos;re using
+            a permissions password, choose which actions to allow — printing, copying, editing. Double-check
+            the password now; once the file is encrypted, a typo means even <em>you</em> can&apos;t get back
+            in.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Step 4: Export the protected PDF</h3>
+          <p className="text-gray-700 mb-6">
+            Download the file. The new copy is encrypted and prompts for the password the moment anyone
+            opens it. Test it yourself before sending: open the downloaded file and confirm the prompt
+            appears and your password works.
           </p>
 
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 my-8">
-            <h3 className="text-xl font-semibold text-blue-900 mb-2">
-              Ready to secure your PDF?
-            </h3>
+            <h3 className="text-xl font-semibold text-blue-900 mb-2">Ready to secure your PDF?</h3>
             <p className="text-blue-800 mb-4">
-              No signup, no watermarks, no upload to servers. 100% private.
+              No signup, no watermarks, and no upload to servers — the encryption is applied right in your
+              browser, so the file stays on your device.
             </p>
             <Link
               href="/"
@@ -114,161 +109,187 @@ export default function HowToPasswordProtectPdf() {
           </div>
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Tips for Strong PDF Passwords
-          </h2>
-          
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Make it long and complex
-          </h3>
-          <p className="text-gray-700 mb-4">
-            Use at least 12 characters with a mix of uppercase, lowercase, numbers, 
-            and special characters. Longer passwords are exponentially harder to crack.
-          </p>
-
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Avoid personal information
-          </h3>
-          <p className="text-gray-700 mb-4">
-            Don&apos;t use birthdays, names, or common words. These are the first things 
-            attackers try. Use a random passphrase instead.
-          </p>
-
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Use a password manager
-          </h3>
-          <p className="text-gray-700 mb-4">
-            Generate and store strong passwords with tools like Bitwarden, 1Password, 
-            or your browser&apos;s built-in manager. Never reuse passwords.
-          </p>
-
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Share passwords securely
-          </h3>
-          <p className="text-gray-700 mb-4">
-            Don&apos;t put the password in the same email as the PDF. Send it via a different 
-            channel — text message, phone call, or a separate message.
-          </p>
-
-          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Privacy Matters for PDF Security
+            Choosing a Password That Actually Holds Up
           </h2>
           <p className="text-gray-700 mb-4">
-            Here&apos;s the irony: many online PDF password tools upload your sensitive 
-            documents to their servers to add encryption. That means your &quot;private&quot; 
-            files pass through third-party systems before being secured.
+            Modern PDFs use AES-256 encryption — effectively unbreakable. The weak link is almost always the
+            password itself, so this is where your effort pays off:
           </p>
-          <p className="text-gray-700 mb-4">
-            This defeats the purpose of password protection. If you&apos;re securing a 
-            document because it&apos;s confidential, why would you upload it unencrypted 
-            to a random server first?
-          </p>
-          <p className="text-gray-700 mb-6">
-            With <Link href="/" className="text-blue-600 hover:underline">EditPDFs.app</Link>, 
-            everything happens in your browser. Your files never leave your device. 
-            The encryption is applied locally using JavaScript, so your documents 
-            stay private from start to finish.
-          </p>
-
-          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            When to Use Password Protection
-          </h2>
-          <p className="text-gray-700 mb-4">
-            Password protection is ideal for:
-          </p>
-          <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
-            <li><strong>Sharing via email</strong> — Add a layer of security to attachments</li>
-            <li><strong>Cloud storage</strong> — Protect files even if your account is compromised</li>
-            <li><strong>USB drives</strong> — Secure documents on portable storage</li>
-            <li><strong>Archiving sensitive records</strong> — Long-term protection for important files</li>
+          <ul className="list-disc pl-6 mb-4 text-gray-700 space-y-2">
+            <li>
+              <strong>Favor length over complexity.</strong> A four-word passphrase like
+              {" "}<em>copper-otter-lantern-9</em> is both easier to remember and harder to crack than a
+              short string of symbols.
+            </li>
+            <li>
+              <strong>Skip anything guessable</strong> — birthdays, names, the company name, or a password
+              you already use elsewhere. Those are the first things tried.
+            </li>
+            <li>
+              <strong>Let a password manager generate and store it</strong> (Bitwarden, 1Password, or your
+              browser&apos;s built-in one) so a strong password doesn&apos;t become a sticky note.
+            </li>
           </ul>
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Limitations of PDF Passwords
+            Sharing the Password Without Defeating the Point
           </h2>
+          <p className="text-gray-700 mb-6">
+            This is the step most people get wrong: <strong>never put the password in the same email as the
+            PDF.</strong> If that inbox is compromised, the attacker has both halves. Send the file one way
+            and the password another — a text message, a phone call, a chat app, or a separate email sent
+            later. For a document you&apos;ll share repeatedly with the same person, agree on the password
+            verbally once and reuse it for that relationship only.
+          </p>
+
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Troubleshooting Common Problems</h2>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">The recipient says they can&apos;t open it</h3>
           <p className="text-gray-700 mb-4">
-            While password protection adds security, know its limits:
+            Usually a typo in the password they were given, or it was copy-pasted with a trailing space.
+            Passwords are case-sensitive — have them retype it by hand and check Caps Lock. Confirm
+            they&apos;re opening the protected copy you sent, not an older version.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">It opens without asking for a password</h3>
+          <p className="text-gray-700 mb-4">
+            You likely set only a permissions password, which doesn&apos;t prompt on open. If you wanted to
+            restrict <em>viewing</em>, re-protect the file with an open (user) password instead.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Printing or copying is still allowed</h3>
+          <p className="text-gray-700 mb-4">
+            Either the restriction wasn&apos;t enabled, or the reader&apos;s viewer is ignoring permission
+            flags (some do). Permission passwords are advisory by nature — for content you truly need to
+            keep from being printed or extracted, combine an open password with{" "}
+            <Link href="/blog/how-to-flatten-pdf" className="text-blue-600 hover:underline">flattening</Link>{" "}
+            and sharing only with people you trust.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">You forgot which password you set</h3>
+          <p className="text-gray-700 mb-6">
+            There&apos;s no back door — that&apos;s the whole point of encryption. If you still have the
+            original unprotected file, simply re-protect it with a fresh password. If not, and you genuinely
+            know the password, see{" "}
+            <Link href="/blog/how-to-remove-password-from-pdf" className="text-blue-600 hover:underline">
+              how to remove a password from a PDF
+            </Link>
+            . Going forward, store the password in a manager the moment you set it.
+          </p>
+
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Protecting PDFs on Specific Devices</h2>
+          <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+            <li>
+              <strong>Windows / Mac (any browser):</strong> The browser steps above are identical and need
+              no install. On Mac, Preview can also add an open password via File → Export → Encrypt, though
+              it doesn&apos;t offer granular permission controls.
+            </li>
+            <li>
+              <strong>iPhone / iPad:</strong> Open{" "}
+              <Link href="/" className="text-blue-600 hover:underline">EditPDFs.app</Link> in Safari and work
+              from the Files app — no app download required.
+            </li>
+            <li>
+              <strong>Android:</strong> Use Chrome the same way — upload, set the password, and save the
+              encrypted copy back to your device.
+            </li>
+          </ul>
+
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">A Note on Privacy</h2>
+          <p className="text-gray-700 mb-6">
+            Here&apos;s the irony of most &quot;protect PDF&quot; sites: they upload your unencrypted,
+            confidential file to a server <em>first</em>, then add the password. You&apos;ve handed the
+            sensitive document to a third party before it was ever secured. With{" "}
+            <Link href="/" className="text-blue-600 hover:underline">EditPDFs.app</Link>, encryption is
+            applied locally in your browser, so the file — and its password — never leave your device. For
+            documents you also want to scrub before sharing, pair this with{" "}
+            <Link href="/blog/how-to-remove-pdf-metadata" className="text-blue-600 hover:underline">
+              removing hidden metadata
+            </Link>{" "}
+            or{" "}
+            <Link href="/blog/how-to-redact-pdf" className="text-blue-600 hover:underline">redaction</Link>.
+          </p>
+
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Know the Limits</h2>
+          <p className="text-gray-700 mb-4">
+            A password is a strong lock, not a force field. Keep realistic expectations:
           </p>
           <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
-            <li><strong>Weak passwords can be cracked</strong> — Use strong passwords to prevent brute-force attacks</li>
-            <li><strong>Screenshots still work</strong> — Someone with the password can capture the screen</li>
-            <li><strong>Sharing the password shares access</strong> — Once shared, you lose control</li>
-            <li><strong>Some permission passwords are bypassable</strong> — Open passwords are more secure than permission-only</li>
+            <li>Anyone with the password and on-screen access can still screenshot or photograph pages.</li>
+            <li>Once you share the password, you&apos;ve shared access — you can&apos;t revoke it remotely.</li>
+            <li>A weak password undoes strong encryption; the password is the whole game.</li>
+            <li>
+              For regulated or highly sensitive data, layer on encrypted file-sharing or rights management
+              rather than relying on a PDF password alone.
+            </li>
           </ul>
+
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Frequently Asked Questions</h2>
+
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">Is password-protecting a PDF really free?</h3>
+          <p className="text-gray-700 mb-4">
+            Yes. On EditPDFs.app it&apos;s completely free with no signup, no watermark, and no file-size
+            limit — protect as many PDFs as you need.
+          </p>
+
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">How strong is PDF encryption?</h3>
+          <p className="text-gray-700 mb-4">
+            Modern PDFs use AES-256, which is virtually unbreakable on its own. The real vulnerability is a
+            weak or guessable password, so the strength of your protection comes down to the password you
+            choose.
+          </p>
+
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">What&apos;s the difference between an open password and a permissions password?</h3>
+          <p className="text-gray-700 mb-4">
+            An open (user) password is required to view the file at all. A permissions (owner) password lets
+            the file open but restricts printing, copying, or editing. Use the open password for true
+            confidentiality; you can apply both together.
+          </p>
+
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">What happens if I forget the password?</h3>
+          <p className="text-gray-700 mb-4">
+            The file can&apos;t be recovered — that&apos;s by design. Your only routes are re-protecting the
+            original unprotected copy or, if you still know the password, removing it. Always save the
+            password in a manager when you set it.
+          </p>
+
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">Does adding a password change my PDF&apos;s contents?</h3>
+          <p className="text-gray-700 mb-4">
+            No. The text, images, layout, and quality stay exactly the same. Only an encryption layer is
+            added so the file requires authentication to open.
+          </p>
+
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">Can I password-protect several PDFs at once?</h3>
+          <p className="text-gray-700 mb-4">
+            Protect them one at a time so each gets the right password, or merge related files first if they
+            should share a single password.
+          </p>
+
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">Are my files uploaded to a server?</h3>
+          <p className="text-gray-700 mb-4">
+            Not on EditPDFs.app. Encryption runs in your browser, so the document and its password never
+            leave your device — which matters most for exactly the confidential files you&apos;re trying to
+            secure.
+          </p>
+
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">Can I remove the password later?</h3>
           <p className="text-gray-700 mb-6">
-            For highly sensitive documents, consider additional measures like encrypted 
-            file sharing services or digital rights management (DRM).
+            Yes, as long as you know it — see{" "}
+            <Link href="/blog/how-to-remove-password-from-pdf" className="text-blue-600 hover:underline">
+              how to remove a password from a PDF
+            </Link>
+            . Keeping an unprotected backup makes switching protection on and off painless.
           </p>
 
-          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Common Questions
-          </h2>
-          
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Can I remove a password from a PDF?
-          </h3>
-          <p className="text-gray-700 mb-4">
-            Yes, if you know the password. Open the PDF with the password, then save 
-            it without password protection. You cannot remove a password without knowing it.
-          </p>
-
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Is password-protected PDF encryption strong?
-          </h3>
-          <p className="text-gray-700 mb-4">
-            Modern PDFs use AES-256 encryption, which is extremely secure when combined 
-            with a strong password. The encryption itself is virtually unbreakable — 
-            weak passwords are the vulnerability.
-          </p>
-
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Can I add a password to multiple PDFs at once?
-          </h3>
-          <p className="text-gray-700 mb-4">
-            Process them one at a time for individual passwords, or consider merging 
-            them first if they should share the same password.
-          </p>
-
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            What if I forget the password?
-          </h3>
-          <p className="text-gray-700 mb-4">
-            If you forget the password, the PDF cannot be recovered. This is by design — 
-            it&apos;s what makes the protection secure. Always store passwords safely.
-          </p>
-
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Will password protection change my PDF?
-          </h3>
-          <p className="text-gray-700 mb-4">
-            No. The content, layout, and quality remain exactly the same. Only the 
-            encryption layer is added to require authentication.
-          </p>
-
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Is it really free?
-          </h3>
-          <p className="text-gray-700 mb-4">
-            Yes, completely free with no limits. No premium tier, no file size restrictions, 
-            no watermarks. Secure as many PDFs as you need.
-          </p>
-
-          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Other Tools You Might Need
-          </h2>
-          <p className="text-gray-700 mb-4">
-            While you&apos;re working with PDFs, you might also want to:
-          </p>
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Related Guides</h2>
           <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
-            <li><Link href="/blog/how-to-compress-pdf" className="text-blue-600 hover:underline">Compress your PDF</Link> — Reduce file size before sharing</li>
-            <li><Link href="/blog/how-to-merge-pdfs" className="text-blue-600 hover:underline">Merge multiple PDFs</Link> — Combine documents into one protected file</li>
-            <li><Link href="/blog/how-to-sign-pdf" className="text-blue-600 hover:underline">Sign your PDF</Link> — Add your signature before locking it</li>
+            <li><Link href="/blog/how-to-remove-password-from-pdf" className="text-blue-600 hover:underline">How to remove a password from a PDF</Link></li>
+            <li><Link href="/blog/how-to-remove-pdf-metadata" className="text-blue-600 hover:underline">How to remove metadata from a PDF</Link></li>
+            <li><Link href="/blog/how-to-redact-pdf" className="text-blue-600 hover:underline">How to redact a PDF</Link></li>
+            <li><Link href="/blog/how-to-flatten-pdf" className="text-blue-600 hover:underline">How to flatten a PDF</Link></li>
           </ul>
-          <p className="text-gray-700 mb-6">
-            All these features are available in our free editor.
-          </p>
         </div>
 
-        {/* Bottom Ad */}
         <AdUnit slot="BOTTOM_BANNER" format="horizontal" className="mt-8" />
       </article>
     </div>
