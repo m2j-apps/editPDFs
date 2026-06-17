@@ -10,7 +10,7 @@ export default function PrivacyPage() {
         <h1 className="text-4xl font-bold text-gray-900 mb-8">Privacy Policy</h1>
         
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 prose prose-gray max-w-none">
-          <p className="text-sm text-gray-500">Last updated: {new Date().toLocaleDateString()}</p>
+          <p className="text-sm text-gray-500">Last updated: June 17, 2026</p>
           
           <h2>The Short Version</h2>
           <p>
@@ -41,19 +41,33 @@ export default function PrivacyPage() {
 
           <h2>Advertising</h2>
           <p>
-            We may display advertisements in the future to support this free service. If we do,
-            advertising partners may use cookies to serve relevant ads. You can opt out of
-            personalized advertising through your browser settings or by visiting{" "}
+            We use <strong>Google AdSense</strong> to display advertisements that help support this
+            free service. Third-party vendors, including Google, use cookies to serve ads based on a
+            user&apos;s prior visits to this website and other sites on the Internet. Google&apos;s use
+            of advertising cookies enables it and its partners to serve ads to our users based on
+            their visits to our site and/or other sites.
+          </p>
+          <p>
+            You can opt out of personalized advertising by visiting{" "}
+            <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer">
+              Google Ads Settings
+            </a>
+            , or opt out of third-party vendors&apos; use of cookies for personalized advertising at{" "}
             <a href="https://optout.aboutads.info/" target="_blank" rel="noopener noreferrer">
               aboutads.info
-            </a>.
+            </a>
+            . For more information, see{" "}
+            <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">
+              how Google uses information from sites that use its services
+            </a>
+            .
           </p>
 
           <h2>Cookies</h2>
           <p>We use cookies for:</p>
           <ul>
             <li>Analytics (understanding site usage)</li>
-            <li>Advertising (if ads are enabled in the future)</li>
+            <li>Advertising (Google AdSense and its partners may set cookies to serve and measure ads)</li>
           </ul>
           <p>
             We do not use cookies to track your PDF activity or store any document data.
@@ -63,7 +77,7 @@ export default function PrivacyPage() {
           <p>We use the following third-party services:</p>
           <ul>
             <li><strong>Google Analytics</strong> — for understanding site usage</li>
-            <li><strong>Google AdSense</strong> — for future advertising support</li>
+            <li><strong>Google AdSense</strong> — for displaying advertisements</li>
             <li><strong>Vercel</strong> — for hosting the website</li>
           </ul>
           <p>

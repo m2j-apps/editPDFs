@@ -10,7 +10,7 @@ export default function TermsPage() {
         <h1 className="text-4xl font-bold text-gray-900 mb-8">Terms of Service</h1>
         
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 prose prose-gray max-w-none">
-          <p className="text-sm text-gray-500">Last updated: {new Date().toLocaleDateString()}</p>
+          <p className="text-sm text-gray-500">Last updated: June 17, 2026</p>
           
           <h2>1. Acceptance of Terms</h2>
           <p>
