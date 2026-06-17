@@ -17,9 +17,9 @@ export default function BestFreePdfEditorsCompared() {
           <div className="flex items-center text-gray-500 text-sm">
             <span>Mike</span>
             <span className="mx-2">•</span>
-            <time dateTime="2026-02-20T07:55:00-05:00">February 14, 2026</time>
+            <time dateTime="2026-02-20">February 20, 2026</time>
             <span className="mx-2">•</span>
-            <span>8 min read</span>
+            <span>9 min read</span>
           </div>
         </header>
 
@@ -27,196 +27,170 @@ export default function BestFreePdfEditorsCompared() {
 
         <div className="prose prose-lg max-w-none">
           <p className="text-xl text-gray-600 mb-8">
-            Looking for a free PDF editor but overwhelmed by options? We&apos;ve tested the most 
-            popular free PDF tools to help you find the right one for your needs. Here&apos;s our 
-            honest comparison.
+            &quot;Free PDF editor&quot; covers a lot of ground — from genuinely no-cost tools to
+            trial versions that wall off anything useful behind a subscription. We put the seven most
+            common options through the same lens: what you can actually do without paying, whether your
+            files leave your device, and where each one quietly nudges you toward a credit card. Here&apos;s
+            the honest breakdown.
           </p>
 
-          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            What We Evaluated
-          </h2>
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">How We Judged Them</h2>
           <p className="text-gray-700 mb-4">
-            We tested each PDF editor on these criteria:
+            A fair comparison needs consistent criteria, so every editor below was weighed on the same six
+            points:
           </p>
           <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
-            <li><strong>Core features</strong> — What can you actually do with the tool?</li>
-            <li><strong>Ease of use</strong> — How quickly can beginners get started?</li>
-            <li><strong>Privacy</strong> — Does the tool upload your files to servers?</li>
-            <li><strong>Free tier limitations</strong> — What&apos;s locked behind paywalls?</li>
-            <li><strong>Output quality</strong> — Are there watermarks or quality loss?</li>
-            <li><strong>Platform support</strong> — Does it work on all devices?</li>
+            <li><strong>What&apos;s actually free</strong> — daily caps, file-size limits, and features locked behind paywalls</li>
+            <li><strong>Privacy</strong> — whether your file is uploaded to a server or processed locally in your browser</li>
+            <li><strong>Feature range</strong> — text, images, signatures, page tools, conversion, redaction</li>
+            <li><strong>OCR</strong> — can it make scanned documents searchable/editable?</li>
+            <li><strong>Friction</strong> — signup requirements, watermarks, and ads</li>
+            <li><strong>Platform</strong> — desktop, mobile, browser-only</li>
           </ul>
 
-          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            The PDF Editors We Compared
-          </h2>
-
-          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            1. EditPDFs.app (Our Pick for Privacy)
-          </h3>
-          <p className="text-gray-700 mb-4">
-            <strong>Best for:</strong> Users who prioritize privacy and want truly free editing.
-          </p>
-          <p className="text-gray-700 mb-4">
-            EditPDFs.app stands out because everything happens in your browser — your files 
-            never leave your device. There&apos;s no account required, no watermarks, and no 
-            premium tier locking features.
-          </p>
-          <p className="text-gray-700 mb-2"><strong>Pros:</strong></p>
-          <ul className="list-disc pl-6 mb-4 text-gray-700 space-y-1">
-            <li>100% browser-based — files never uploaded</li>
-            <li>No signup required</li>
-            <li>No watermarks or branding</li>
-            <li>Completely free with no hidden limits</li>
-            <li>Works on any device</li>
-          </ul>
-          <p className="text-gray-700 mb-2"><strong>Cons:</strong></p>
-          <ul className="list-disc pl-6 mb-4 text-gray-700 space-y-1">
-            <li>Requires modern browser</li>
-            <li>Very large files may be slower (depends on device)</li>
-          </ul>
-
-          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            2. Adobe Acrobat Online
-          </h3>
-          <p className="text-gray-700 mb-4">
-            <strong>Best for:</strong> Users already in the Adobe ecosystem.
-          </p>
-          <p className="text-gray-700 mb-4">
-            Adobe invented PDF, so their tools are feature-rich. The free online version 
-            handles basic tasks, but most serious editing requires Acrobat Pro.
-          </p>
-          <p className="text-gray-700 mb-2"><strong>Pros:</strong></p>
-          <ul className="list-disc pl-6 mb-4 text-gray-700 space-y-1">
-            <li>Trusted brand name</li>
-            <li>Excellent PDF rendering</li>
-            <li>Advanced features in paid version</li>
-          </ul>
-          <p className="text-gray-700 mb-2"><strong>Cons:</strong></p>
-          <ul className="list-disc pl-6 mb-4 text-gray-700 space-y-1">
-            <li>Requires Adobe account</li>
-            <li>Free version very limited</li>
-            <li>Files uploaded to Adobe servers</li>
-            <li>Pushes subscription constantly</li>
-          </ul>
-
-          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            3. Smallpdf
-          </h3>
-          <p className="text-gray-700 mb-4">
-            <strong>Best for:</strong> Occasional users who don&apos;t mind limitations.
-          </p>
-          <p className="text-gray-700 mb-4">
-            Smallpdf offers a clean interface and handles most PDF tasks. The free tier 
-            limits you to 2 tasks per day, which is frustrating for regular use.
-          </p>
-          <p className="text-gray-700 mb-2"><strong>Pros:</strong></p>
-          <ul className="list-disc pl-6 mb-4 text-gray-700 space-y-1">
-            <li>Clean, modern interface</li>
-            <li>Many tools available</li>
-            <li>Good mobile experience</li>
-          </ul>
-          <p className="text-gray-700 mb-2"><strong>Cons:</strong></p>
-          <ul className="list-disc pl-6 mb-4 text-gray-700 space-y-1">
-            <li>Free tier limited to 2 tasks/day</li>
-            <li>Files uploaded to servers</li>
-            <li>Account required for some features</li>
-            <li>Pro subscription is expensive</li>
-          </ul>
-
-          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            4. ILovePDF
-          </h3>
-          <p className="text-gray-700 mb-4">
-            <strong>Best for:</strong> Users who need lots of conversion tools.
-          </p>
-          <p className="text-gray-700 mb-4">
-            ILovePDF has an extensive toolkit covering conversions, compression, and basic 
-            editing. Like Smallpdf, the free tier has daily limits.
-          </p>
-          <p className="text-gray-700 mb-2"><strong>Pros:</strong></p>
-          <ul className="list-disc pl-6 mb-4 text-gray-700 space-y-1">
-            <li>Wide range of tools</li>
-            <li>Desktop apps available</li>
-            <li>Batch processing in paid tier</li>
-          </ul>
-          <p className="text-gray-700 mb-2"><strong>Cons:</strong></p>
-          <ul className="list-disc pl-6 mb-4 text-gray-700 space-y-1">
-            <li>Daily task limits on free tier</li>
-            <li>Files uploaded to servers</li>
-            <li>Ads in free version</li>
-          </ul>
-
-          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            5. PDF24
-          </h3>
-          <p className="text-gray-700 mb-4">
-            <strong>Best for:</strong> Windows users who prefer desktop software.
-          </p>
-          <p className="text-gray-700 mb-4">
-            PDF24 offers both online tools and a free Windows desktop application. The 
-            desktop version is particularly full-featured for a free tool.
-          </p>
-          <p className="text-gray-700 mb-2"><strong>Pros:</strong></p>
-          <ul className="list-disc pl-6 mb-4 text-gray-700 space-y-1">
-            <li>Free desktop app with many features</li>
-            <li>No daily limits</li>
-            <li>Virtual PDF printer included</li>
-          </ul>
-          <p className="text-gray-700 mb-2"><strong>Cons:</strong></p>
-          <ul className="list-disc pl-6 mb-4 text-gray-700 space-y-1">
-            <li>Desktop app Windows-only</li>
-            <li>Online tools upload files</li>
-            <li>Interface feels dated</li>
-          </ul>
-
-          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Privacy Comparison
-          </h2>
-          <p className="text-gray-700 mb-4">
-            If privacy matters to you (and it should for sensitive documents), here&apos;s 
-            how the tools compare:
-          </p>
-          <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
-            <li><strong>EditPDFs.app</strong> — Files never uploaded, processed in browser</li>
-            <li><strong>Adobe Acrobat</strong> — Files uploaded to Adobe Cloud</li>
-            <li><strong>Smallpdf</strong> — Files uploaded, deleted after 1 hour</li>
-            <li><strong>ILovePDF</strong> — Files uploaded, deleted after 2 hours</li>
-            <li><strong>PDF24</strong> — Desktop version is local; online uploads files</li>
-          </ul>
-
-          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Feature Comparison Summary
-          </h2>
-          <p className="text-gray-700 mb-4">
-            Here&apos;s a quick overview of key features across all tools:
-          </p>
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">At-a-Glance Comparison</h2>
           <div className="overflow-x-auto mb-6">
-            <p className="text-gray-700 mb-2">
-              <strong>Text Editing:</strong> All tools offer some form of text editing, though 
-              quality varies. EditPDFs.app and Adobe handle it best.
-            </p>
-            <p className="text-gray-700 mb-2">
-              <strong>Signatures:</strong> All tools support adding signatures. EditPDFs.app 
-              keeps your signature private; others may store it on servers.
-            </p>
-            <p className="text-gray-700 mb-2">
-              <strong>Merging/Splitting:</strong> Available in all tools. Most have no limits 
-              on this feature.
-            </p>
-            <p className="text-gray-700 mb-2">
-              <strong>Compression:</strong> All offer compression. EditPDFs.app processes 
-              locally; others send files to servers for processing.
-            </p>
+            <table className="w-full text-sm text-left border-collapse">
+              <thead>
+                <tr className="bg-gray-100 text-gray-900">
+                  <th className="border border-gray-200 px-3 py-2 font-semibold">Editor</th>
+                  <th className="border border-gray-200 px-3 py-2 font-semibold">Free tier</th>
+                  <th className="border border-gray-200 px-3 py-2 font-semibold">Files stay local?</th>
+                  <th className="border border-gray-200 px-3 py-2 font-semibold">Signup?</th>
+                  <th className="border border-gray-200 px-3 py-2 font-semibold">Watermark?</th>
+                  <th className="border border-gray-200 px-3 py-2 font-semibold">OCR</th>
+                </tr>
+              </thead>
+              <tbody className="text-gray-700">
+                <tr>
+                  <td className="border border-gray-200 px-3 py-2 font-medium">EditPDFs.app</td>
+                  <td className="border border-gray-200 px-3 py-2">Unlimited</td>
+                  <td className="border border-gray-200 px-3 py-2">Yes (in-browser)</td>
+                  <td className="border border-gray-200 px-3 py-2">No</td>
+                  <td className="border border-gray-200 px-3 py-2">No</td>
+                  <td className="border border-gray-200 px-3 py-2">Via OCR tool</td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-gray-200 px-3 py-2 font-medium">Adobe Acrobat (free/online)</td>
+                  <td className="border border-gray-200 px-3 py-2">Very limited</td>
+                  <td className="border border-gray-200 px-3 py-2">No (Adobe cloud)</td>
+                  <td className="border border-gray-200 px-3 py-2">Yes</td>
+                  <td className="border border-gray-200 px-3 py-2">No</td>
+                  <td className="border border-gray-200 px-3 py-2">Paid only</td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-200 px-3 py-2 font-medium">Smallpdf</td>
+                  <td className="border border-gray-200 px-3 py-2">~2 tasks/day</td>
+                  <td className="border border-gray-200 px-3 py-2">No (server)</td>
+                  <td className="border border-gray-200 px-3 py-2">For some tools</td>
+                  <td className="border border-gray-200 px-3 py-2">No</td>
+                  <td className="border border-gray-200 px-3 py-2">Paid</td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-gray-200 px-3 py-2 font-medium">iLovePDF</td>
+                  <td className="border border-gray-200 px-3 py-2">Daily limits</td>
+                  <td className="border border-gray-200 px-3 py-2">No (server)</td>
+                  <td className="border border-gray-200 px-3 py-2">For some tools</td>
+                  <td className="border border-gray-200 px-3 py-2">No</td>
+                  <td className="border border-gray-200 px-3 py-2">Paid</td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-200 px-3 py-2 font-medium">Sejda</td>
+                  <td className="border border-gray-200 px-3 py-2">3 tasks/hr, size caps</td>
+                  <td className="border border-gray-200 px-3 py-2">No (server, auto-delete)</td>
+                  <td className="border border-gray-200 px-3 py-2">No</td>
+                  <td className="border border-gray-200 px-3 py-2">No</td>
+                  <td className="border border-gray-200 px-3 py-2">Yes (limited)</td>
+                </tr>
+                <tr className="bg-gray-50">
+                  <td className="border border-gray-200 px-3 py-2 font-medium">PDF24</td>
+                  <td className="border border-gray-200 px-3 py-2">Unlimited (desktop)</td>
+                  <td className="border border-gray-200 px-3 py-2">Desktop: yes / Online: no</td>
+                  <td className="border border-gray-200 px-3 py-2">No</td>
+                  <td className="border border-gray-200 px-3 py-2">No</td>
+                  <td className="border border-gray-200 px-3 py-2">Yes</td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-200 px-3 py-2 font-medium">Xodo</td>
+                  <td className="border border-gray-200 px-3 py-2">Generous</td>
+                  <td className="border border-gray-200 px-3 py-2">Mixed (app/cloud)</td>
+                  <td className="border border-gray-200 px-3 py-2">For sync</td>
+                  <td className="border border-gray-200 px-3 py-2">No</td>
+                  <td className="border border-gray-200 px-3 py-2">Limited</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
+          <p className="text-gray-700 mb-6 text-base">
+            The single biggest dividing line isn&apos;t features — it&apos;s whether your document is
+            uploaded to someone else&apos;s server. That matters a lot for the contracts, statements, and ID
+            scans people most often need to edit.
+          </p>
+
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">The Editors, One by One</h2>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">EditPDFs.app</h3>
+          <p className="text-gray-700 mb-4">
+            <strong>Best for:</strong> anyone who wants unlimited free editing without handing files to a
+            server. Everything runs locally in your browser, so the document never leaves your device —
+            there&apos;s no account, no watermark, and no premium tier hiding the useful buttons. The main
+            trade-offs are honest ones: you need a modern browser, and very large files lean on your own
+            device&apos;s memory rather than a data center. It&apos;s our pick, but the comparison below is
+            written so you can disagree.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Adobe Acrobat (free / online)</h3>
+          <p className="text-gray-700 mb-4">
+            Adobe created the PDF format, and its rendering and pro features are second to none — but the
+            <em>free</em> tier is deliberately thin. You can view, comment, and do the occasional convert,
+            yet most real editing pushes you toward an Acrobat Pro subscription. Files upload to Adobe&apos;s
+            cloud and an account is required. Worth it if you already pay for Creative Cloud; frustrating if
+            you don&apos;t.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Smallpdf</h3>
+          <p className="text-gray-700 mb-4">
+            A polished, beginner-friendly interface with a wide toolkit. The catch is the free tier&apos;s
+            roughly two-tasks-per-day cap, which gets old fast if you edit regularly. Files are uploaded and
+            deleted after a window, and some tools nudge you to create an account. Great for the occasional
+            one-off job.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">iLovePDF</h3>
+          <p className="text-gray-700 mb-4">
+            Similar in spirit to Smallpdf, with an especially deep set of conversion tools and optional
+            desktop apps. Daily limits and ads apply on the free tier, and files are processed on their
+            servers. A solid choice when you need a specific conversion that other free tools skip.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Sejda</h3>
+          <p className="text-gray-700 mb-4">
+            Often overlooked, Sejda is genuinely capable — including some OCR and true text editing — with no
+            watermark. The free tier limits you to a few tasks per hour and caps file size and page count.
+            Files are uploaded but auto-deleted. A strong pick for the occasional heavier edit.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">PDF24</h3>
+          <p className="text-gray-700 mb-4">
+            PDF24&apos;s free Windows desktop app is remarkably full-featured and runs entirely on your
+            machine with no daily limits — a rarity. The downsides: the desktop app is Windows-only, the
+            online versions upload files, and the interface feels a little dated. Excellent for Windows users
+            who prefer installed software.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Xodo</h3>
+          <p className="text-gray-700 mb-4">
+            Xodo shines on mobile and tablets with smooth annotation and reading, plus desktop and browser
+            options. Editing depth is lighter than the others, and cloud sync wants an account. A good fit if
+            you mostly mark up and read PDFs on a phone or iPad.
+          </p>
 
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 my-8">
-            <h3 className="text-xl font-semibold text-blue-900 mb-2">
-              Our Recommendation
-            </h3>
+            <h3 className="text-xl font-semibold text-blue-900 mb-2">Our recommendation</h3>
             <p className="text-blue-800 mb-4">
-              For most users, EditPDFs.app offers the best balance of features, privacy, 
-              and truly free access. No limits, no watermarks, no uploads.
+              For most people, EditPDFs.app hits the best balance: unlimited use, no signup or watermark, and
+              files that never leave your device. If you need heavy OCR or pro-grade reflow, a paid Acrobat or
+              Sejda tier is the honest answer.
             </p>
             <Link
               href="/"
@@ -226,73 +200,105 @@ export default function BestFreePdfEditorsCompared() {
             </Link>
           </div>
 
-          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Which PDF Editor Should You Choose?
-          </h2>
-          
-          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            Choose EditPDFs.app if:
-          </h3>
-          <ul className="list-disc pl-6 mb-4 text-gray-700 space-y-2">
-            <li>Privacy is important to you</li>
-            <li>You don&apos;t want to create accounts</li>
-            <li>You need truly free editing with no limits</li>
-            <li>You work with sensitive documents</li>
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Which Should You Pick? By Use Case</h2>
+          <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+            <li>
+              <strong>Privacy-sensitive documents</strong> (contracts, medical, financial, ID) — choose a
+              local/in-browser tool like <Link href="/" className="text-blue-600 hover:underline">EditPDFs.app</Link> or
+              PDF24&apos;s desktop app, so nothing is uploaded.
+            </li>
+            <li>
+              <strong>Occasional one-off edits</strong> — any of Smallpdf, iLovePDF, or Sejda will do within
+              their free limits.
+            </li>
+            <li>
+              <strong>Heavy / power use</strong> (OCR, real text editing, batch) — Sejda&apos;s free tier
+              stretches furthest; for serious volume, a paid Acrobat or Sejda plan is the realistic option.
+            </li>
+            <li>
+              <strong>Mobile-first</strong> — Xodo for reading and markup; EditPDFs.app in Safari/Chrome for
+              quick edits without an install.
+            </li>
+            <li>
+              <strong>Windows, software-preferred</strong> — PDF24&apos;s desktop app.
+            </li>
           </ul>
 
-          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            Choose Adobe Acrobat if:
-          </h3>
-          <ul className="list-disc pl-6 mb-4 text-gray-700 space-y-2">
-            <li>You already pay for Adobe Creative Cloud</li>
-            <li>You need advanced features like OCR or form creation</li>
-            <li>You work in a corporate environment requiring Adobe</li>
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">What &quot;Free&quot; Usually Costs You</h2>
+          <p className="text-gray-700 mb-4">
+            No tool is free to run, so the bill gets paid somewhere. With PDF editors it&apos;s usually one of
+            three things:
+          </p>
+          <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+            <li><strong>Limits</strong> — daily/hourly task caps and file-size ceilings designed to make you upgrade.</li>
+            <li><strong>Your data</strong> — &quot;free&quot; server-side tools recoup costs through ads and the data around your usage; your document is uploaded to do the work.</li>
+            <li><strong>Friction</strong> — forced signups, watermarks on the output, and constant upsell prompts.</li>
+          </ul>
+          <p className="text-gray-700 mb-6">
+            Browser-based tools that process locally sidestep most of this because there&apos;s no server doing
+            the heavy lifting — which is why &quot;runs in your browser&quot; is worth checking before you
+            upload anything sensitive.
+          </p>
+
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Related Reading</h2>
+          <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+            <li><Link href="/blog/best-free-pdf-tools-online-2026" className="text-blue-600 hover:underline">Best free PDF tools online in 2026</Link> (task-by-task roundup)</li>
+            <li><Link href="/blog/how-to-edit-pdf-free" className="text-blue-600 hover:underline">How to edit a PDF for free</Link></li>
+            <li><Link href="/blog/how-to-convert-pdf-to-word" className="text-blue-600 hover:underline">How to convert PDF to Word</Link></li>
+            <li><Link href="/blog/how-to-compress-pdf" className="text-blue-600 hover:underline">How to compress a PDF</Link></li>
           </ul>
 
-          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            Choose Smallpdf or ILovePDF if:
-          </h3>
-          <ul className="list-disc pl-6 mb-4 text-gray-700 space-y-2">
-            <li>You only need to edit PDFs occasionally</li>
-            <li>You don&apos;t mind the daily task limits</li>
-            <li>You need a specific conversion tool they offer</li>
-          </ul>
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Frequently Asked Questions</h2>
 
-          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Frequently Asked Questions
-          </h2>
-
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Are free PDF editors safe?
-          </h3>
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">Are free PDF editors safe?</h3>
           <p className="text-gray-700 mb-4">
-            It depends on the tool. Browser-based editors that don&apos;t upload your files 
-            (like EditPDFs.app) are safest. Tools that upload to servers should be avoided 
-            for sensitive documents.
+            It depends on the tool. Browser-based editors that don&apos;t upload your files (like
+            EditPDFs.app) are safest because the document never leaves your device. Server-based tools are
+            fine for non-sensitive files but are best avoided for confidential documents.
           </p>
 
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Why do free PDF editors have limits?
-          </h3>
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">Why do free PDF editors have limits?</h3>
           <p className="text-gray-700 mb-4">
-            Most free tiers are designed to upsell you to paid plans. They give you a 
-            taste of features, then restrict usage to encourage subscriptions.
+            Most free tiers exist to upsell paid plans. They let you sample the features, then cap daily tasks
+            or file sizes to push regular users toward a subscription.
           </p>
 
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Can free PDF editors edit scanned documents?
-          </h3>
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">Which free PDF editor doesn&apos;t upload my files?</h3>
           <p className="text-gray-700 mb-4">
-            Basic editing (annotations, signatures) works on scanned PDFs. Editing the 
-            actual text in a scanned document requires OCR, which most free tools don&apos;t include.
+            EditPDFs.app processes everything in your browser, and PDF24&apos;s Windows desktop app works
+            locally. Most other popular tools (Smallpdf, iLovePDF, Adobe online, Sejda) upload your file to a
+            server to process it.
           </p>
 
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Do I need to download software?
-          </h3>
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">Can free PDF editors edit scanned documents?</h3>
           <p className="text-gray-700 mb-4">
-            Not for online tools. EditPDFs.app, Smallpdf, and ILovePDF work entirely in 
-            your browser. Adobe has browser tools but prefers you use their desktop app.
+            Annotations and signatures work on scans in most tools. Editing the actual <em>text</em> in a
+            scan requires OCR, which only some free tools (Sejda, PDF24, or a dedicated OCR step) provide.
+          </p>
+
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">Is Adobe Acrobat free?</h3>
+          <p className="text-gray-700 mb-4">
+            Adobe offers free viewing and a few basic online tools, but most editing requires a paid Acrobat
+            Pro subscription. The free reader is excellent; the free editing is intentionally limited.
+          </p>
+
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">Do I have to install software to edit a PDF?</h3>
+          <p className="text-gray-700 mb-4">
+            No. Browser tools like EditPDFs.app, Smallpdf, and iLovePDF run without any install. PDF24 and
+            Adobe also offer desktop apps if you prefer installed software.
+          </p>
+
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">Will a free editor add a watermark?</h3>
+          <p className="text-gray-700 mb-4">
+            Some do on certain tools or tiers. EditPDFs.app, Sejda, and PDF24 don&apos;t watermark standard
+            edits; always check the output before sharing if watermarks would be a problem.
+          </p>
+
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">What&apos;s the best free PDF editor overall?</h3>
+          <p className="text-gray-700 mb-6">
+            For unlimited, private, no-signup editing, EditPDFs.app is our top pick for most users. If you
+            specifically need deep OCR or professional reflow, a paid Acrobat or Sejda plan is the realistic
+            choice.
           </p>
         </div>
 

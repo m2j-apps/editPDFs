@@ -4,12 +4,12 @@ import FaqJsonLd from "@/components/FaqJsonLd";
 
 export const metadata: Metadata = {
   title: "How to Rotate PDF Pages for Free (2026 Guide) | EditPDFs.app",
-  description: "Learn how to rotate PDF pages 90 or 180 degrees. Fix sideways or upside-down pages instantly. Free online tool, no signup required.",
-  keywords: "rotate pdf, rotate pdf pages, fix sideways pdf, turn pdf pages, rotate pdf 90 degrees, rotate pdf free online",
+  description: "Rotate PDF pages 90, 180, or 270 degrees and save the change permanently into the file. Fix sideways scans and upside-down pages on any device — free, private, no signup.",
+  keywords: "rotate pdf, rotate pdf pages, fix sideways pdf, turn pdf pages, rotate pdf 90 degrees, rotate pdf permanently, rotate scanned pdf, rotate pdf free online",
   alternates: { canonical: "https://editpdfs.app/blog/how-to-rotate-pdf" },
   openGraph: {
     title: "How to Rotate PDF Pages for Free (2026 Guide)",
-    description: "Rotate PDF pages instantly. Fix sideways or upside-down pages in seconds. Free, no signup.",
+    description: "Rotate PDF pages and save it into the file so it displays correctly everywhere. Fix sideways or upside-down pages in seconds. Free, no signup.",
     type: "article",
   },
 };
@@ -26,15 +26,18 @@ export default function ArticleLayout({
         description="Learn how to rotate PDF pages 90 or 180 degrees. Fix sideways or upside-down pages instantly. Free online tool, no signup required."
         slug="how-to-rotate-pdf"
         datePublished="2026-02-14"
+        dateModified="2026-06-17"
         author="Jen"
       />
       <FaqJsonLd
         questions={[
-          { question: "Will rotating affect the content quality?", answer: "No. Rotation is a metadata change that tells PDF viewers how to display the page. The actual content — text, images, graphics — remains identical and uncompressed." },
-          { question: "Can I rotate pages in a scanned PDF?", answer: "Absolutely. Scanned PDFs are just images inside a PDF container. Rotation works the same way — the image is displayed at the correct angle." },
-          { question: "Is it free to rotate PDF pages?", answer: "Yes, completely free. No limits on pages, no watermarks, no premium features locked behind a paywall." },
-          { question: "Can I undo a rotation?", answer: "Yes. Before downloading, you can rotate the page again to get back to the original orientation. After downloading, you'd need to re-upload and rotate the other direction." },
-          { question: "Does this work on phone?", answer: "Yes! EditPDFs.app works on any device — phones, tablets, laptops, desktops. The interface adapts to your screen size." },
+          { question: "Will rotating reduce the quality of my PDF?", answer: "No. Rotation just records the angle at which each page should display — the underlying text and images are untouched and uncompressed, so quality is identical." },
+          { question: "What's the difference between rotating the view and rotating the file?", answer: "Rotating the view only spins the page on your screen and is forgotten when you close the reader. Rotating the file saves the new orientation permanently, so everyone who opens it sees it correctly." },
+          { question: "Can I rotate just one page in a long document?", answer: "Yes. Rotate any individual page and leave the others as they are — ideal for a single landscape table inside a portrait report." },
+          { question: "Does rotation work on scanned PDFs?", answer: "Absolutely. A scanned page is an image inside the PDF, and rotation displays that image at the right angle just like any other page." },
+          { question: "Can I undo a rotation?", answer: "Before you download, just rotate the page back to where it started. After downloading, re-upload the file and rotate the opposite direction to reverse it." },
+          { question: "Is rotating PDF pages free?", answer: "Yes — completely free on EditPDFs.app, with no page limits, no watermarks, and no signup." },
+          { question: "Does it work on a phone?", answer: "Yes. It runs in your mobile browser and the layout adapts to the screen, so you can fix a sideways scan straight from your phone." },
         ]}
       />
       {children}

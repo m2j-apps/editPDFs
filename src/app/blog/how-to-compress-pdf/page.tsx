@@ -17,9 +17,9 @@ export default function HowToCompressPdf() {
           <div className="flex items-center text-gray-500 text-sm">
             <span>Jen</span>
             <span className="mx-2">•</span>
-            <time dateTime="2026-01-24T08:32:00-05:00">February 9, 2026</time>
+            <time dateTime="2026-01-24">January 24, 2026</time>
             <span className="mx-2">•</span>
-            <span>5 min read</span>
+            <span>8 min read</span>
           </div>
         </header>
 
@@ -28,74 +28,75 @@ export default function HowToCompressPdf() {
 
         <div className="prose prose-lg max-w-none">
           <p className="text-xl text-gray-600 mb-8">
-            PDF files too large to email or upload? You can reduce their size in seconds — 
-            completely free, no account required, and your files never leave your device.
+            A PDF that&apos;s too big to email or won&apos;t squeeze under an upload limit is one of the
+            most common document headaches there is. The good news: most oversized PDFs can be shrunk
+            dramatically in a few seconds, and you rarely have to sacrifice anything you&apos;d actually
+            notice. This guide walks through exactly how to compress a PDF for free, how to pick the right
+            amount of compression, and what to do when a file stubbornly refuses to get smaller.
           </p>
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Why Compress PDFs?
+            What Compression Actually Does (and Why PDFs Get Big)
           </h2>
           <p className="text-gray-700 mb-4">
-            Large PDF files can be a real headache. Here&apos;s when compression helps:
+            Compressing a PDF doesn&apos;t throw away your pages — it rebuilds the file so the same content
+            takes up less space. Almost all of the weight in a large PDF comes from a handful of places:
           </p>
-          <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
-            <li><strong>Email attachments</strong> — Most email services limit attachments to 10-25 MB</li>
-            <li><strong>Website uploads</strong> — Many forms have strict file size limits</li>
-            <li><strong>Cloud storage</strong> — Save space on your Google Drive, Dropbox, or iCloud</li>
-            <li><strong>Faster sharing</strong> — Smaller files download and open quicker</li>
-            <li><strong>Mobile devices</strong> — Large PDFs can be slow to view on phones</li>
-            <li><strong>Archive documents</strong> — Compress old files to save long-term storage</li>
+          <ul className="list-disc pl-6 mb-4 text-gray-700 space-y-2">
+            <li><strong>Images and scans</strong> — high-resolution photos and scanned pages are the
+              number-one cause of bloated PDFs, often 90%+ of the file size.</li>
+            <li><strong>Embedded fonts</strong> — a document can carry entire font families it barely
+              uses.</li>
+            <li><strong>Leftover data</strong> — metadata, hidden layers, and editing history that design
+              software tends to leave behind.</li>
+            <li><strong>Redundant objects</strong> — duplicated resources introduced by merging or
+              repeated edits.</li>
           </ul>
-
-          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            What Makes PDFs Large?
-          </h2>
-          <p className="text-gray-700 mb-4">
-            Understanding why your PDF is big helps you compress it effectively:
-          </p>
-          <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
-            <li><strong>High-resolution images</strong> — Photos and scans are the #1 cause of large PDFs</li>
-            <li><strong>Embedded fonts</strong> — Full font families can add megabytes</li>
-            <li><strong>Metadata and layers</strong> — Design software can leave hidden data</li>
-            <li><strong>Unoptimized scans</strong> — Documents scanned at high DPI are unnecessarily large</li>
-            <li><strong>Redundant objects</strong> — Duplicate resources from merging or editing</li>
-          </ul>
-
-          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            How to Compress a PDF in 3 Steps
-          </h2>
-          
-          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            Step 1: Upload Your PDF
-          </h3>
-          <p className="text-gray-700 mb-4">
-            Go to <Link href="/" className="text-blue-600 hover:underline">EditPDFs.app</Link> and 
-            upload your PDF file. You can drag and drop or click to browse.
-          </p>
-
-          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            Step 2: Edit If Needed (Optional)
-          </h3>
-          <p className="text-gray-700 mb-4">
-            While your PDF is loaded, you can also remove unnecessary pages, delete large 
-            images, or make other edits that will further reduce file size.
-          </p>
-
-          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            Step 3: Download Your Compressed PDF
-          </h3>
           <p className="text-gray-700 mb-6">
-            Click Download and your optimized PDF will be saved. The editor automatically 
-            removes redundant data and optimizes the structure.
+            Compression targets exactly these: it downsamples oversized images, strips redundant data, and
+            optimizes the file&apos;s internal structure. That&apos;s why a 40&nbsp;MB scanned contract can
+            drop to 4&nbsp;MB while a lean, text-only PDF barely changes — there simply isn&apos;t much fat
+            to trim on the second one.
           </p>
 
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
+            How to Compress a PDF: Step-by-Step
+          </h2>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Step 1: Upload your PDF</h3>
+          <p className="text-gray-700 mb-4">
+            Open <Link href="/" className="text-blue-600 hover:underline">EditPDFs.app</Link> and drag your
+            file in, or click to browse. The file loads straight into the browser — nothing is sent to a
+            server. You&apos;ll see your document and its current file size.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Step 2: Compress</h3>
+          <p className="text-gray-700 mb-4">
+            Run the compression. The tool downsamples large images, removes redundant objects, and cleans
+            up the file structure automatically. This takes a few seconds for most documents and a little
+            longer for big, image-heavy scans.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Step 3: Compare before and after</h3>
+          <p className="text-gray-700 mb-4">
+            Check the new file size against the original, and glance at a couple of image-heavy pages to
+            confirm they still look the way you need. If the result is smaller than you need and images
+            look slightly soft, you can re-run with a gentler setting; if it&apos;s still too big, see the
+            troubleshooting section below.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Step 4: Download</h3>
+          <p className="text-gray-700 mb-6">
+            Save the optimized PDF. Your original file is never modified — you get a new, smaller copy,
+            with hyperlinks, bookmarks, and form fields preserved.
+          </p>
 
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 my-8">
             <h3 className="text-xl font-semibold text-blue-900 mb-2">
               Ready to compress your PDF?
             </h3>
             <p className="text-blue-800 mb-4">
-              No signup, no watermarks, no upload to servers. 100% private.
+              No signup, no watermarks, no upload to servers. 100% private, right in your browser.
             </p>
             <Link
               href="/"
@@ -106,133 +107,166 @@ export default function HowToCompressPdf() {
           </div>
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Tips to Reduce PDF Size Further
-          </h2>
-          
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Remove unnecessary pages
-          </h3>
-          <p className="text-gray-700 mb-4">
-            If your PDF has blank pages, cover pages you don&apos;t need, or duplicate content, 
-            delete them. Each page removed shrinks the file.
-          </p>
-
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Consider image-heavy pages
-          </h3>
-          <p className="text-gray-700 mb-4">
-            Pages with large photos or scanned images take up the most space. If possible, 
-            remove decorative images or replace them with smaller versions.
-          </p>
-
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Split into multiple files
-          </h3>
-          <p className="text-gray-700 mb-4">
-            If you can&apos;t get a single PDF small enough, consider splitting it into parts. 
-            Send &quot;Report Part 1&quot; and &quot;Report Part 2&quot; instead of one massive file.
-          </p>
-
-          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Why Privacy Matters for PDF Compression
+            Choosing the Right Amount of Compression
           </h2>
           <p className="text-gray-700 mb-4">
-            Most online PDF compressors upload your files to their servers. That means your 
-            documents — which might contain:
+            There&apos;s always a trade-off between file size and image fidelity. The right balance depends
+            entirely on what the PDF is for:
           </p>
-          <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
-            <li>Financial records and tax returns</li>
-            <li>Medical documents</li>
-            <li>Legal contracts</li>
-            <li>Business proposals</li>
-            <li>Personal identification</li>
+          <ul className="list-disc pl-6 mb-4 text-gray-700 space-y-2">
+            <li><strong>Lean compression is fine</strong> when the document will only ever be read on a
+              screen — email attachments, web uploads, sharing a receipt or a form. Heavy image
+              downsampling is invisible at screen resolution.</li>
+            <li><strong>Preserve quality</strong> when the PDF will be printed, contains photos or artwork
+              that matter, or is an archival master copy. Aggressive compression can make printed images
+              look soft.</li>
           </ul>
           <p className="text-gray-700 mb-6">
-            ...are sitting on someone else&apos;s server, potentially accessible to employees, 
-            hackers, or government requests.
-          </p>
-          <p className="text-gray-700 mb-6">
-            With <Link href="/" className="text-blue-600 hover:underline">EditPDFs.app</Link>, 
-            your files never leave your browser. The compression happens entirely on your 
-            device using JavaScript. No upload, no server storage, no privacy risk.
+            A good habit: keep your original full-quality file, and compress a <em>copy</em> for sharing.
+            That way you never lose the high-res version, and you can always make a new compressed copy at
+            a different level later.
           </p>
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            How Much Can You Reduce File Size?
+            Hitting Common Size Limits
           </h2>
           <p className="text-gray-700 mb-4">
-            Results vary based on the original PDF:
+            Most of the time you&apos;re compressing to clear a specific cap. The usual suspects:
           </p>
           <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
-            <li><strong>Scanned documents:</strong> Often 50-80% reduction</li>
-            <li><strong>Image-heavy PDFs:</strong> 30-70% reduction</li>
-            <li><strong>Text-based documents:</strong> 10-30% reduction</li>
-            <li><strong>Already optimized PDFs:</strong> Minimal reduction (they&apos;re already small)</li>
+            <li><strong>Email attachments</strong> — Gmail and Outlook cap around 20–25&nbsp;MB; many
+              corporate servers are stricter at 10&nbsp;MB.</li>
+            <li><strong>Web and government forms</strong> — application portals often limit uploads to
+              2–5&nbsp;MB per file.</li>
+            <li><strong>Messaging apps and e-signature tools</strong> — frequently have their own, smaller
+              ceilings.</li>
           </ul>
           <p className="text-gray-700 mb-6">
-            The biggest gains come from PDFs with high-resolution images or those created 
-            by scanning software that doesn&apos;t optimize well.
+            If a single compressed file still won&apos;t fit, you can{" "}
+            <Link href="/blog/how-to-split-pdf" className="text-blue-600 hover:underline">split it into parts</Link>{" "}
+            and send them separately.
           </p>
 
-          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Common Questions
-          </h2>
-          
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Will compression reduce quality?
-          </h3>
-          <p className="text-gray-700 mb-4">
-            For most documents, you won&apos;t notice any difference. Text stays crisp, and 
-            images remain clear. Extreme compression can affect image quality, but our 
-            tool uses smart optimization that preserves readability.
-          </p>
-
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Is it really free?
-          </h3>
-          <p className="text-gray-700 mb-4">
-            Yes, completely free with no limits. No premium tier, no file size restrictions, 
-            no watermarks. Use it as often as you need.
-          </p>
-
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Can I compress password-protected PDFs?
-          </h3>
-          <p className="text-gray-700 mb-4">
-            If you know the password, yes. You&apos;ll need to enter it when you open the file, 
-            then you can save a compressed version.
-          </p>
-
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Will my links and bookmarks still work?
-          </h3>
-          <p className="text-gray-700 mb-4">
-            Yes! Compression preserves interactive elements like hyperlinks, bookmarks, and 
-            form fields.
-          </p>
-
-          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Can I compress multiple PDFs at once?
-          </h3>
-          <p className="text-gray-700 mb-4">
-            Process them one at a time for best results. Each file can be opened, optimized, 
-            and downloaded individually.
-          </p>
-
-          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Other Tools You Might Need
-          </h2>
-          <p className="text-gray-700 mb-4">
-            While you&apos;re working with PDFs, you might also want to:
-          </p>
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">How Much Smaller Can It Get?</h2>
+          <p className="text-gray-700 mb-4">Results depend heavily on what&apos;s inside:</p>
           <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
-            <li><Link href="/blog/how-to-merge-pdfs" className="text-blue-600 hover:underline">Merge multiple PDFs</Link> — Combine documents into one file</li>
-            <li><Link href="/blog/how-to-sign-pdf" className="text-blue-600 hover:underline">Sign your PDF</Link> — Add your signature to documents</li>
-            <li><Link href="/blog/how-to-edit-pdf-free" className="text-blue-600 hover:underline">Edit PDF content</Link> — Add text, images, and annotations</li>
+            <li><strong>Scanned documents:</strong> often 50–80% smaller</li>
+            <li><strong>Image-heavy PDFs:</strong> typically 30–70% smaller</li>
+            <li><strong>Text-based documents:</strong> usually 10–30% smaller</li>
+            <li><strong>Already-optimized PDFs:</strong> little to no change — they&apos;re already lean</li>
           </ul>
-          <p className="text-gray-700 mb-6">
-            All these features are available in our free editor.
+
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Troubleshooting</h2>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">The file barely got smaller</h3>
+          <p className="text-gray-700 mb-4">
+            This is normal for text-only PDFs — there are no big images to downsample, so there&apos;s
+            little to remove. If you expected a bigger drop, the document is probably already optimized.
+            For a deeper dive on squeezing out every last kilobyte, see our guide on{" "}
+            <Link href="/blog/how-to-reduce-pdf-file-size" className="text-blue-600 hover:underline">reducing PDF file size without losing quality</Link>.
           </p>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Images look blurry afterward</h3>
+          <p className="text-gray-700 mb-4">
+            You compressed harder than the content can take. Re-run on the original with a gentler level,
+            or keep the full-quality file for printing and only use the compressed copy for on-screen
+            sharing.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">It&apos;s still too big to send</h3>
+          <p className="text-gray-700 mb-4">
+            Delete pages you don&apos;t need before compressing (cover sheets, blank pages, duplicates),
+            then compress again. If it still won&apos;t fit, split the document into smaller files.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">A scanned document is huge</h3>
+          <p className="text-gray-700 mb-4">
+            Scans are images of pages, so they compress well — but if it was scanned at a very high DPI,
+            expect the most dramatic size drop here. If you also need the text to be selectable or
+            searchable afterward, run{" "}
+            <Link href="/blog/how-to-make-pdf-searchable" className="text-blue-600 hover:underline">OCR to make it searchable</Link>.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Re-compressing does nothing</h3>
+          <p className="text-gray-700 mb-6">
+            Once a file is compressed, running it through again gives diminishing returns — the easy
+            savings are already gone. Start from the original rather than re-compressing the output.
+          </p>
+
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Compressing on Different Devices</h2>
+          <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+            <li><strong>Windows / Mac (any browser):</strong> the steps above work identically — no
+              software to install.</li>
+            <li><strong>iPhone / iPad:</strong> open <Link href="/" className="text-blue-600 hover:underline">EditPDFs.app</Link> in
+              Safari; everything runs in the browser. We have a dedicated walkthrough for{" "}
+              <Link href="/blog/how-to-compress-a-pdf-on-iphone" className="text-blue-600 hover:underline">compressing a PDF on iPhone</Link>.</li>
+            <li><strong>Android:</strong> use Chrome the same way — upload, compress, download to your
+              device.</li>
+          </ul>
+
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Why Privacy Matters Here</h2>
+          <p className="text-gray-700 mb-6">
+            Most online compressors upload your file to their servers to process it — and the PDFs people
+            need to shrink are often exactly the sensitive ones: tax returns, medical records, contracts,
+            IDs. With <Link href="/" className="text-blue-600 hover:underline">EditPDFs.app</Link>,
+            compression runs entirely in your browser using JavaScript. Nothing is uploaded, nothing is
+            stored on a server, so the document never leaves your device.
+          </p>
+
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Frequently Asked Questions</h2>
+
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">Will compression reduce quality?</h3>
+          <p className="text-gray-700 mb-4">
+            For everyday documents you won&apos;t notice a difference — text stays crisp and images look
+            fine on screen. Quality only suffers if you compress aggressively and then print image-heavy
+            pages, which is why keeping the original is worthwhile.
+          </p>
+
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">Is it really free?</h3>
+          <p className="text-gray-700 mb-4">
+            Yes — completely free with no file-size limits, no premium tier, and no watermarks. Compress as
+            many PDFs as you like.
+          </p>
+
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">Are my files uploaded to a server?</h3>
+          <p className="text-gray-700 mb-4">
+            No. All compression happens locally in your browser, so your file never leaves your device —
+            which matters for the sensitive documents people most often need to shrink.
+          </p>
+
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">Can I compress a password-protected PDF?</h3>
+          <p className="text-gray-700 mb-4">
+            Yes, if you know the password. Enter it when you open the file, then compress and download a
+            smaller copy. See our guide on{" "}
+            <Link href="/blog/how-to-remove-password-from-pdf" className="text-blue-600 hover:underline">removing a PDF password</Link>{" "}
+            if you also want to drop the protection.
+          </p>
+
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">Will my links and bookmarks survive?</h3>
+          <p className="text-gray-700 mb-4">
+            Yes. Compression preserves interactive elements like hyperlinks, bookmarks, and form fields —
+            it only optimizes how the file is stored.
+          </p>
+
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">Can I compress several PDFs at once?</h3>
+          <p className="text-gray-700 mb-4">
+            Process them one at a time for the best control over each result. Open, compress, and download
+            each file individually.
+          </p>
+
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">Does compressing change the page count or layout?</h3>
+          <p className="text-gray-700 mb-6">
+            No. Your pages, text, and layout stay exactly the same — only the file&apos;s storage size goes
+            down. To remove pages, do that separately before compressing.
+          </p>
+
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Related Guides</h2>
+          <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+            <li><Link href="/blog/how-to-reduce-pdf-file-size" className="text-blue-600 hover:underline">How to reduce PDF file size without losing quality</Link></li>
+            <li><Link href="/blog/how-to-compress-a-pdf-on-iphone" className="text-blue-600 hover:underline">How to compress a PDF on iPhone</Link></li>
+            <li><Link href="/blog/how-to-split-pdf" className="text-blue-600 hover:underline">How to split a PDF</Link></li>
+            <li><Link href="/blog/how-to-merge-pdfs" className="text-blue-600 hover:underline">How to merge PDFs</Link></li>
+          </ul>
         </div>
 
         {/* Bottom Ad */}

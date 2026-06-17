@@ -17,9 +17,9 @@ export default function HowToRotatePdf() {
           <div className="flex items-center text-gray-500 text-sm">
             <span>Jen</span>
             <span className="mx-2">•</span>
-            <time dateTime="2026-02-14T08:41:00-05:00">February 14, 2026</time>
+            <time dateTime="2026-02-14">February 14, 2026</time>
             <span className="mx-2">•</span>
-            <span>5 min read</span>
+            <span>8 min read</span>
           </div>
         </header>
 
@@ -27,96 +27,94 @@ export default function HowToRotatePdf() {
 
         <div className="prose prose-lg max-w-none">
           <p className="text-xl text-gray-600 mb-8">
-            Scanned document came out sideways? Downloaded a PDF with upside-down pages? 
-            Rotating PDF pages is one of the most common fixes people need — and it&apos;s 
-            incredibly easy to do for free.
+            Opened a scan that&apos;s lying on its side, or a report where one landscape chart sits
+            sideways in a stack of portrait pages? Rotating PDF pages is one of the most common fixes
+            people need — and once you understand the difference between rotating the <em>file</em> and
+            rotating your <em>view</em>, you&apos;ll fix it once and never see it crooked again.
           </p>
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Common Reasons to Rotate PDF Pages
+            Why PDF Pages End Up Sideways
           </h2>
           <p className="text-gray-700 mb-4">
-            PDFs end up with incorrectly oriented pages more often than you&apos;d think:
+            Wrong orientation creeps in at the moment a page is captured or combined, not when you open
+            it. The usual culprits:
           </p>
           <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
-            <li><strong>Scanning mistakes</strong> — Documents placed sideways on the scanner</li>
-            <li><strong>Mixed orientations</strong> — Portrait and landscape pages in one document</li>
-            <li><strong>Mobile scans</strong> — Phone camera apps sometimes guess wrong</li>
-            <li><strong>Merged PDFs</strong> — Combining files with different orientations</li>
-            <li><strong>Downloaded forms</strong> — Some forms are designed for landscape printing</li>
-            <li><strong>Presentation slides</strong> — Slides exported as PDF in wrong orientation</li>
+            <li><strong>Scanner placement</strong> — a sheet fed in sideways is saved exactly as it landed</li>
+            <li><strong>Phone scans</strong> — camera apps guess orientation from motion sensors and sometimes guess wrong</li>
+            <li><strong>Mixed-orientation documents</strong> — a landscape spreadsheet or chart dropped into a portrait report</li>
+            <li><strong>Merged files</strong> — combining PDFs that were each built for a different orientation</li>
+            <li><strong>Exported slides and forms</strong> — designed for landscape printing but viewed on screen</li>
           </ul>
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Rotation Options Explained
+            The Key Distinction: Permanent Rotation vs. View Rotation
           </h2>
-
-          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            Rotate 90° Clockwise
-          </h3>
           <p className="text-gray-700 mb-4">
-            Turns the page a quarter turn to the right. Use this when a page is sideways 
-            with the top pointing left.
+            This is the part that trips most people up. Almost every PDF reader has a &quot;rotate
+            view&quot; button — but it only spins the page <em>on your screen</em>. It changes nothing
+            inside the file. Close the document, reopen it, or send it to someone else, and it&apos;s
+            sideways again.
+          </p>
+          <p className="text-gray-700 mb-6">
+            A <strong>permanent rotation</strong> writes the new orientation into the PDF itself, so the
+            page displays correctly everywhere — in any viewer, on any device, and when printed. That&apos;s
+            what you want when you&apos;re sharing or archiving a file, and it&apos;s what the steps below
+            do.
           </p>
 
-          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            Rotate 90° Counter-Clockwise
-          </h3>
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
+            Which Rotation Do You Need?
+          </h2>
           <p className="text-gray-700 mb-4">
-            Turns the page a quarter turn to the left. Use this when a page is sideways 
-            with the top pointing right.
+            Rotation is measured clockwise. Picture which way the top of the page needs to travel:
           </p>
-
-          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            Rotate 180°
-          </h3>
-          <p className="text-gray-700 mb-4">
-            Flips the page completely upside down. Use this when a page is completely 
-            inverted — text readable but upside down.
+          <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+            <li><strong>90° clockwise</strong> — the page is sideways with its top pointing <em>left</em></li>
+            <li><strong>90° counter-clockwise (270°)</strong> — the page is sideways with its top pointing <em>right</em></li>
+            <li><strong>180°</strong> — the page is fully upside down; text is readable but inverted</li>
+          </ul>
+          <p className="text-gray-700 mb-6">
+            If you&apos;re not sure, just click once and look at the preview — it&apos;s faster to test
+            than to calculate.
           </p>
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
             How to Rotate PDF Pages: Step-by-Step
           </h2>
 
-          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            Step 1: Upload Your PDF
-          </h3>
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Step 1: Upload your PDF</h3>
           <p className="text-gray-700 mb-4">
-            Go to <Link href="/" className="text-blue-600 hover:underline">EditPDFs.app</Link> and 
-            upload your PDF by dragging it onto the page or clicking to browse your files.
+            Open <Link href="/" className="text-blue-600 hover:underline">EditPDFs.app</Link> and drag your
+            file onto the page, or click to browse. The document opens as a grid of page thumbnails so you
+            can see every page at a glance.
           </p>
 
-          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            Step 2: Find the Page to Rotate
-          </h3>
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Step 2: Spot the pages that need fixing</h3>
           <p className="text-gray-700 mb-4">
-            Browse through the thumbnail previews to find the incorrectly oriented page. 
-            You can easily spot which pages need rotation from the thumbnails.
+            Scan the thumbnails for anything lying on its side or upside down. In a long document it&apos;s
+            usually just one or two pages — the thumbnail view makes them obvious.
           </p>
 
-          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            Step 3: Apply Rotation
-          </h3>
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Step 3: Rotate to the right orientation</h3>
           <p className="text-gray-700 mb-4">
-            Click the rotate button to turn the page. Each click rotates 90 degrees. 
-            Continue clicking until the page is correctly oriented.
+            Use the rotate control on a page to turn it 90° at a time. Each click steps it a quarter turn,
+            and the thumbnail updates immediately so you can stop the moment it looks right. Rotate each
+            affected page until the whole document reads cleanly.
           </p>
 
-          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            Step 4: Download Your Fixed PDF
-          </h3>
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">Step 4: Download the corrected PDF</h3>
           <p className="text-gray-700 mb-6">
-            Once all pages are correctly oriented, download your PDF. The rotation is 
-            permanently saved — the pages will display correctly in any PDF viewer.
+            Export the file. The rotation is baked into the new copy, so it opens correctly in every viewer
+            and prints the right way up. Your original file is left untouched.
           </p>
 
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 my-8">
-            <h3 className="text-xl font-semibold text-blue-900 mb-2">
-              Ready to fix your PDF?
-            </h3>
+            <h3 className="text-xl font-semibold text-blue-900 mb-2">Ready to straighten it out?</h3>
             <p className="text-blue-800 mb-4">
-              Rotate pages in seconds. Free, private, no signup required.
+              Rotate any page in seconds — free, private, and no signup. The fix is saved into the file,
+              not just your view.
             </p>
             <Link
               href="/"
@@ -127,98 +125,166 @@ export default function HowToRotatePdf() {
           </div>
 
           <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Rotating Single Pages vs. All Pages
+            One Page, Some Pages, or the Whole Document
           </h2>
           <p className="text-gray-700 mb-4">
-            Sometimes you need to rotate just one page, and other times the entire 
-            document is sideways. Here&apos;s how to handle each situation:
+            How you select pages depends on what went wrong:
+          </p>
+          <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+            <li>
+              <strong>A single page</strong> — common when one landscape table or chart sits inside an
+              otherwise upright document. Rotate just that page and leave the rest alone.
+            </li>
+            <li>
+              <strong>A few scattered pages</strong> — fix each one individually; they can even need
+              different rotations (one 90°, another 180°).
+            </li>
+            <li>
+              <strong>Every page</strong> — typical for a whole document scanned sideways. Rotate them all
+              the same direction so the entire file is corrected in one pass.
+            </li>
+          </ul>
+
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Troubleshooting Common Problems</h2>
+
+          <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
+            The page is sideways again when I reopen it elsewhere
+          </h3>
+          <p className="text-gray-700 mb-4">
+            That means a previous &quot;fix&quot; only rotated the view in your reader, not the file. Re-do
+            it with a tool that writes the rotation into the PDF and re-export — the corrected copy will
+            hold its orientation everywhere.
           </p>
 
           <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            Single Page Rotation
+            Only some pages are wrong, and they&apos;re wrong in different ways
           </h3>
           <p className="text-gray-700 mb-4">
-            Select the specific page that needs fixing and rotate just that one. This is 
-            common when you have a landscape table or chart in an otherwise portrait document.
+            Handle them one at a time rather than rotating everything together. Mixed orientations are
+            normal in merged documents — give each page its own correction.
           </p>
 
           <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            Batch Rotation
+            The page rotates but it&apos;s now too wide or gets cut off when printing
           </h3>
           <p className="text-gray-700 mb-4">
-            If your entire document is incorrectly oriented (common with scanned documents), 
-            you can select all pages and rotate them at once. This saves time when every 
-            page needs the same fix.
-          </p>
-
-          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Understanding Page Orientation
-          </h2>
-          <p className="text-gray-700 mb-4">
-            PDF pages have two orientation concepts that sometimes cause confusion:
+            Rotating 90° swaps a page between portrait and landscape proportions. If it prints cropped,
+            check your print dialog&apos;s scaling — set it to &quot;Fit to page&quot; so the new
+            orientation prints at full size.
           </p>
 
           <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            Portrait vs. Landscape
+            I can&apos;t rotate a password-protected PDF
           </h3>
           <p className="text-gray-700 mb-4">
-            <strong>Portrait</strong> means the page is taller than it is wide (like a standard letter). 
-            <strong>Landscape</strong> means the page is wider than it is tall (like a widescreen display). 
-            Rotating a page 90° switches between these orientations.
+            A secured file has to be unlocked before it can be edited. If you know the password, remove the
+            protection first — see{" "}
+            <Link href="/blog/how-to-remove-password-from-pdf" className="text-blue-600 hover:underline">
+              how to remove a password from a PDF
+            </Link>{" "}
+            — then rotate and re-export.
           </p>
 
           <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">
-            View Rotation vs. Page Rotation
+            A scanned page looks rotated but the text is still hard to read
           </h3>
-          <p className="text-gray-700 mb-4">
-            Some PDF viewers let you rotate your <em>view</em> temporarily without changing the file. 
-            This doesn&apos;t fix the actual PDF — if you share it, others will see it incorrectly. 
-            With EditPDFs.app, you&apos;re making permanent changes to the file itself.
+          <p className="text-gray-700 mb-6">
+            Rotation fixes orientation, not legibility. If a scan is faint or skewed, that&apos;s a
+            scan-quality issue — rotating it won&apos;t sharpen the text, though making it{" "}
+            <Link href="/blog/how-to-make-pdf-searchable" className="text-blue-600 hover:underline">
+              searchable with OCR
+            </Link>{" "}
+            can help you work with it.
           </p>
 
-          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-            Frequently Asked Questions
-          </h2>
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Rotating PDFs on Any Device</h2>
+          <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+            <li>
+              <strong>Windows / Mac:</strong> the browser steps above work in any browser with no install.
+              Built-in readers often only rotate the view, so use a tool that saves the change into the file.
+            </li>
+            <li>
+              <strong>iPhone / iPad:</strong> open <Link href="/" className="text-blue-600 hover:underline">EditPDFs.app</Link> in
+              Safari and rotate right there — no app required. The corrected file saves back to your Files app.
+            </li>
+            <li>
+              <strong>Android:</strong> the same flow works in Chrome — upload, rotate, download.
+            </li>
+          </ul>
+
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">A Note on Privacy</h2>
+          <p className="text-gray-700 mb-6">
+            Many online &quot;rotate PDF&quot; sites upload your file to their servers to process it. With{" "}
+            <Link href="/" className="text-blue-600 hover:underline">EditPDFs.app</Link>, rotation happens
+            entirely in your browser, so the document never leaves your device — handy when the sideways
+            scan happens to be a contract or a medical form.
+          </p>
+
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Frequently Asked Questions</h2>
 
           <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Will rotating affect the content quality?
+            Will rotating reduce the quality of my PDF?
           </h3>
           <p className="text-gray-700 mb-4">
-            No. Rotation is a metadata change that tells PDF viewers how to display the page. 
-            The actual content — text, images, graphics — remains identical and uncompressed.
+            No. Rotation just records the angle at which each page should display — the underlying text and
+            images are untouched and uncompressed, so quality is identical.
           </p>
 
           <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Can I rotate pages in a scanned PDF?
+            What&apos;s the difference between rotating the view and rotating the file?
           </h3>
           <p className="text-gray-700 mb-4">
-            Absolutely. Scanned PDFs are just images inside a PDF container. Rotation works 
-            the same way — the image is displayed at the correct angle.
+            Rotating the view only spins the page on your screen and is forgotten when you close the
+            reader. Rotating the file saves the new orientation permanently, so everyone who opens it sees
+            it correctly.
           </p>
 
           <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Is it free to rotate PDF pages?
+            Can I rotate just one page in a long document?
           </h3>
           <p className="text-gray-700 mb-4">
-            Yes, completely free. No limits on pages, no watermarks, no premium features 
-            locked behind a paywall.
+            Yes. Rotate any individual page and leave the others as they are — ideal for a single landscape
+            table inside a portrait report.
+          </p>
+
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
+            Does rotation work on scanned PDFs?
+          </h3>
+          <p className="text-gray-700 mb-4">
+            Absolutely. A scanned page is an image inside the PDF, and rotation displays that image at the
+            right angle just like any other page.
           </p>
 
           <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
             Can I undo a rotation?
           </h3>
           <p className="text-gray-700 mb-4">
-            Yes. Before downloading, you can rotate the page again to get back to the original 
-            orientation. After downloading, you&apos;d need to re-upload and rotate the other direction.
+            Before you download, just rotate the page back to where it started. After downloading, re-upload
+            the file and rotate the opposite direction to reverse it.
           </p>
 
           <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
-            Does this work on phone?
+            Is rotating PDF pages free?
           </h3>
           <p className="text-gray-700 mb-4">
-            Yes! EditPDFs.app works on any device — phones, tablets, laptops, desktops. 
-            The interface adapts to your screen size.
+            Yes — completely free on EditPDFs.app, with no page limits, no watermarks, and no signup.
           </p>
+
+          <h3 className="text-lg font-semibold text-gray-800 mt-6 mb-2">
+            Does it work on a phone?
+          </h3>
+          <p className="text-gray-700 mb-6">
+            Yes. It runs in your mobile browser and the layout adapts to the screen, so you can fix a
+            sideways scan straight from your phone.
+          </p>
+
+          <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Related Guides</h2>
+          <ul className="list-disc pl-6 mb-6 text-gray-700 space-y-2">
+            <li><Link href="/blog/how-to-reorder-pdf-pages" className="text-blue-600 hover:underline">How to reorder PDF pages</Link></li>
+            <li><Link href="/blog/how-to-delete-pages-from-pdf" className="text-blue-600 hover:underline">How to delete pages from a PDF</Link></li>
+            <li><Link href="/blog/how-to-merge-pdfs" className="text-blue-600 hover:underline">How to merge PDFs</Link></li>
+            <li><Link href="/blog/how-to-split-pdf" className="text-blue-600 hover:underline">How to split a PDF</Link></li>
+          </ul>
         </div>
 
         <AdUnit slot="BOTTOM_BANNER" format="horizontal" className="mt-8" />
