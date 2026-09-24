@@ -2,12 +2,15 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import dynamic from "next/dynamic";
-import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
+import { PDFDocument } from "pdf-lib";
 import { Download, ZoomIn, ZoomOut } from "lucide-react";
 // No ads in editor - ads are on homepage only
 import Toolbar from "@/components/editor/Toolbar";
 import FindReplaceModal from "@/components/editor/FindReplaceModal";
 import { getPendingPdf } from "@/lib/pdfStore";
+import { buildEditedPdf } from "@/lib/exportPdf";
+import { captureTextStyle, type PdfTextEdit } from "@/lib/pdfText";
+import type { PDFDocumentProxy } from "pdfjs-dist";
 
 const AddPagesModal = dynamic(() => import("@/components/editor/AddPagesModal"), {
   ssr: false,
@@ -100,30 +103,6 @@ export interface EditorObject {
   };
 }
 
-// PDF text edit type
-interface PdfTextEdit {
-  id: string;
-  pageNumber: number;
-  originalText: string;
-  newText: string;
-  x: number;
-  y: number;
-  originalX?: number; // Original position (for white background to cover)
-  originalY?: number;
-  width: number;
-  height: number;
-  fontSize: number;
-  fontFamily: string;
-  formatting?: {
-    bold?: boolean;
-    italic?: boolean;
-    underline?: boolean;
-    strikethrough?: boolean;
-    highlightColor?: string; // Background highlight color
-    color?: string;
-  };
-}
-
 export default function EditorPage() {
   const [pdfBytes, setPdfBytes] = useState<Uint8Array | null>(null);
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
@@ -140,6 +119,8 @@ export default function EditorPage() {
   const [pageRotations, setPageRotations] = useState<Map<number, number>>(new Map());
   const [pageDimensions, setPageDimensions] = useState({ width: 612, height: 792 });
   const [pdfTextEdits, setPdfTextEdits] = useState<PdfTextEdit[]>([]);
+  // pdf.js document shown in the editor (holds values typed into form fields)
+  const pdfProxyRef = useRef<PDFDocumentProxy | null>(null);
   const [showAddPagesModal, setShowAddPagesModal] = useState(false);
   
   // Undo/Redo history - tracks both objects and text edits
@@ -315,6 +296,9 @@ export default function EditorPage() {
   // Keyboard shortcuts for undo/redo
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Let text fields (form fields, inline editor) handle their own undo
+      const target = e.target as HTMLElement | null;
+      if (target && (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName))) return;
       if ((e.ctrlKey || e.metaKey) && e.key === "z") {
         e.preventDefault();
         if (e.shiftKey) {
@@ -333,17 +317,14 @@ export default function EditorPage() {
   }, [handleUndo, handleRedo]);
 
   // PDF text edit handlers - track edits and push to history
-  const handlePdfTextEdit = useCallback((edit: PdfTextEdit) => {
-    // Check if edit with this ID already exists - replace instead of duplicate
-    const existingIndex = pdfTextEdits.findIndex(e => e.id === edit.id);
-    let newEdits: PdfTextEdit[];
-    if (existingIndex >= 0) {
-      // Replace existing edit
-      newEdits = [...pdfTextEdits];
-      newEdits[existingIndex] = edit;
-    } else {
-      // Add new edit
-      newEdits = [...pdfTextEdits, edit];
+  const handlePdfTextEdit = useCallback((edit: PdfTextEdit | PdfTextEdit[]) => {
+    // Replace edits whose ID already exists instead of duplicating them
+    const incoming = Array.isArray(edit) ? edit : [edit];
+    const newEdits = [...pdfTextEdits];
+    for (const e of incoming) {
+      const existingIndex = newEdits.findIndex(x => x.id === e.id);
+      if (existingIndex >= 0) newEdits[existingIndex] = e;
+      else newEdits.push(e);
     }
     setPdfTextEdits(newEdits);
     pushToHistory(objects, newEdits);
@@ -516,98 +497,34 @@ export default function EditorPage() {
     setIsProcessing(true);
     
     try {
-      const pdfDoc = await PDFDocument.load(pdfBytes);
-      const helvetica = await pdfDoc.embedFont(StandardFonts.Helvetica);
-      
-      // Apply objects to pages
-      for (const obj of objects) {
-        const pageIndex = obj.pageNumber - 1;
-        if (pageIndex < 0 || pageIndex >= pdfDoc.getPageCount()) continue;
-        
-        const page = pdfDoc.getPages()[pageIndex];
-        const { height } = page.getSize();
-        
-        if (obj.type === "text" && obj.content) {
-          page.drawText(obj.content, {
-            x: obj.x,
-            y: height - obj.y - (obj.fontSize || 16),
-            size: obj.fontSize || 16,
-            font: helvetica,
-            color: obj.color ? rgb(
-              parseInt(obj.color.slice(1, 3), 16) / 255,
-              parseInt(obj.color.slice(3, 5), 16) / 255,
-              parseInt(obj.color.slice(5, 7), 16) / 255
-            ) : rgb(0, 0, 0),
-          });
-        }
-        
-        if (obj.type === "whiteout") {
-          page.drawRectangle({
-            x: obj.x,
-            y: height - obj.y - obj.height,
-            width: obj.width,
-            height: obj.height,
-            color: rgb(1, 1, 1),
-          });
-        }
-        
-        if ((obj.type === "image" || obj.type === "signature") && obj.src) {
-          try {
-            const response = await fetch(obj.src);
-            const imgBytes = await response.arrayBuffer();
-            const img = obj.src.includes("png") 
-              ? await pdfDoc.embedPng(new Uint8Array(imgBytes))
-              : await pdfDoc.embedJpg(new Uint8Array(imgBytes));
-            
-            page.drawImage(img, {
-              x: obj.x,
-              y: height - obj.y - obj.height,
-              width: obj.width,
-              height: obj.height,
-            });
-          } catch (e) {
-            console.error("Error embedding image:", e);
-          }
-        }
-        
-        if (obj.type === "shape" && obj.shapeType === "rectangle") {
-          page.drawRectangle({
-            x: obj.x,
-            y: height - obj.y - obj.height,
-            width: obj.width,
-            height: obj.height,
-            borderColor: obj.color ? rgb(
-              parseInt(obj.color.slice(1, 3), 16) / 255,
-              parseInt(obj.color.slice(3, 5), 16) / 255,
-              parseInt(obj.color.slice(5, 7), 16) / 255
-            ) : rgb(0, 0, 0),
-            borderWidth: obj.strokeWidth || 2,
-          });
+      // Form fields filled in on the page live in pdf.js's annotation storage;
+      // saveDocument() writes them (with appearances) into the file.
+      let baseBytes: Uint8Array = pdfBytes;
+      const proxy = pdfProxyRef.current;
+      if (proxy && proxy.annotationStorage.size > 0) {
+        try {
+          baseBytes = await proxy.saveDocument();
+        } catch (e) {
+          console.error("Could not save form field values:", e);
         }
       }
-      
-      // Handle page deletion and reordering
-      if (deletedPages.size > 0 || pageOrder.some((p, i) => p !== i + 1)) {
-        const newPdf = await PDFDocument.create();
-        for (const pageNum of pageOrder) {
-          if (!deletedPages.has(pageNum)) {
-            const [copiedPage] = await newPdf.copyPages(pdfDoc, [pageNum - 1]);
-            newPdf.addPage(copiedPage);
-          }
-        }
-        const modifiedBytes = await newPdf.save();
-        downloadPdf(modifiedBytes);
-      } else {
-        const modifiedBytes = await pdfDoc.save();
-        downloadPdf(modifiedBytes);
-      }
+
+      const modifiedBytes = await buildEditedPdf({
+        bytes: baseBytes,
+        objects,
+        textEdits: pdfTextEdits,
+        pageOrder,
+        deletedPages,
+        pageRotations,
+      });
+      downloadPdf(modifiedBytes);
     } catch (error) {
       console.error("Error applying changes:", error);
       alert("Error saving PDF. Please try again.");
     } finally {
       setIsProcessing(false);
     }
-  }, [pdfBytes, objects, pageOrder, deletedPages]);
+  }, [pdfBytes, objects, pdfTextEdits, pageOrder, deletedPages, pageRotations]);
 
   const downloadPdf = (bytes: Uint8Array) => {
     const blob = new Blob([new Uint8Array(bytes)], { type: "application/pdf" });
@@ -877,32 +794,33 @@ export default function EditorPage() {
     });
   }, [findMatches]);
   
+  // Build a text edit for a find/replace match, matching the original font, size and colors
+  const buildReplaceEdit = useCallback((match: (typeof findMatches)[number], replaceText: string, id: string): PdfTextEdit => {
+    const scale = zoom / 100;
+    const computedStyle = match.element ? window.getComputedStyle(match.element) : null;
+    const style = captureTextStyle({
+      pageNumber: match.pageNumber,
+      text: match.matchText,
+      rect: { x: match.x, y: match.y, width: match.width, height: match.height },
+      canvas: document.querySelector(".react-pdf__Page__canvas") as HTMLCanvasElement | null,
+      pageWidth: pageDimensions.width,
+      fallback: {
+        fontSize: computedStyle ? parseFloat(computedStyle.fontSize) / scale : 12,
+        fontFamily: computedStyle?.fontFamily || "sans-serif",
+        fontWeight: computedStyle?.fontWeight || "normal",
+      },
+    });
+    return { id, pageNumber: match.pageNumber, originalText: match.matchText, newText: replaceText, ...style };
+  }, [zoom, pageDimensions]);
+
   // Replace handler - creates text edit for current match (word-level precision)
   const handleReplace = useCallback((findText: string, replaceText: string, options: { caseSensitive: boolean; wholeWord: boolean }) => {
     if (findMatches.length === 0 || currentMatchIndex >= findMatches.length) return;
     
     const match = findMatches[currentMatchIndex];
     
-    // Get font info from the element's computed style
-    const computedStyle = match.element ? window.getComputedStyle(match.element) : null;
-    const fontSize = computedStyle ? parseFloat(computedStyle.fontSize) / (zoom / 100) : 12;
-    const fontFamily = computedStyle?.fontFamily || "sans-serif";
-    
     // Create a text edit that covers ONLY the matched word/phrase
-    // x, y, width, height in match are already in PDF coordinates
-    const editId = `pdf-text-${Date.now()}`;
-    handlePdfTextEdit({
-      id: editId,
-      pageNumber: match.pageNumber,
-      originalText: match.matchText, // Only the matched portion
-      newText: replaceText,
-      x: match.x,
-      y: match.y,
-      width: match.width,
-      height: match.height,
-      fontSize,
-      fontFamily,
-    });
+    handlePdfTextEdit(buildReplaceEdit(match, replaceText, `pdf-text-${Date.now()}`));
     
     // Clear highlight from this match
     if (match.element) {
@@ -932,12 +850,10 @@ export default function EditorPage() {
     if (currentMatchIndex >= newMatches.length) {
       setCurrentMatchIndex(Math.max(0, newMatches.length - 1));
     }
-  }, [findMatches, currentMatchIndex, handlePdfTextEdit, zoom]);
+  }, [findMatches, currentMatchIndex, handlePdfTextEdit, buildReplaceEdit]);
   
   // Replace All handler - word-level precision for all matches
   const handleReplaceAll = useCallback((findText: string, replaceText: string, options: { caseSensitive: boolean; wholeWord: boolean }) => {
-    const scale = zoom / 100;
-    
     // Group matches by span to handle multiple matches in same span correctly
     // Process from end to start within each span to avoid offset issues
     const matchesByElement = new Map<HTMLElement | undefined, typeof findMatches>();
@@ -952,27 +868,12 @@ export default function EditorPage() {
       matches.sort((a, b) => b.matchStart - a.matchStart);
     });
     
-    // Now process all matches
+    // Now process all matches (collected into one update so none are lost)
     let editIndex = 0;
+    const newEdits: PdfTextEdit[] = [];
     matchesByElement.forEach((matches) => {
       matches.forEach((match) => {
-        const computedStyle = match.element ? window.getComputedStyle(match.element) : null;
-        const fontSize = computedStyle ? parseFloat(computedStyle.fontSize) / scale : 12;
-        const fontFamily = computedStyle?.fontFamily || "sans-serif";
-        
-        const editId = `pdf-text-${Date.now()}-${editIndex++}`;
-        handlePdfTextEdit({
-          id: editId,
-          pageNumber: match.pageNumber,
-          originalText: match.matchText,
-          newText: replaceText,
-          x: match.x,
-          y: match.y,
-          width: match.width,
-          height: match.height,
-          fontSize,
-          fontFamily,
-        });
+        newEdits.push(buildReplaceEdit(match, replaceText, `pdf-text-${Date.now()}-${editIndex++}`));
       });
       
       // Clear highlights from element
@@ -989,9 +890,10 @@ export default function EditorPage() {
       }
     });
     
+    if (newEdits.length > 0) handlePdfTextEdit(newEdits);
     setFindMatches([]);
     setCurrentMatchIndex(0);
-  }, [findMatches, handlePdfTextEdit, zoom]);
+  }, [findMatches, handlePdfTextEdit, buildReplaceEdit]);
   
   // Navigate matches - updates highlight colors to show current match
   const updateMatchHighlights = useCallback((newIndex: number) => {
@@ -1231,6 +1133,7 @@ export default function EditorPage() {
               onPdfTextUpdate={handlePdfTextUpdate}
               onPdfTextDelete={handlePdfTextDelete}
               onSignatureCreated={handleSignatureCreated}
+              onDocumentLoad={(pdf) => { pdfProxyRef.current = pdf; }}
             />
           )}
         </div>

@@ -265,9 +265,12 @@ export default function InlineTextEditor({
           className="text-xs px-1 py-1 border border-gray-200 rounded bg-white"
           style={{ width: 55 }}
         >
-          {[8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 48].map(size => (
-            <option key={size} value={size}>{size}</option>
-          ))}
+          {/* Include the text's own size (PDF text is often e.g. 11 or 10.5) so it isn't shown as 8 */}
+          {[...new Set([8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 48, formatting.fontSize ?? fontSize])]
+            .sort((a, b) => a - b)
+            .map(size => (
+              <option key={size} value={size}>{Math.round(size * 10) / 10}</option>
+            ))}
         </select>
         
         <input

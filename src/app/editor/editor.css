@@ -91,3 +91,26 @@ main {
   background: #e5e7eb;
   margin: 0 4px;
 }
+
+/* PDF form fields (annotation layer): above the text layer so fields can be filled in */
+.react-pdf__Page__annotations {
+  z-index: 3 !important;
+}
+
+.react-pdf__Page__annotations input,
+.react-pdf__Page__annotations textarea,
+.react-pdf__Page__annotations select {
+  user-select: text;
+}
+
+/* Links in the PDF shouldn't navigate away while editing */
+.react-pdf__Page__annotations .linkAnnotation,
+.react-pdf__Page__annotations .linkAnnotation > a {
+  pointer-events: none !important;
+}
+
+/* Drawing tools draw over fields instead of focusing them */
+.drawing-tool-active .react-pdf__Page__annotations,
+.drawing-tool-active .react-pdf__Page__annotations * {
+  pointer-events: none !important;
+}

@@ -5,33 +5,20 @@ import { Document, Page, pdfjs } from "react-pdf";
 import type { Tool, EditorObject, ShapeType } from "@/app/editor/page";
 import SignatureModal from "./SignatureModal";
 import InlineTextEditor from "./InlineTextEditor";
+import type { PDFDocumentProxy } from "pdfjs-dist";
+import {
+  LINE_HEIGHT,
+  analyzePage,
+  captureTextStyle,
+  editDisplaySegments,
+  isEditUnchanged,
+  resetPdfTextInfo,
+  type PdfTextEdit,
+} from "@/lib/pdfText";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
-
-interface PdfTextEdit {
-  id: string;
-  pageNumber: number;
-  originalText: string;
-  newText: string;
-  x: number;
-  y: number;
-  originalX?: number; // Original position (for white background to cover)
-  originalY?: number;
-  width: number;
-  height: number;
-  fontSize: number;
-  fontFamily: string;
-  formatting?: {
-    bold?: boolean;
-    italic?: boolean;
-    underline?: boolean;
-    strikethrough?: boolean;
-    highlightColor?: string; // Background highlight color
-    color?: string;
-  };
-}
 
 interface EditorCanvasProps {
   fileUrl: string;
@@ -56,7 +43,11 @@ interface EditorCanvasProps {
   onPdfTextUpdate?: (editId: string, updates: Partial<PdfTextEdit>) => void;
   onPdfTextDelete?: (editId: string) => void;
   onSignatureCreated?: (dataUrl: string, isInitials: boolean) => void;
+  onDocumentLoad?: (pdf: PDFDocumentProxy) => void;
 }
+
+// Tools that draw on the page; the text and form layers must let clicks through for these
+const DRAWING_TOOLS = ["draw", "freehand-highlight", "shape", "highlight", "strikeout", "underline", "whiteout", "link"];
 
 type ResizeHandle = "nw" | "ne" | "sw" | "se" | null;
 
@@ -83,6 +74,7 @@ export default function EditorCanvas({
   onPdfTextUpdate,
   onPdfTextDelete,
   onSignatureCreated,
+  onDocumentLoad,
 }: EditorCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const textInputRef = useRef<HTMLInputElement>(null);
@@ -127,8 +119,20 @@ export default function EditorCanvas({
     };
     isNewText?: boolean; // If true, this is new text being added (not editing existing PDF text)
     isEditorObject?: boolean; // If true, editId refers to an EditorObject (not PdfTextEdit)
+    base?: Partial<PdfTextEdit>; // Existing edit / captured PDF style this editor started from
   } | null>(null);
+  // Bumped when page font analysis finishes so overlays can switch to the PDF's own font
+  const [, setFontsVersion] = useState(0);
   const [hoveredTextElement, setHoveredTextElement] = useState<HTMLElement | null>(null);
+  // Edit created by a single click on a text-layer span, so a following double-click
+  // (or another click) reuses it instead of racing the overlay render
+  const spanEditsRef = useRef(new WeakMap<HTMLElement, string>());
+  const pdfTextEditsRef = useRef(pdfTextEdits);
+  pdfTextEditsRef.current = pdfTextEdits;
+  const editForSpan = (span: HTMLElement) => {
+    const id = spanEditsRef.current.get(span);
+    return id ? pdfTextEditsRef.current.find(e => e.id === id) : undefined;
+  };
   
   // Track text selection for annotations
   const [textSelection, setTextSelection] = useState<{
@@ -246,6 +250,11 @@ export default function EditorCanvas({
     if ((e.target as HTMLElement).closest(".editor-object")) {
       return;
     }
+
+    // Clicks on the PDF's own form fields go to the field so it can be filled in
+    if ((e.target as HTMLElement).closest(".react-pdf__Page__annotations [class*='WidgetAnnotation']")) {
+      return;
+    }
     
     // If clicking on a pdf-text-edit overlay, handle re-editing
     if ((e.target as HTMLElement).closest(".pdf-text-edit-overlay")) {
@@ -300,7 +309,7 @@ export default function EditorCanvas({
           width: 150,
           height: textOptions.fontSize * 1.5,
           fontSize: textOptions.fontSize,
-          fontFamily: "sans-serif",
+          fontFamily: "Arial, Helvetica, sans-serif",
           fontWeight: "normal",
           color: textOptions.color,
           editId: undefined, // No editId = new text
@@ -719,8 +728,10 @@ export default function EditorCanvas({
   // Delete selected object on Delete key (but not when editing text)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Don't delete if we're editing text inline or editing PDF text
+      // Don't delete if we're editing text inline, editing PDF text, or typing in a form field
       if (editingTextId || editingPdfText) return;
+      const target = e.target as HTMLElement | null;
+      if (target && (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName))) return;
       
       if (e.key === "Delete" && selectedObjectId) {
         onDeleteObject(selectedObjectId);
@@ -765,6 +776,35 @@ export default function EditorCanvas({
       }
     };
 
+    // Read the original font, size, position and colors of a clicked text span
+    const captureSpan = (target: HTMLElement) => {
+      const rect = target.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+      const computedStyle = window.getComputedStyle(target);
+      const canvas = container.querySelector(".react-pdf__Page__canvas") as HTMLCanvasElement | null;
+      const text = target.textContent || "";
+      return {
+        text,
+        style: captureTextStyle({
+          pageNumber: currentPage,
+          text,
+          rect: {
+            x: (rect.left - containerRect.left) / scale,
+            y: (rect.top - containerRect.top) / scale,
+            width: rect.width / scale,
+            height: rect.height / scale,
+          },
+          canvas,
+          pageWidth: containerRect.width / scale,
+          fallback: {
+            fontSize: parseFloat(computedStyle.fontSize) / scale,
+            fontFamily: computedStyle.fontFamily,
+            fontWeight: computedStyle.fontWeight,
+          },
+        }),
+      };
+    };
+
     // Single click on original PDF text: create a moveable text edit (same text, but now draggable)
     const handleClick = (e: Event) => {
       const target = e.target as HTMLElement;
@@ -772,49 +812,29 @@ export default function EditorCanvas({
         e.preventDefault();
         e.stopPropagation();
         
-        const rect = target.getBoundingClientRect();
-        const containerRect = container.getBoundingClientRect();
-        
-        // Get computed styles
-        const computedStyle = window.getComputedStyle(target);
-        const fontSize = parseFloat(computedStyle.fontSize) / scale;
-        const fontFamily = computedStyle.fontFamily;
-        const fontWeight = computedStyle.fontWeight;
-        const color = target.getAttribute("data-font-color") || "#000000";
-        
-        const textX = (rect.left - containerRect.left) / scale;
-        const textY = (rect.top - containerRect.top) / scale;
-        const textWidth = rect.width / scale;
-        const textHeight = rect.height / scale;
-        const text = target.textContent || "";
-        
+        // Already made moveable: just select it
+        const existing = editForSpan(target);
+        if (existing) {
+          setSelectedTextEditId(existing.id);
+          return;
+        }
+
         // Create a text edit (makes text moveable) and select it
         if (onPdfTextEdit) {
+          const { text, style } = captureSpan(target);
           const editId = `pdf-text-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
           onPdfTextEdit({
             id: editId,
             pageNumber: currentPage,
             originalText: text,
             newText: text, // Same text, just making it moveable
-            x: textX,
-            y: textY,
-            originalX: textX, // Store original position for white background
-            originalY: textY,
-            width: textWidth,
-            height: textHeight,
-            fontSize,
-            fontFamily,
-            formatting: {
-              bold: fontWeight === "bold" || parseInt(fontWeight) >= 700,
-              color,
-            },
+            ...style,
           });
           
-          // Select the new edit for immediate dragging
+          // Select the new edit for immediate dragging. The span stays interactive (its
+          // text is transparent) so a fast double-click still reaches it.
           setSelectedTextEditId(editId);
-          
-          // Hide original text (now covered by the edit overlay)
-          target.style.visibility = "hidden";
+          spanEditsRef.current.set(target, editId);
         }
       }
     };
@@ -826,26 +846,47 @@ export default function EditorCanvas({
         e.preventDefault();
         e.stopPropagation();
         
-        const rect = target.getBoundingClientRect();
-        const containerRect = container.getBoundingClientRect();
-        
-        const computedStyle = window.getComputedStyle(target);
-        const fontSize = parseFloat(computedStyle.fontSize) / scale;
-        const fontFamily = computedStyle.fontFamily;
-        const fontWeight = computedStyle.fontWeight;
-        const color = target.getAttribute("data-font-color") || "#000000";
-        
+        // Continue from the edit the first click of this double-click created
+        const existing = editForSpan(target);
+        if (existing) {
+          setSelectedTextEditId(null);
+          setEditingPdfText({
+            element: target,
+            text: existing.newText,
+            x: existing.x,
+            y: existing.y,
+            originalX: existing.originalX,
+            originalY: existing.originalY,
+            width: existing.width,
+            height: existing.height,
+            fontSize: existing.fontSize,
+            fontFamily: existing.fontFamily,
+            fontWeight: existing.formatting?.bold ? "bold" : "normal",
+            color: existing.formatting?.color || "#000000",
+            editId: existing.id,
+            formatting: existing.formatting,
+            base: existing,
+          });
+          target.style.visibility = "hidden";
+          return;
+        }
+
+        const { text, style } = captureSpan(target);
         setEditingPdfText({
           element: target,
-          text: target.textContent || "",
-          x: (rect.left - containerRect.left) / scale,
-          y: (rect.top - containerRect.top) / scale,
-          width: rect.width / scale,
-          height: rect.height / scale,
-          fontSize: fontSize,
-          fontFamily: fontFamily,
-          fontWeight: fontWeight,
-          color: color,
+          text,
+          x: style.x,
+          y: style.y,
+          originalX: style.originalX,
+          originalY: style.originalY,
+          width: style.width,
+          height: style.height,
+          fontSize: style.fontSize,
+          fontFamily: style.fontFamily,
+          fontWeight: style.formatting?.bold ? "bold" : "normal",
+          color: style.formatting?.color || "#000000",
+          formatting: style.formatting,
+          base: { originalText: text, ...style },
         });
         
         target.style.visibility = "hidden";
@@ -864,8 +905,7 @@ export default function EditorCanvas({
       
       // Enable pointer events only when NOT using drawing tools
       // Drawing tools need mouse events to pass through to the canvas
-      const drawingTools = ["draw", "freehand-highlight", "shape", "highlight", "strikeout", "underline", "whiteout", "link"];
-      (textLayer as HTMLElement).style.pointerEvents = drawingTools.includes(activeTool) ? "none" : "auto";
+      (textLayer as HTMLElement).style.pointerEvents = DRAWING_TOOLS.includes(activeTool) ? "none" : "auto";
       
       setTextLayerReady(true);
       return true;
@@ -912,8 +952,8 @@ export default function EditorCanvas({
     if (!textLayer) return;
     
     // Disable pointer events on text layer when using drawing tools
-    const drawingTools = ["draw", "freehand-highlight", "shape", "highlight", "strikeout", "underline", "whiteout", "link"];
-    textLayer.style.pointerEvents = drawingTools.includes(activeTool) ? "none" : "auto";
+    // (the form-field layer is handled by the "drawing-tool-active" class)
+    textLayer.style.pointerEvents = DRAWING_TOOLS.includes(activeTool) ? "none" : "auto";
   }, [activeTool]);
 
   // Mouse wheel page navigation
@@ -1009,10 +1049,13 @@ export default function EditorCanvas({
     if (onPdfTextEdit) {
       // Create new/updated edit (handlePdfTextEdit will replace if ID exists)
       const editId = editingPdfText.editId || `pdf-text-${Date.now()}`;
+      const base = editingPdfText.base ?? {};
+      const { fontSize: newFontSize, ...textFormatting } = formatting ?? {};
       onPdfTextEdit({
+        ...base, // keep captured font/colors/cover area
         id: editId,
         pageNumber: currentPage,
-        originalText: editingPdfText.text,
+        originalText: base.originalText ?? editingPdfText.text,
         newText,
         x: editingPdfText.x,
         y: editingPdfText.y,
@@ -1020,9 +1063,9 @@ export default function EditorCanvas({
         originalY: editingPdfText.originalY ?? editingPdfText.y,
         width: editingPdfText.width,
         height: editingPdfText.height,
-        fontSize: formatting?.fontSize || editingPdfText.fontSize,
+        fontSize: newFontSize || editingPdfText.fontSize,
         fontFamily: editingPdfText.fontFamily,
-        formatting,
+        formatting: { ...base.formatting, ...textFormatting },
       });
     }
     setEditingPdfText(null);
@@ -1031,7 +1074,7 @@ export default function EditorCanvas({
   const handlePdfTextCancel = useCallback(() => {
     if (editingPdfText) {
       // Only restore visibility if we were editing original PDF text (not new text or existing edit)
-      if (!editingPdfText.editId && !editingPdfText.isNewText && editingPdfText.element) {
+      if (!editingPdfText.isNewText && editingPdfText.element?.closest?.(".react-pdf__Page__textContent")) {
         editingPdfText.element.style.visibility = "visible";
       }
     }
@@ -1060,6 +1103,7 @@ export default function EditorCanvas({
         // If editing original PDF text, create an edit that replaces with empty (whiteout)
         const editId = `pdf-text-${Date.now()}`;
         onPdfTextEdit({
+          ...editingPdfText.base,
           id: editId,
           pageNumber: currentPage,
           originalText: editingPdfText.text,
@@ -1106,7 +1150,7 @@ export default function EditorCanvas({
     <div className="flex justify-center">
       <div
         ref={containerRef}
-        className="relative bg-white shadow-lg select-none"
+        className={`relative bg-white shadow-lg select-none ${DRAWING_TOOLS.includes(activeTool) ? "drawing-tool-active" : ""}`}
         style={{ 
           cursor: getCursor(),
           width: pageDimensions.width * scale,
@@ -1118,7 +1162,14 @@ export default function EditorCanvas({
         onMouseLeave={handleMouseUp}
       >
         {/* PDF Page */}
-        <Document file={fileUrl} loading={null}>
+        <Document
+          file={fileUrl}
+          loading={null}
+          onLoadSuccess={(pdf) => {
+            resetPdfTextInfo();
+            onDocumentLoad?.(pdf);
+          }}
+        >
           <Page
             pageNumber={currentPage}
             scale={scale}
@@ -1128,9 +1179,14 @@ export default function EditorCanvas({
                 height: page.originalHeight 
               });
               onPageDimensionsChange?.(page.originalWidth, page.originalHeight);
+              // Read the page's real fonts/positions so edits can match them
+              analyzePage(page, pdfjs.OPS)
+                .then(() => setFontsVersion(v => v + 1))
+                .catch(err => console.warn("Text analysis failed:", err));
             }}
             renderTextLayer={true}
-            renderAnnotationLayer={false}
+            renderAnnotationLayer={true}
+            renderForms={true}
           />
         </Document>
         
@@ -1138,35 +1194,51 @@ export default function EditorCanvas({
         <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 10 }}>
           {pdfTextEdits.filter(e => e.pageNumber === currentPage).map((edit) => {
             const isSelected = selectedTextEditId === edit.id;
+            // Only clicked (not yet changed) text: leave the original rendering visible
+            const unchanged = isEditUnchanged(edit);
+            const isBeingEdited = editingPdfText?.editId === edit.id;
+            const segments = editDisplaySegments(edit);
+            const cover = edit.cover ?? {
+              x: edit.originalX ?? edit.x,
+              y: edit.originalY ?? edit.y,
+              width: edit.width,
+              height: edit.height,
+            };
             return (
               <div key={edit.id} className="pdf-text-edit-overlay">
-                {/* White background to cover ORIGINAL text position */}
-                <div
-                  className="absolute bg-white"
-                  style={{
-                    left: ((edit.originalX ?? edit.x) - 2) * scale,
-                    top: ((edit.originalY ?? edit.y) - 2) * scale,
-                    width: (edit.width + 8) * scale,
-                    height: (edit.height + 6) * scale,
-                    zIndex: 5, // Ensure it's above the text layer
-                  }}
-                />
-                {/* New text - clickable for re-editing, draggable for moving */}
-                {edit.newText && (
+                {/* Cover the ORIGINAL text using the page's own background color */}
+                {(!unchanged || isBeingEdited) && (
                   <div
-                    className={`absolute whitespace-nowrap pointer-events-auto ${
-                      isSelected 
-                        ? "ring-2 ring-blue-500 cursor-move" 
+                    className="absolute"
+                    style={{
+                      left: (cover.x - 1) * scale,
+                      top: (cover.y - 1) * scale,
+                      width: (cover.width + 2) * scale,
+                      height: (cover.height + 2) * scale,
+                      backgroundColor: edit.bgColor || "#ffffff",
+                      zIndex: 5, // Ensure it's above the text layer
+                    }}
+                  />
+                )}
+                {/* New text - clickable for re-editing, draggable for moving */}
+                {edit.newText && !isBeingEdited && (
+                  <div
+                    className={`absolute pointer-events-auto ${
+                      isSelected
+                        ? "ring-2 ring-blue-500 cursor-move"
                         : "cursor-move hover:outline hover:outline-2 hover:outline-blue-400 hover:outline-dashed"
                     }`}
                     style={{
                       left: edit.x * scale,
                       top: edit.y * scale,
                       fontSize: edit.fontSize * scale,
+                      lineHeight: LINE_HEIGHT,
+                      whiteSpace: "pre",
                       fontFamily: edit.fontFamily,
-                      color: edit.formatting?.color || "#000000",
-                      fontWeight: edit.formatting?.bold ? "bold" : "normal",
-                      fontStyle: edit.formatting?.italic ? "italic" : "normal",
+                      // The canvas already shows unchanged text; keep this box only for selecting/dragging
+                      color: unchanged ? "transparent" : edit.formatting?.color || "#000000",
+                      transform: edit.hScale && Math.abs(edit.hScale - 1) > 0.01 ? `scaleX(${edit.hScale})` : undefined,
+                      transformOrigin: "0 0",
                       textDecoration: [
                         edit.formatting?.underline ? "underline" : "",
                         edit.formatting?.strikethrough ? "line-through" : "",
@@ -1174,8 +1246,8 @@ export default function EditorCanvas({
                       padding: "2px",
                       margin: "-2px",
                       borderRadius: "2px",
-                      backgroundColor: edit.formatting?.highlightColor || (isSelected ? "rgba(59, 130, 246, 0.1)" : "white"),
-                      zIndex: 6, // Above the white background (zIndex: 5)
+                      backgroundColor: edit.formatting?.highlightColor || (isSelected ? "rgba(59, 130, 246, 0.1)" : "transparent"),
+                      zIndex: 6, // Above the cover (zIndex: 5)
                     }}
                     onMouseDown={(e) => {
                       e.preventDefault(); // Prevent text selection
@@ -1209,17 +1281,22 @@ export default function EditorCanvas({
                         color: edit.formatting?.color || "#000000",
                         editId: edit.id,
                         formatting: edit.formatting,
+                        base: edit,
                       });
                     }}
                   >
-                    {edit.newText}
+                    {segments.map((seg, i) => (
+                      <span key={i} style={{ fontFamily: seg.fontFamily, fontWeight: seg.fontWeight, fontStyle: seg.fontStyle }}>
+                        {seg.text}
+                      </span>
+                    ))}
                   </div>
                 )}
               </div>
             );
           })}
         </div>
-        
+
         {/* Inline PDF Text Editor - Sejda-style contenteditable overlay */}
         {editingPdfText && (
           <InlineTextEditor
@@ -1455,8 +1532,10 @@ export default function EditorCanvas({
                   <div
                     style={{
                       fontSize: (obj.fontSize || 16) * scale,
+                      fontFamily: obj.fontFamily || "Arial, Helvetica, sans-serif",
+                      lineHeight: LINE_HEIGHT,
                       color: obj.color || "#000000",
-                      whiteSpace: "nowrap",
+                      whiteSpace: "pre",
                       fontWeight: obj.formatting?.bold ? "bold" : "normal",
                       fontStyle: obj.formatting?.italic ? "italic" : "normal",
                       textDecoration: [
@@ -1464,7 +1543,9 @@ export default function EditorCanvas({
                         obj.formatting?.strikethrough ? "line-through" : "",
                       ].filter(Boolean).join(" ") || "none",
                       backgroundColor: obj.formatting?.highlightColor || "transparent",
+                      // Padding with matching negative margin keeps the text where the PDF export puts it
                       padding: obj.formatting?.highlightColor ? "2px 4px" : undefined,
+                      margin: obj.formatting?.highlightColor ? "-2px -4px" : undefined,
                       borderRadius: obj.formatting?.highlightColor ? "2px" : undefined,
                     }}
                     onDoubleClick={() => {
@@ -1477,7 +1558,7 @@ export default function EditorCanvas({
                         width: obj.width,
                         height: obj.height,
                         fontSize: obj.fontSize || 16,
-                        fontFamily: obj.fontFamily || "sans-serif",
+                        fontFamily: obj.fontFamily || "Arial, Helvetica, sans-serif",
                         fontWeight: obj.formatting?.bold ? "bold" : "normal",
                         color: obj.color || "#000000",
                         editId: obj.id, // Use object ID so save updates this object
